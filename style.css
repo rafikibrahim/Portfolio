@@ -32,10 +32,21 @@ header nav a:hover {
 
 /* Hero */
 .hero {
-  padding: 80px 20px;
+  padding: 120px 20px;
   text-align: center;
-  background: #222;
+  background: #111;
   color: #fff;
+}
+.hero .name {
+  font-size: 64px;   /* BIG NAME */
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.hero .subtitle {
+  margin-top: 15px;
+  font-size: 20px;
+  color: #ccc;
 }
 
 .hero h1 {
