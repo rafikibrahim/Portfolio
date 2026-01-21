@@ -79,6 +79,13 @@ body {
   line-height: 1.2;
 }
 
+.main-title .engineer {
+  display: block;
+  font-size: 52px; /* SAME SIZE */
+  font-weight: 700; /* SAME WEIGHT */
+  margin-top: 10px;
+}
+
 .main-title .concentration {
   display: block;
   font-size: 24px;
