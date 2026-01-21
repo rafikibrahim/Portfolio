@@ -20,8 +20,6 @@
       color: #fff; /* White text */
       padding: 20px;
       text-align: center; /* Centered header text */
-      font-size: 1.5em;
-      font-weight: bold;
     }
 
     nav {
@@ -33,6 +31,7 @@
       color: #fff;
       text-decoration: none;
       margin: 0 15px;
+      font-size: 1.2em;
     }
 
     nav a:hover {
@@ -122,8 +121,8 @@
     <ul>
       <li><strong>Power Management:</strong> One of the most demanding aspects was ensuring that the system could operate continuously for **72 hours** of gameplay without recharging. This was achieved by utilizing **Li-ion batteries** and integrating **DC-DC step-up converters** for power regulation.</li>
       <li><strong>Low-Latency Bluetooth Communication:</strong> Achieving **low-latency wireless communication** between the controllers and console was critical. Bluetooth communication was optimized for **real-time interaction** with minimal input lag, ensuring a seamless multiplayer experience.</li>
-      <li><strong>VGA Video Synchronization:</strong> Generating **VGA signals** required precise **timing control** to ensure the video output remained synchronized across both screens. This required advanced programming techniques and careful selection of the **ESP32 microcontroller** for video output generation.</li>
       <li><strong>Hardware Integration:</strong> The integration of different subsystems (game logic, controller input, video output, and Bluetooth communication) was complex. Careful **PCB design**, signal routing, and timing analysis were necessary to ensure smooth communication between components.</li>
+      <li><strong>Multiplayer Synchronization:</strong> Achieving smooth synchronization between the two players' actions and game states was crucial for the gaming experience.</li>
     </ul>
   </section>
 
@@ -155,17 +154,17 @@
 
       <figure>
         <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/controller%20schematic.jpg" alt="Controller Schematic" width="800px">
-        <figcaption><strong>Controller Schematic:</strong> The schematic of the controller's electrical design, highlighting the integration of the joystick, buttons, and Bluetooth communication module for wireless operation.</figcaption>
+        <figcaption><strong>Controller Schematic:</strong> The schematic for the controller, showcasing the integration of joystick inputs and Bluetooth communication module for wireless operation.</figcaption>
       </figure>
 
       <figure>
         <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/main%20board%20PCB.jpg" alt="Main Board PCB" width="800px">
-        <figcaption><strong>Main Board PCB Design:</strong> The main board PCB houses the **ESP32 microcontroller**, which is responsible for generating VGA video output and managing game logic and synchronization between players.</figcaption>
+        <figcaption><strong>Main Board PCB Design:</strong> The main board that drives the **ESP32** microcontroller and **VGA output**, managing game logic and player input.</figcaption>
       </figure>
 
       <figure>
         <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/main%20board%20schematic.jpg" alt="Main Board Schematic" width="800px">
-        <figcaption><strong>Main Board Schematic:</strong> The schematic of the central console's PCB, showing the integration of the **ESP32 microcontroller**, power regulation circuits, and communication lines.</figcaption>
+        <figcaption><strong>Main Board Schematic:</strong> The circuit schematic for the central console board, which controls all subsystems and coordinates communication between components.</figcaption>
       </figure>
     </div>
   </section>
