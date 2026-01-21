@@ -5,11 +5,142 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Retro Multiplayer Game Console - Capstone Senior Design Project</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* General Body and Font Settings */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Header Styles */
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    .nav-name {
+      font-size: 1.8em;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 1.2em;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* Main Content Styling */
+    section {
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 2em;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .content-section {
+      margin-bottom: 40px;
+    }
+
+    .content-section ul {
+      margin-left: 20px;
+      list-style-type: square;
+    }
+
+    .content-section ul li {
+      font-size: 1.1em;
+    }
+
+    .image-gallery {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .image-gallery img {
+      width: 80%;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+
+    .image-gallery figcaption {
+      font-style: italic;
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+
+    /* Text & Section Layout */
+    .project-description p,
+    .content-section p {
+      font-size: 1.1em;
+      margin-bottom: 15px;
+    }
+
+    /* Enhancing Title Fonts */
+    h3 {
+      font-size: 2.5em;
+      margin-bottom: 30px;
+      font-weight: bold;
+    }
+
+    h4 {
+      font-size: 1.8em;
+      margin-top: 20px;
+      font-weight: normal;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #333;
+      color: #fff;
+    }
+
+    /* For Visual Emphasis in Important Text */
+    .important-text {
+      color: #e74c3c;
+      font-weight: bold;
+    }
+
+    /* Presentation Layout for Technical Details */
+    .tech-details-section {
+      background-color: #f4f4f4;
+      padding: 20px;
+      margin-top: 30px;
+      border-radius: 10px;
+    }
+
+    .tech-details-section h4 {
+      color: #333;
+    }
+
+    .tech-details-section p {
+      font-size: 1.1em;
+    }
+
+  </style>
 </head>
 <body>
 
   <!-- Header -->
-  <header class="navbar">
+  <header>
     <div class="nav-name">Rafik Ibrahim</div>
     <nav>
       <a href="index.html">Home</a>
@@ -22,74 +153,95 @@
   <section class="projects">
     <h3>Retro Multiplayer Game Console - Capstone Senior Design Project</h3>
 
+    <!-- Project Description -->
     <div class="project-description">
       <p><strong>Client:</strong> ECE 1896: Senior Design Project</p>
       <p><strong>Location:</strong> Pittsburgh, PA</p>
       <p><strong>Year:</strong> 2025</p>
 
-      <p>This project involved creating a **dual-screen multiplayer game console** with advanced functionalities, utilizing **embedded systems** and custom **hardware design**. The system runs **classic games** like **Tetris**, **Pong**, and **Minesweeper**, interfacing through **Bluetooth controllers** and delivering high-quality video via **VGA output** to two independent screens. As the **Electrical Engineer**, I led the design, implementation, and integration of **PCBs**, **power systems**, and **communication protocols**, all while adhering to rigorous engineering constraints and testing standards.</p>
+      <p>This project involved creating a **dual-screen multiplayer game console** that combines **embedded systems**, **hardware design**, and **communication protocols**. The console is capable of running **classic games** like **Tetris**, **Pong**, and **Minesweeper**, and it interfaces via **Bluetooth controllers** with **VGA output** to drive two independent screens. The project was highly complex due to the need for **real-time interaction** between the console and controllers, along with the precise synchronization of **dual-screen output**. As the **Electrical Engineer**, I led the design and integration of the **PCB**, **power systems**, **VGA video generation**, and **Bluetooth communication**, addressing the numerous engineering challenges along the way.</p>
 
-      <p><strong>GitHub Repository:</strong> You can view the complete project details, including code, schematics, and documentation, on my <a href="https://github.com/YourUsername/Multiplayer-Retro-Game-Console" target="_blank">GitHub repository</a>.</p>
+      <p><strong>GitHub Repository:</strong> All project files, including code, schematics, and detailed documentation, are available on my <a href="https://github.com/YourUsername/Multiplayer-Retro-Game-Console" target="_blank">GitHub repository</a>.</p>
     </div>
 
+    <!-- Design Constraints & Challenges -->
     <div class="section-title">
       <h4>Design Constraints & Challenges</h4>
     </div>
-    <p>Before finalizing the design of the system, we conducted rigorous user testing and prototyping to address the key **design constraints**. Some of the main challenges encountered during development include:</p>
+    <p>Throughout the development of this project, several engineering challenges and design constraints were identified and addressed, such as:</p>
     <ul>
-      <li><strong>Power Management:</strong> The system needed to ensure **72 hours** of continuous gameplay without recharging. This was achieved by utilizing **Li-ion batteries** and **DC-DC step-up converters**, carefully calculating the energy consumption for each component to avoid power failure during extended use.</li>
-      <li><strong>Low-Latency Bluetooth Communication:</strong> The game required **real-time wireless communication** between the controllers and the console. Achieving low-latency Bluetooth communication while maintaining reliable data transmission was crucial, and optimizations were made to minimize input lag.</li>
-      <li><strong>VGA Output Synchronization:</strong> Generating stable **VGA signals** with proper synchronization for **dual-screen output** was a critical challenge. The system used **DMA (Direct Memory Access)** on the **ESP32 microcontroller** to ensure smooth rendering of high-resolution video.</li>
-      <li><strong>Hardware Integration:</strong> Integrating various subsystems, such as game logic, controller inputs, and video output, required careful planning and signal routing. The PCB design process had to balance complexity with efficiency to keep the system compact and functional.</li>
+      <li><strong>Power Efficiency:</strong> Ensuring the system could operate for **72 hours** of continuous gameplay on **Li-ion rechargeable batteries** without requiring recharging. This involved designing **DC-DC step-up converters** and optimizing power consumption for each component.</li>
+      <li><strong>Low-Latency Bluetooth Communication:</strong> Optimizing **Bluetooth communication** to minimize **input lag** and ensure that the controllers communicated **real-time data** to the console without any noticeable delay, which is critical for gaming.</li>
+      <li><strong>Synchronization of Dual-Screen Output:</strong> Implementing **precise VGA timing** to drive **two independent VGA displays** for multiplayer functionality, which required efficient use of **Direct Memory Access (DMA)** techniques on the **ESP32 microcontroller** to handle video rendering.</li>
+      <li><strong>Hardware Integration:</strong> The integration of multiple subsystems (game logic, Bluetooth input, and VGA output) required careful **signal routing** on the PCB and ensuring the components did not interfere with one another.</li>
     </ul>
 
+    <!-- System Overview & Design Features -->
     <div class="section-title">
       <h4>System Overview & Design Features</h4>
     </div>
-    <p>The system architecture was carefully designed to ensure smooth interaction between hardware components. Key features of the system include:</p>
+    <p>The architecture consists of several key components that work in harmony to deliver a seamless multiplayer experience:</p>
     <ul>
-      <li><strong>ESP32 Microcontrollers:</strong> At the heart of the console are two **ESP32 microcontrollers** that manage the game logic, video output, and communication between the controllers and the main console.</li>
-      <li><strong>Bluetooth Communication:</strong> The controllers communicate wirelessly with the console using **HC-05 Bluetooth modules**, ensuring a **low-latency connection** between the player inputs and game state updates.</li>
-      <li><strong>VGA Output:</strong> The **ESP32** generates **VGA video signals** to drive the two independent screens. **DMA techniques** are used to manage the large amount of data required for smooth video rendering.</li>
-      <li><strong>Custom Controller Design:</strong> The **controller PCB** integrates an **ATmega328P microcontroller** to process input from the joystick and buttons, communicating with the console over Bluetooth. It is powered by a **Li-ion rechargeable battery** and designed for ergonomic comfort.</li>
+      <li><strong>Dual ESP32 Microcontrollers:</strong> The two **ESP32 microcontrollers** handle **game logic**, **Bluetooth communication**, and **VGA signal generation** for both players.</li>
+      <li><strong>Bluetooth Communication:</strong> **HC-05 Bluetooth modules** provide wireless communication between the controllers and console, ensuring near-instantaneous interaction.</li>
+      <li><strong>VGA Output:</strong> **VGA output** is generated by the **ESP32 microcontroller**, which uses **DMA** to efficiently handle the large data flow required for smooth **dual-screen rendering**.</li>
+      <li><strong>Controller Design:</strong> The custom **controller PCB** integrates an **ATmega328P microcontroller**, joystick, buttons, and Bluetooth communication to send player input to the console.</li>
     </ul>
 
+    <!-- Technical Details -->
+    <div class="tech-details-section">
+      <div class="section-title">
+        <h4>Technical Design & Features</h4>
+      </div>
+      <p>The technical design involves using the **ESP32 microcontroller** to run the core logic, handle real-time communication with controllers, and generate VGA signals for display. Key features include:</p>
+      <ul>
+        <li><strong>Real-Time Gameplay:</strong> Each game (Tetris, Pong, Minesweeper) runs on the **ESP32 microcontroller**, which processes the game logic and updates the screen in real-time.</li>
+        <li><strong>Multiplayer Synchronization:</strong> The **two ESP32 microcontrollers** communicate with each other via **UART** to ensure smooth synchronization between the players.</li>
+        <li><strong>Power Management:</strong> Efficient use of **DC-DC converters** and **Li-ion batteries** ensures the system can operate for extended periods without recharging.</li>
+        <li><strong>Audio & Visual Subsystems:</strong> The audio subsystem offloads sound processing to an **ATmega328P microcontroller**, while the **VGA output** is handled using DMA to ensure high-quality video rendering.</li>
+      </ul>
+    </div>
+
+    <!-- Hardware Images & Explanations -->
     <div class="section-title">
       <h4>Hardware Images & Explanations</h4>
     </div>
-
     <div class="image-gallery">
       <figure>
         <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/controller%20PCB.jpg" alt="Controller PCB" width="800px">
-        <figcaption><strong>Controller PCB Design:</strong> This **controller PCB** integrates the joystick, buttons, and Bluetooth communication. It interfaces wirelessly with the console, ensuring smooth gameplay interaction with minimal latency.</figcaption>
+        <figcaption><strong>Controller PCB Design:</strong> This PCB integrates the joystick, buttons, and Bluetooth communication for the game controllers. It allows for wireless input to the main console, making it an essential component of the system.</figcaption>
       </figure>
 
       <figure>
         <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/controller%20schematic.jpg" alt="Controller Schematic" width="800px">
-        <figcaption><strong>Controller Schematic:</strong> The schematic diagram of the **controller circuit**, showing the connections between the joystick, buttons, and Bluetooth communication module. This design was key to achieving reliable wireless control.</figcaption>
+        <figcaption><strong>Controller Schematic:</strong> The schematic for the controller circuit, detailing how the joystick, buttons, and Bluetooth module are integrated to transmit player input wirelessly to the console.</figcaption>
       </figure>
 
       <figure>
         <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/main%20board%20PCB.jpg" alt="Main Board PCB" width="800px">
-        <figcaption><strong>Main Board PCB Design:</strong> The **main console PCB** houses the **ESP32 microcontroller** and the **VGA output circuitry**. This board is the core of the system, handling all communication between components and managing power distribution.</figcaption>
+        <figcaption><strong>Main Board PCB Design:</strong> The **main console PCB** contains the **ESP32 microcontroller**, VGA circuitry, and other critical components that drive the gaming system and manage communication between the controller and console.</figcaption>
       </figure>
 
       <figure>
         <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/main%20board%20schematic.jpg" alt="Main Board Schematic" width="800px">
-        <figcaption><strong>Main Board Schematic:</strong> The circuit schematic for the main console board, detailing how the **ESP32 microcontroller** interfaces with the other components like power management and VGA output.</figcaption>
+        <figcaption><strong>Main Board Schematic:</strong> The schematic for the main console's PCB, showing the integration of **VGA video output**, **Bluetooth communication**, and **game logic processing** on the **ESP32 microcontroller**.</figcaption>
       </figure>
     </div>
 
+    <!-- Future Improvements -->
     <div class="section-title">
       <h4>Future Improvements</h4>
     </div>
-    <p>While the system is fully functional, several areas could be improved for future versions:</p>
     <ul>
-      <li><strong>Extended Game Library:</strong> Expanding the range of available games and introducing more complex multiplayer features could improve user engagement and longevity of the system.</li>
-      <li><strong>Controller Design Refinement:</strong> Refining the **ergonomics** of the controller to make it more comfortable for extended use and adding **rumble feedback** to increase the immersion of gameplay.</li>
-      <li><strong>Enclosure Design:</strong> Creating a **compact and durable enclosure** to house both the console and controllers, making the system more portable and user-friendly for on-the-go gaming.</li>
+      <li><strong>Extended Game Library:</strong> Adding more games and improving multiplayer features could enhance the experience.</li>
+      <li><strong>Controller Design Enhancements:</strong> Refining ergonomics and adding **rumble feedback** could improve user experience.</li>
+      <li><strong>Compact Enclosure Design:</strong> Designing a more portable and durable enclosure for the console and controllers.</li>
     </ul>
   </section>
+
+  <footer>
+    <p>© 2026 Rafik Ibrahim</p>
+  </footer>
 
 </body>
 </html>
