@@ -73,18 +73,18 @@ body {
 }
 
 /* HERO RIGHT TEXT */
-.hero-right h1 {
+.main-title {
   font-size: 52px;
   font-weight: 700;
   line-height: 1.2;
 }
 
-.hero-right h1 .concentration {
+.main-title .concentration {
   display: block;
-  font-size: 26px !important;
-  font-weight: 400 !important;
+  font-size: 24px;
+  font-weight: 400;
   margin-top: 10px;
-  color: #bbbbbb !important;
+  color: #bbbbbb;
 }
 
 .hero-right h2 {
