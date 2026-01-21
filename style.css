@@ -1,0 +1,118 @@
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background: #111;
+  color: #fff;
+}
+
+header .logo {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+header nav a {
+  margin-left: 20px;
+  color: #fff;
+  text-decoration: none;
+}
+
+header nav a:hover {
+  text-decoration: underline;
+}
+
+/* Hero */
+.hero {
+  padding: 80px 20px;
+  text-align: center;
+  background: #222;
+  color: #fff;
+}
+
+.hero h1 {
+  font-size: 36px;
+}
+
+.hero p {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+/* Grid */
+.grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px 20px;
+}
+
+.card {
+  width: 250px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.card .btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 15px;
+  background: #111;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Page title */
+.page-title {
+  padding: 60px 20px;
+  text-align: center;
+  background: #222;
+  color: #fff;
+}
+
+.page-title h1 {
+  font-size: 32px;
+}
+
+/* Portfolio */
+.portfolio-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px 20px;
+}
+
+.project {
+  width: 250px;
+  padding: 20px;
+  border: 1px solid #ddd;
+}
+
+/* About */
+.about-content {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+/* Contact */
+.contact-content {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+/* Footer */
+footer {
+  padding: 20px;
+  text-align: center;
+  background: #111;
+  color: #fff;
+}
