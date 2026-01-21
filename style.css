@@ -81,8 +81,8 @@ body {
 
 .main-title .engineer {
   display: block;
-  font-size: 52px; /* SAME SIZE */
-  font-weight: 700; /* SAME WEIGHT */
+  font-size: 52px;
+  font-weight: 700;
   margin-top: 10px;
 }
 
@@ -91,7 +91,6 @@ body {
   font-size: 24px;
   font-weight: 400;
   margin-top: 10px;
-  
 }
 
 .hero-right h2 {
