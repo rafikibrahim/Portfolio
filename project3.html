@@ -120,6 +120,30 @@
       font-size: 1.1em;
     }
 
+    /* Presentation Layout for Technical Details */
+    .tech-details-section {
+      background-color: #f4f4f4;
+      padding: 20px;
+      margin-top: 30px;
+      border-radius: 10px;
+    }
+
+    .tech-details-section h4 {
+      color: #333;
+    }
+
+    .tech-details-section p {
+      font-size: 1.1em;
+    }
+
+    .tech-details-section ul {
+      margin-left: 20px;
+      list-style-type: square;
+    }
+
+    .tech-details-section ul li {
+      font-size: 1.1em;
+    }
   </style>
 </head>
 <body>
@@ -138,6 +162,7 @@
   <section class="projects">
     <h3>Retro Multiplayer Game Console - Capstone Senior Design Project</h3>
 
+    <!-- Project Description -->
     <div class="project-description">
       <p><strong>Client:</strong> ECE 1896: Senior Design Project</p>
       <p><strong>Location:</strong> Pittsburgh, PA</p>
@@ -170,15 +195,18 @@
       <li><strong>Controller Design:</strong> The custom **controller PCB** integrates an **ATmega328P microcontroller**, joystick, buttons, and Bluetooth communication to send player input to the console.</li>
     </ul>
 
-    <div class="section-title">
-      <h4>Design and Technical Features</h4>
+    <div class="tech-details-section">
+      <div class="section-title">
+        <h4>Technical Design & Features</h4>
+      </div>
+      <p>The technical design involves using the **ESP32 microcontroller** to run the core logic, handle real-time communication with controllers, and generate VGA signals for display. Key features include:</p>
+      <ul>
+        <li><strong>Real-Time Gameplay:</strong> Each game (Tetris, Pong, Minesweeper) runs on the **ESP32 microcontroller**, which processes the game logic and updates the screen in real-time.</li>
+        <li><strong>Multiplayer Synchronization:</strong> The **two ESP32 microcontrollers** communicate with each other via **UART** to ensure smooth synchronization between the players.</li>
+        <li><strong>Power Management:</strong> Efficient use of **DC-DC converters** and **Li-ion batteries** ensures the system can operate for extended periods without recharging.</li>
+        <li><strong>Audio & Visual Subsystems:</strong> The audio subsystem offloads sound processing to an **ATmega328P microcontroller**, while the **VGA output** is handled using DMA to ensure high-quality video rendering.</li>
+      </ul>
     </div>
-    <ul>
-      <li><strong>Real-Time Gameplay:</strong> Each game (Tetris, Pong, Minesweeper) runs on the **ESP32 microcontroller**, which processes the game logic and updates the screen in real-time.</li>
-      <li><strong>Multiplayer Synchronization:</strong> The **two ESP32 microcontrollers** communicate with each other via **UART** to ensure smooth synchronization between the players.</li>
-      <li><strong>Power Management:</strong> Efficient use of **DC-DC converters** and **Li-ion batteries** ensures the system can operate for extended periods without recharging.</li>
-      <li><strong>Audio & Visual Subsystems:</strong> The audio subsystem offloads sound processing to an **ATmega328P microcontroller**, while the **VGA output** is handled using DMA to ensure high-quality video rendering.</li>
-    </ul>
 
     <!-- Hardware Images & Explanations -->
     <div class="section-title">
