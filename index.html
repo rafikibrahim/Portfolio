@@ -1,54 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rafik Ibrahim - Portfolio</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rafik Ibrahim | Electrical Engineer</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <header>
-    <div class="logo">Rafik Ibrahim</div>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-name">Rafik Ibrahim</div>
     <nav>
-      <a href="index.html">Home</a>
-      <a href="portfolio.html">Portfolio</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
     </nav>
   </header>
 
-  <main>
-    <section class="hero">
-      <h1 class="name">Rafik Ibrahim</h1>
-      <p class="subtitle">Electrical Engineering Student • Projects • Learning • Innovation</p>
-    </section>
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Rafik Ibrahim</h1>
+    <h2>Electrical Engineering Student</h2>
 
-    <section class="grid">
-      <div class="card">
-        <h2>Portfolio</h2>
-        <p>My best projects and work.</p>
-        <a href="portfolio.html" class="btn">View</a>
+    <div class="socials">
+      <a href="https://github.com/yourusername" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
+      <a href="mailto:your@email.com">Email</a>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="projects">
+    <h3>Projects</h3>
+
+    <div class="project-grid">
+
+      <div class="project-card">
+        <h4>Low Voltage Electrical System Design</h4>
+        <p>
+          Designed low voltage electrical systems including load calculations,
+          circuit protection, wiring methods, and NEC safety compliance.
+        </p>
+        <span>From Resume</span>
       </div>
 
-      <div class="card">
-        <h2>About</h2>
-        <p>Learn about me and my skills.</p>
-        <a href="about.html" class="btn">View</a>
+      <div class="project-card">
+        <h4>Power Distribution Analysis</h4>
+        <p>
+          Analyzed electrical power distribution networks, breaker sizing,
+          and voltage drop calculations.
+        </p>
+        <span>Academic Project</span>
       </div>
 
-      <div class="card">
-        <h2>Contact</h2>
-        <p>Let’s connect.</p>
-        <a href="contact.html" class="btn">View</a>
+      <div class="project-card">
+        <h4>Control Systems Project</h4>
+        <p>
+          Modeled and simulated control systems using feedback theory and
+          system response analysis.
+        </p>
+        <span>Course Project</span>
       </div>
-    </section>
-  </main>
+
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about">
+    <h3>About Me</h3>
+    <p>
+      I am an Electrical Engineering student with interests in low voltage systems,
+      power distribution, and electrical design. I enjoy solving engineering
+      problems and applying theory to real-world systems.
+    </p>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <h3>Contact</h3>
+    <p>Email: your@email.com</p>
+    <p>GitHub: github.com/yourusername</p>
+    <p>LinkedIn: linkedin.com/in/yourusername</p>
+  </section>
 
   <footer>
-    <p>© 2026 Rafik Ibrahim</p>
+    © 2026 Rafik Ibrahim
   </footer>
 
 </body>
 </html>
-
