@@ -5,84 +5,151 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Retro Multiplayer Game Console - Capstone Senior Design Project</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Custom Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    h1, h3 {
+      font-family: 'Arial', sans-serif;
+    }
+    section {
+      padding: 40px 20px;
+    }
+    .content-section {
+      margin-bottom: 40px;
+    }
+    .image-gallery img {
+      width: 80%;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+    .image-gallery figcaption {
+      font-style: italic;
+      text-align: center;
+      margin-top: 10px;
+    }
+    .image-gallery {
+      text-align: center;
+    }
+    .overview, .technical-details, .images-section, .challenges, .future-work {
+      margin-bottom: 50px;
+    }
+    .section-title {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+    }
+    .content-section ul {
+      margin-left: 20px;
+    }
+  </style>
 </head>
 <body>
 
-  <header class="navbar">
+  <!-- Header -->
+  <header>
     <div class="nav-name">Rafik Ibrahim</div>
     <nav>
-      <a href="index.html">Home</a>
-      <a href="resume.html">Resume</a>
+      <a href="index.html">Home</a> |
+      <a href="resume.html">Resume</a> |
       <a href="projects.html">Projects</a>
     </nav>
   </header>
 
-  <section class="projects">
+  <!-- Project Section -->
+  <section class="overview">
     <h3>Retro Multiplayer Game Console - Capstone Senior Design Project</h3>
-    <p>This project is a **dual-screen gaming console** featuring **real-time multiplayer support** for two players. I led the **hardware design**, **PCB development**, and **game logic implementation** to create a seamless gaming experience. The console includes **classic games** like **Tetris**, **Pong**, and **Minesweeper**, and connects via **Bluetooth controllers**. The system also uses **VGA output** to drive two separate screens.</p>
+    <p><strong>Client:</strong> ECE 1896: Senior Design Project</p>
+    <p><strong>Location:</strong> Pittsburgh, PA</p>
+    <p><strong>Year:</strong> 2025</p>
 
-    <p><strong>My Role:</strong> As the **Electrical Engineer**, I was responsible for designing the **main circuit board (PCB)**, ensuring **low-latency Bluetooth communication**, implementing the **VGA video output**, and managing **power distribution** to ensure up to **72 hours** of continuous gameplay.</p>
+    <p>This project involved creating a **dual-screen multiplayer game console** capable of running **classic games** like **Tetris**, **Pong**, and **Minesweeper**. The system was designed to interface with Bluetooth controllers and output via VGA to two independent screens. As the **Electrical Engineer**, I led the design of the hardware components, including **PCB development**, **Bluetooth communication**, and **power management** to ensure a seamless gaming experience.</p>
 
-    <p><strong>Key Technologies:</strong> **ESP32**, **ATmega328P**, **Bluetooth (HC-05)**, **VGA Display**, **DC-DC Power Converters**, **Custom PCB Design**, **UART Communication**</p>
+    <p><strong>GitHub Repository:</strong> You can view the complete project details, including code, schematics, and documentation, on my <a href="https://github.com/YourUsername/Multiplayer-Retro-Game-Console" target="_blank">GitHub repository</a>.</p>
+  </section>
 
-    <p><strong>GitHub Repository:</strong> All project code, hardware designs, and testing results are available on my <a href="https://github.com/YourUsername/Multiplayer-Retro-Game-Console" target="_blank">GitHub repository</a>.</p>
-
-    <h4>Project Challenges & Achievements</h4>
+  <!-- Design Constraints & Challenges -->
+  <section class="challenges">
+    <div class="section-title">
+      <h4>Design Constraints & Challenges</h4>
+    </div>
+    <p>During the design process, we faced several constraints and challenges that had to be addressed:</p>
     <ul>
-      <li><strong>Multiplayer Synchronization:</strong> Implemented **real-time synchronization** of game states between two **ESP32** microcontrollers over **UART**.</li>
-      <li><strong>VGA Video Output:</strong> Designed and tested **VGA signal generation** for stable **dual-screen output** at **640x480 resolution**.</li>
-      <li><strong>Bluetooth Communication:</strong> Optimized **Bluetooth communication** between the **controller** and the console to ensure **low-latency input** for smooth gameplay.</li>
-      <li><strong>Power Management:</strong> Designed the **power system** to support **up to 72 hours of gameplay** using **lithium-ion batteries** and **DC-DC step-up converters**.</li>
+      <li><strong>Power Management:</strong> The system needed to run for **72 hours** of continuous gameplay, requiring efficient battery management and low power consumption.</li>
+      <li><strong>Bluetooth Latency:</strong> Ensuring **low-latency communication** between the controllers and console for real-time interaction was a key challenge.</li>
+      <li><strong>Hardware Integration:</strong> Integrating the **VGA video output** and ensuring synchronization between multiple subsystems (game logic, controller input, and video output) was complex.</li>
+      <li><strong>Multiplayer Synchronization:</strong> Achieving smooth synchronization between the two players' actions and game states was crucial for the gaming experience.</li>
     </ul>
+  </section>
 
-    <h4>Hardware Design Files</h4>
-    <p>The **controller PCB** and **main circuit board (PCB)** designs are available for review. They are implemented using **Altium Designer** and are fully documented in the repository:</p>
+  <!-- Technical Details Section -->
+  <section class="technical-details">
+    <div class="section-title">
+      <h4>Technical Design</h4>
+    </div>
+    <p>The system is based on two **ESP32** microcontrollers, which are responsible for managing game logic, video generation, and communication between the controllers. The main design features are as follows:</p>
     <ul>
-      <li><a href="https://github.com/YourUsername/Multiplayer-Retro-Game-Console/blob/main/Hardware/PCBs/controller_board.sch" target="_blank">Controller PCB Schematic</a></li>
-      <li><a href="https://github.com/YourUsername/Multiplayer-Retro-Game-Console/blob/main/Hardware/PCBs/main_board.sch" target="_blank">Main Board Schematic</a></li>
+      <li><strong>Power System:</strong> The controllers use **Li-ion batteries**, and the system is powered by a **DC-DC step-up converter** to provide the necessary 5V output.</li>
+      <li><strong>VGA Output:</strong> **VGA signals** are generated by the **ESP32** using **DMA** to ensure smooth video output on two separate screens.</li>
+      <li><strong>Bluetooth Communication:</strong> The **HC-05 Bluetooth module** is used for wireless communication between the controllers and the console, with low-latency response times for real-time control.</li>
+      <li><strong>Controller Design:</strong> The **controller PCB** integrates the joystick and buttons and communicates with the console via Bluetooth.</li>
     </ul>
+  </section>
 
-    <h4>Images of Hardware Components</h4>
-    <p>Here are the key hardware components of the project, including designs and schematics of the controllers and main board:</p>
+  <!-- Image Section -->
+  <section class="images-section">
+    <div class="section-title">
+      <h4>Hardware Images & Explanations</h4>
+    </div>
 
     <div class="image-gallery">
       <figure>
         <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/controller%20PCB.jpg" alt="Controller PCB" width="600px">
-        <figcaption><strong>Figure 9:</strong> **Controller PCB Design**. This is the final design of the controller PCB, which integrates the joystick, buttons, and Bluetooth communication module.</figcaption>
+        <figcaption><strong>Figure 9:</strong> **Controller PCB Design**. This PCB integrates the joystick, buttons, and Bluetooth communication for the game controllers.</figcaption>
       </figure>
 
       <figure>
         <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/controller%20schematic.jpg" alt="Controller Schematic" width="600px">
-        <figcaption><strong>Figure 8:</strong> **Controller Schematic**. This schematic shows the circuit connections for the controller, which communicates wirelessly with the main console via Bluetooth.</figcaption>
+        <figcaption><strong>Figure 8:</strong> **Controller Schematic**. The schematic for the controller, showcasing the integration of joystick inputs and Bluetooth communication.</figcaption>
       </figure>
 
       <figure>
         <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/main%20board%20PCB.jpg" alt="Main Board PCB" width="600px">
-        <figcaption><strong>Figure 11:</strong> **Main Board PCB Design**. This is the main circuit board design that integrates the two ESP32 microcontrollers, responsible for running the game logic and generating VGA output.</figcaption>
+        <figcaption><strong>Figure 11:</strong> **Main Board PCB Design**. The main board that drives the **ESP32** microcontroller and **VGA output**, managing game logic and player input.</figcaption>
       </figure>
 
       <figure>
         <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/main%20board%20schematic.jpg" alt="Main Board Schematic" width="600px">
-        <figcaption><strong>Figure 10:</strong> **Main Board Schematic**. This schematic provides an overview of the electrical layout for the main board that controls the game logic and video output.</figcaption>
-      </figure>
-
-      <figure>
-        <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/music%20player%20PCB.jpg" alt="Music Player PCB" width="600px">
-        <figcaption><strong>Figure 13:</strong> **Music Player PCB Design**. This PCB design supports the audio subsystem, which handles background music playback during gameplay.</figcaption>
-      </figure>
-
-      <figure>
-        <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/music%20player%20schematic.jpg" alt="Music Player Schematic" width="600px">
-        <figcaption><strong>Figure 12:</strong> **Music Player Schematic**. The schematic for the music player subsystem, which is responsible for audio playback using the DFPlayer Mini.</figcaption>
-      </figure>
-
-      <figure>
-        <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/overall%20project%20hardware%20implementation.jpg" alt="Overall Project Hardware Implementation" width="600px">
-        <figcaption><strong>Figure 3:</strong> **Overall Project Hardware Implementation**. This figure shows the complete hardware setup, including the main board, controllers, and audio system.</figcaption>
+        <figcaption><strong>Figure 10:</strong> **Main Board Schematic**. The circuit schematic for the central console board, which controls all subsystems and coordinates communication between components.</figcaption>
       </figure>
     </div>
-
   </section>
+
+  <!-- Future Work -->
+  <section class="future-work">
+    <div class="section-title">
+      <h4>Future Improvements</h4>
+    </div>
+    <p>Looking forward, there are several improvements that could be made to enhance the project:</p>
+    <ul>
+      <li><strong>Extended Game Library:</strong> Adding more games and improving multiplayer features.</li>
+      <li><strong>Improved Controller Design:</strong> Refining the controller for better ergonomics and adding more advanced features like **rumble feedback**.</li>
+      <li><strong>Physical Enclosure:</strong> Designing a more compact and durable **enclosure** for the console and controllers.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>© 2026 Rafik Ibrahim</p>
+  </footer>
 
 </body>
 </html>
