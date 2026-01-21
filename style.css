@@ -15,14 +15,23 @@ body {
 /* NAVBAR */
 .navbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 20px 40px;
+  position: relative;
 }
 
 .nav-name {
   font-weight: 600;
   font-size: 18px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navbar nav {
+  position: absolute;
+  right: 40px;
 }
 
 .navbar nav a {
@@ -65,14 +74,17 @@ body {
 
 /* HERO RIGHT TEXT */
 .hero-right h1 {
-  font-size: 72px;
+  font-size: 52px;
   font-weight: 700;
 }
 
 .hero-right h2 {
-  font-size: 22px;
+  font-size: 20px;
   margin-top: 10px;
   color: #bbbbbb;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* SOCIALS */
@@ -182,5 +194,15 @@ footer {
 
   .hero-left img {
     margin: 0 auto;
+  }
+
+  .navbar nav {
+    position: static;
+    margin-top: 15px;
+  }
+
+  .nav-name {
+    position: static;
+    transform: none;
   }
 }
