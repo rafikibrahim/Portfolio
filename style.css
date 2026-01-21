@@ -166,6 +166,8 @@ body {
 .about {
   padding: 80px 40px;
   background: #141414;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .about h3 {
@@ -175,8 +177,9 @@ body {
 
 .about p {
   margin-bottom: 20px;
-  max-width: 5000px;
   color: #ccc;
+  line-height: 1.6;
+  font-size: 18px;
 }
 
 /* CONTACT */
