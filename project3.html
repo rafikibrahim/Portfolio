@@ -19,12 +19,18 @@
       background-color: #333; /* Dark background for header */
       color: #fff; /* White text */
       padding: 20px;
-      text-align: center; /* Centered header text */
+      display: flex;
+      justify-content: space-between; /* Aligns logo to the left and nav to the right */
+      align-items: center;
+    }
+
+    .nav-name {
+      font-size: 1.5em;
+      font-weight: bold;
     }
 
     nav {
-      text-align: center;
-      margin-top: 10px;
+      text-align: right; /* Aligns nav items to the right */
     }
 
     nav a {
@@ -94,8 +100,8 @@
   <header>
     <div class="nav-name">Rafik Ibrahim</div>
     <nav>
-      <a href="index.html">Home</a> |
-      <a href="resume.html">Resume</a> |
+      <a href="index.html">Home</a>
+      <a href="resume.html">Resume</a>
       <a href="projects.html">Projects</a>
     </nav>
   </header>
