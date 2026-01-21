@@ -11,45 +11,81 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f5f5f5;
+      background-color: #fff; /* White background */
+      color: #333; /* Black text */
     }
+
     header {
-      background-color: #333;
-      color: #fff;
+      background-color: #333; /* Dark background for header */
+      color: #fff; /* White text */
       padding: 20px;
+      text-align: left; /* Align header text to the left */
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    nav {
       text-align: center;
+      margin-top: 10px;
     }
-    h1, h3 {
-      font-family: 'Arial', sans-serif;
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 15px;
     }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
     section {
       padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
     }
+
     .content-section {
       margin-bottom: 40px;
     }
+
     .image-gallery img {
       width: 80%;
       margin-bottom: 20px;
       border-radius: 10px;
     }
+
     .image-gallery figcaption {
       font-style: italic;
       text-align: center;
       margin-top: 10px;
     }
+
     .image-gallery {
       text-align: center;
     }
+
     .overview, .technical-details, .images-section, .challenges, .future-work {
       margin-bottom: 50px;
     }
+
     .section-title {
       font-size: 1.5em;
       margin-bottom: 20px;
     }
+
     .content-section ul {
       margin-left: 20px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #333;
+      color: #fff;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
     }
   </style>
 </head>
@@ -113,22 +149,22 @@
 
     <div class="image-gallery">
       <figure>
-        <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/controller%20PCB.jpg" alt="Controller PCB" width="600px">
+        <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/controller%20PCB.jpg" alt="Controller PCB" width="800px">
         <figcaption><strong>Figure 9:</strong> **Controller PCB Design**. This PCB integrates the joystick, buttons, and Bluetooth communication for the game controllers.</figcaption>
       </figure>
 
       <figure>
-        <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/controller%20schematic.jpg" alt="Controller Schematic" width="600px">
+        <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/controller%20schematic.jpg" alt="Controller Schematic" width="800px">
         <figcaption><strong>Figure 8:</strong> **Controller Schematic**. The schematic for the controller, showcasing the integration of joystick inputs and Bluetooth communication.</figcaption>
       </figure>
 
       <figure>
-        <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/main%20board%20PCB.jpg" alt="Main Board PCB" width="600px">
+        <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/main%20board%20PCB.jpg" alt="Main Board PCB" width="800px">
         <figcaption><strong>Figure 11:</strong> **Main Board PCB Design**. The main board that drives the **ESP32** microcontroller and **VGA output**, managing game logic and player input.</figcaption>
       </figure>
 
       <figure>
-        <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/main%20board%20schematic.jpg" alt="Main Board Schematic" width="600px">
+        <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/main%20board%20schematic.jpg" alt="Main Board Schematic" width="800px">
         <figcaption><strong>Figure 10:</strong> **Main Board Schematic**. The circuit schematic for the central console board, which controls all subsystems and coordinates communication between components.</figcaption>
       </figure>
     </div>
