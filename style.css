@@ -81,10 +81,10 @@ body {
 
 .hero-right h1 .concentration {
   display: block;
-  font-size: 26px;
-  font-weight: 400;
+  font-size: 26px !important;
+  font-weight: 400 !important;
   margin-top: 10px;
-  color: #bbbbbb;
+  color: #bbbbbb !important;
 }
 
 .hero-right h2 {
