@@ -58,7 +58,7 @@ body {
 /* HERO LEFT IMAGE */
 .hero-left img {
   width: 100%;
-  max-width: 420px;
+  max-width: 600px;
   border-radius: 25px;
   object-fit: cover;
 }
