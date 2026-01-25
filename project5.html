@@ -21,43 +21,35 @@
     <h3>Bark It!: Interactive Cognitive Trainer</h3>
     
     <div class="project-description">
-      <p><strong>Client:</strong> Junior Design Project</p>
-      <p><strong>Location:</strong> Pittsburgh, PA</p>
-      <p><strong>Year:</strong> 2025</p>
+      [cite_start]<p><strong>Client:</strong> Junior Design Project [cite: 86, 438]</p>
+      [cite_start]<p><strong>Location:</strong> Pittsburgh, PA [cite: 293]</p>
+      [cite_start]<p><strong>Year:</strong> 2025 [cite: 457]</p>
 
       <p>
-        Bark It! is an interactive, sensor-driven game console engineered to provide both mental and physical stimulation for dogs. 
-        The system utilizes an <strong>ATMega32 microcontroller</strong> to monitor behavioral inputs and deliver real-time feedback through a dynamic, scoring-based gaming loop.
-      </p>
-    </div>
-
-    <div class="tech-details-section">
-      <h4>Before You Keep Reading</h4>
-      <p>
-        The primary design inspiration for this project was "Rio," a medium-sized dog. 
-        All mechanical constraints, from the doghouse height to the activation force of the sensors, were calibrated specifically to accommodate canine ergonomics and natural movements.
+        [cite_start]Bark It! is an automated, sensor-driven system designed to provide physical and mental enrichment for canines[cite: 2]. 
+        [cite_start]By utilizing an <strong>ATMega32 microcontroller</strong>, the device facilitates a real-time gaming loop that tracks performance and scales difficulty based on the user's success rate[cite: 6, 31, 50].
       </p>
     </div>
 
     <div class="section-title">
-      <h4>Foundational Design Constraints</h4>
+      <h4>Engineering Objectives</h4>
     </div>
-    <p>Through iterative testing with a breadboard prototype and physical mockups, the following engineering requirements were established:</p>
+    <p>The development of the trainer was guided by specific functional requirements to ensure accessibility for the animal and reliability for the owner:</p>
     <ul>
-      <li><strong>Behavioral Interfacing:</strong> Standard touchscreens were bypassed for tactile inputs like ropes and buttons that can be manipulated by paws or mouths.</li>
-      <li><strong>Cognitive Feedback:</strong> The system provides multimodal cues—including distinct audio tones and visual LCD prompts—to signify command transitions.</li>
-      <li><strong>Safety & Isolation:</strong> The electronics are housed in a hollow base to isolate delicate circuitry and wiring from physical interaction.</li>
-      <li><strong>Adaptive Difficulty:</strong> The firmware implements a dynamic timing variable that reduces the task window as the score increases to maintain high user engagement.</li>
+      [cite_start]<li><strong>Behavioral Interfacing:</strong> Tactile sensors were selected to accommodate natural movements such as tugging and paw-pressing[cite: 3, 4, 11].</li>
+      [cite_start]<li><strong>Cognitive Feedback:</strong> The system incorporates multimodal cues, using a 16x2 LCD for visual tracking and an audio module for distinct command tones[cite: 6, 49, 62].</li>
+      [cite_start]<li><strong>Safety-First Architecture:</strong> All electronic components and high-density wiring are isolated within a hollow base to prevent accidental damage during play[cite: 295, 306].</li>
+      [cite_start]<li><strong>Adaptive Timing:</strong> The firmware features a dynamic timing variable that reduces the completion window as the score increases, preventing cognitive plateauing[cite: 50, 199].</li>
     </ul>
 
     <div class="section-title">
       <h4>System Architecture</h4>
     </div>
-    <p>The system is organized into three primary behavioral sensor branches controlled by the central MCU:</p>
+    [cite_start]<p>The system randomly cycles through three primary behavioral commands, each requiring a unique sensor interaction[cite: 45]:</p>
     <ul>
-      <li><strong>Tug It (Joystick Branch):</strong> Detects directional tension when a rope is pulled beyond a calibrated voltage threshold.</li>
-      <li><strong>Dig It (Tactile Branch):</strong> Monitors a large red button for a specific sequence of three rapid presses.</li>
-      <li><strong>Place It (Logic Branch):</strong> Monitors a ball being moved from one compartment to another using dual limit switches.</li>
+      [cite_start]<li><strong>Tug It (Joystick Logic):</strong> Detects directional tension when a rope is pulled beyond a calibrated voltage threshold[cite: 9, 46].</li>
+      [cite_start]<li><strong>Dig It (Tactile Input):</strong> Monitors a high-visibility red push button for a sequence of three rapid presses[cite: 11, 47].</li>
+      [cite_start]<li><strong>Place It (State-Machine Logic):</strong> Monitors the displacement of a ball between two compartments using dual limit switches[cite: 48, 60].</li>
     </ul>
 
     
@@ -66,20 +58,20 @@
       <h4>Electronic Design Implementation</h4>
     </div>
     <p>
-      I designed a <strong>2-layer PCB</strong> optimized for modularity within a custom enclosure. 
-      To improve assembly and aesthetics, I utilized <strong>2-pin connectors</strong> for all I/O instead of direct soldering. 
-      This allowed us to use extension wires to connect the central board to sensors placed in the "porch" and "storage" areas of the enclosure. 
-      The layout includes strategic grouping of connectors and a keep-out layer to ensure signal integrity during operation.
+      [cite_start]I designed a <strong>2-layer PCB</strong> optimized for modularity within the enclosure[cite: 93, 98]. 
+      [cite_start]To streamline assembly, I implemented <strong>2-pin connectors</strong> for all I/O instead of direct soldering[cite: 88]. 
+      [cite_start]This design choice allowed for organized wire routing from the central board to sensors distributed throughout the doghouse structure[cite: 89, 149]. 
+      [cite_start]The layout includes a keep-out layer to ensure signal integrity and strategic grouping of connectors to minimize interior clutter[cite: 94, 99].
     </p>
 
     <div class="section-title">
-      <h4>Software Design & Validation</h4>
+      <h4>Software Validation & Control Logic</h4>
     </div>
     <p>
-      The firmware is written in C++ and handles random task selection, input validation, and scoring. 
-      A significant challenge arose with the <strong>Place It</strong> sequence logic. 
-      The code was revised to monitor specific state changes—requiring Switch 1 to move from active to inactive (ball removed) and Switch 2 to move from inactive to active (ball placed) in a specific order. 
-      Additionally, the system performs continuous input monitoring; any incorrect action triggers an immediate game-over state to ensure a realistic challenge.
+      [cite_start]The firmware, written in C++, manages random task generation and continuous sensor polling[cite: 173, 204]. 
+      [cite_start]A critical engineering challenge involved the "Place It" command logic[cite: 64, 332]. 
+      [cite_start]The initial code failed to track the sequence correctly, requiring a revision to monitor specific state changes: the first switch must move from active to inactive (ball removed) before the second switch moves from inactive to active (ball placed)[cite: 69, 70, 341]. 
+      [cite_start]Furthermore, the system performs continuous monitoring; any incorrect action outside of the active command triggers an immediate game-over state to ensure a realistic challenge[cite: 337, 338, 340].
     </p>
 
     
@@ -88,23 +80,19 @@
       <h4>Mechanical Fabrication</h4>
     </div>
     <p>
-      The enclosure was modeled in <strong>SolidWorks</strong> as a doghouse and manufactured from laser-cut 1/8 inch plywood. 
-      Structural integrity was achieved through sliding joints reinforced with wood glue. 
-      To solve mounting issues, custom-fabricated wooden cubes were used to position the limit switches at the precise height and angle for reliable ball activation. 
-      Internal wires were wrapped in black tape to maintain a professional, organized appearance.
+      [cite_start]The enclosure was modeled in <strong>SolidWorks</strong> and constructed from <strong>laser-cut 1/8 inch plywood</strong>[cite: 293, 294, 302]. 
+      [cite_start]The structure uses sliding joints reinforced with wood glue for high durability[cite: 303, 312]. 
+      [cite_start]To ensure sensor reliability, I fabricated custom wooden mounts to position the limit switches at the precise height and angle required for ball activation[cite: 324, 325]. 
+      [cite_start]The final assembly features a "porch" for paw-based tasks and a "storage" area for cognitive object movement[cite: 289, 290].
     </p>
 
-    <div class="tech-details-section">
-      <h4>Mistakes and Future Steps</h4>
-      <p>
-        <strong>Iterative Learning:</strong> During prototyping, we discovered that ultrasonic sensors were unreliable for detecting ball placement; we pivoted to limit switches to reduce false positives. 
-        Additionally, we learned to favor wood glue over hot glue for cleaner, more durable vertical joints.
-      </p>
-      <p>
-        <strong>Next Steps:</strong> Future iterations will incorporate <strong>voice commands</strong> (replacing tones with recorded speech like "Dig It!") and <strong>non-volatile memory</strong> to store session high scores permanently.
-      </p>
+    <div class="section-title">
+      <h4>Design Iterations & Future Work</h4>
     </div>
-
+    <p>
+      [cite_start]During development, we identified that ultrasonic sensors were prone to false positives in this application, leading to a pivot to physical limit switches for superior accuracy[cite: 14, 15, 17]. 
+      [cite_start]Future iterations will focus on integrating <strong>voice-recorded commands</strong> to replace simple tones and <strong>non-volatile memory</strong> to allow high scores to persist after power-cycling[cite: 54, 467, 468, 470].
+    </p>
   </section>
 
   <footer>
