@@ -21,80 +21,87 @@
     <h3>Bark It!: Interactive Cognitive Trainer</h3>
     
     <div class="project-description">
-      [cite_start]<p><strong>Client:</strong> Junior Design Project [cite: 86]</p>
-      [cite_start]<p><strong>Location:</strong> Pittsburgh, PA [cite: 299]</p>
-      [cite_start]<p><strong>Year:</strong> 2025 [cite: 435]</p>
+      <p><strong>Client:</strong> Junior Design Project</p>
+      <p><strong>Location:</strong> Pittsburgh, PA</p>
+      <p><strong>Year:</strong> 2025</p>
 
       <p>
-        [cite_start]Bark It! is an embedded gaming system engineered to provide physical and mental engagement for dogs[cite: 2]. 
-        [cite_start]By integrating a variety of sensors with an ATMega32 microcontroller, the device mimics natural canine behaviors through a responsive, real-time gaming loop[cite: 3, 31, 154].
+        Bark It! is an interactive, sensor-driven game console engineered to provide both mental and physical stimulation for dogs. 
+        The system utilizes an <strong>ATMega32 microcontroller</strong> to monitor behavioral inputs and deliver real-time feedback through a dynamic, scoring-based gaming loop.
       </p>
     </div>
 
     <div class="tech-details-section">
       <h4>Before You Keep Reading</h4>
       <p>
-        [cite_start]The primary design inspiration and "user-testing" muse for this project was Rio, a medium-sized dog[cite: 39, 40]. 
-        [cite_start]Every mechanical constraint, from the enclosure height to sensor placement, was calibrated to suit canine ergonomics[cite: 40, 298, 300].
+        The primary design inspiration for this project was "Rio," a medium-sized dog. 
+        All mechanical constraints, from the doghouse height to the activation force of the sensors, were calibrated specifically to accommodate canine ergonomics and natural movements.
       </p>
     </div>
 
     <div class="section-title">
       <h4>Foundational Design Constraints</h4>
     </div>
-    [cite_start]<p>Through systematic prototyping and testing, the following core engineering requirements were established[cite: 58, 59, 82]:</p>
+    <p>Through iterative testing with a breadboard prototype and physical mockups, the following engineering requirements were established:</p>
     <ul>
-      [cite_start]<li><strong>Behavioral Interfacing:</strong> Standard UI elements were replaced with hardware that supports tugging, digging, and object displacement[cite: 3, 4, 5, 288].</li>
-      [cite_start]<li><strong>Cognitive Feedback:</strong> The system must provide distinct aural and visual cues to signify task transitions, success, or failure[cite: 6, 61, 62].</li>
-      [cite_start]<li><strong>Owner/User Safety:</strong> The electronics are isolated in a hollow base to prevent accidental interaction with internal high-current paths or delicate circuitry[cite: 295, 307].</li>
-      [cite_start]<li><strong>Dynamic Scaling:</strong> To prevent boredom, the system implements an adaptive timing logic that decreases the reaction window as the dog's score increases[cite: 50, 199].</li>
+      <li><strong>Behavioral Interfacing:</strong> Standard touchscreens were bypassed for tactile inputs like ropes and buttons that can be manipulated by paws or mouths.</li>
+      <li><strong>Cognitive Feedback:</strong> The system provides multimodal cues—including distinct audio tones and visual LCD prompts—to signify command transitions.</li>
+      <li><strong>Safety & Isolation:</strong> The electronics are housed in a hollow base to isolate delicate circuitry and wiring from physical interaction.</li>
+      <li><strong>Adaptive Difficulty:</strong> The firmware implements a dynamic timing variable that reduces the task window as the score increases to maintain high user engagement.</li>
     </ul>
 
     <div class="section-title">
-      <h4>Logical System Architecture</h4>
+      <h4>System Architecture</h4>
     </div>
-    [cite_start]<p>The system is built upon an ATMega32 microcontroller which orchestrates the following three sensor branches[cite: 31, 156]:</p>
+    <p>The system is organized into three primary behavioral sensor branches controlled by the central MCU:</p>
     <ul>
-      [cite_start]<li><strong>Tug It (Joystick):</strong> Detects directional tension when a rope is pulled beyond a predefined voltage threshold[cite: 9, 46].</li>
-      [cite_start]<li><strong>Dig It (Industrial Button):</strong> Monitors a large red push button for a sequence of three rapid presses[cite: 11, 47].</li>
-      [cite_start]<li><strong>Place It (Limit Switches):</strong> Uses dual limit switches to verify a ball has been moved from one designated compartment to another in a specific order[cite: 48, 69, 70].</li>
+      <li><strong>Tug It (Joystick Branch):</strong> Detects directional tension when a rope is pulled beyond a calibrated voltage threshold.</li>
+      <li><strong>Dig It (Tactile Branch):</strong> Monitors a large red button for a specific sequence of three rapid presses.</li>
+      <li><strong>Place It (Logic Branch):</strong> Monitors a ball being moved from one compartment to another using dual limit switches.</li>
     </ul>
 
+    
+
     <div class="section-title">
-      <h4>Electronic Implementation</h4>
+      <h4>Electronic Design Implementation</h4>
     </div>
     <p>
-      [cite_start]I designed a 2-layer PCB focused on modularity and signal integrity[cite: 85, 98]. 
-      [cite_start]Rather than direct-soldering components, the board utilizes 2-pin connectors for all I/O[cite: 88]. 
-      [cite_start]This allows the microcontroller to sit in the protected base while communicating with sensors distributed throughout the larger enclosure[cite: 89, 90, 295]. 
-      [cite_start]The layout includes a keep-out layer and strategic grouping of connectors to minimize cross-talk and simplify assembly[cite: 94, 99, 148].
+      I designed a <strong>2-layer PCB</strong> optimized for modularity within a custom enclosure. 
+      To improve assembly and aesthetics, I utilized <strong>2-pin connectors</strong> for all I/O instead of direct soldering. 
+      This allowed us to use extension wires to connect the central board to sensors placed in the "porch" and "storage" areas of the enclosure. 
+      The layout includes strategic grouping of connectors and a keep-out layer to ensure signal integrity during operation.
     </p>
 
     <div class="section-title">
       <h4>Software Design & Validation</h4>
     </div>
     <p>
-      [cite_start]The firmware is written in C++ and uses a polling-based state machine[cite: 154, 203, 204]. 
-      [cite_start]A significant challenge arose with the "Place It" sequence[cite: 64]. 
-      [cite_start]The initial code failed to distinguish between a ball being moved or simply picked up and put back down[cite: 65, 332, 341]. 
-      [cite_start]The final logic verifies that the ball is removed (Switch 1: Active to Inactive) and subsequently placed in the target hole (Switch 2: Inactive to Active)[cite: 69, 70]. 
-      [cite_start]Additionally, the software provides continuous monitoring; any incorrect sensor trigger outside of the current active command leads to an immediate game-over state[cite: 200, 337, 338].
+      The firmware is written in C++ and handles random task selection, input validation, and scoring. 
+      A significant challenge arose with the <strong>Place It</strong> sequence logic. 
+      The code was revised to monitor specific state changes—requiring Switch 1 to move from active to inactive (ball removed) and Switch 2 to move from inactive to active (ball placed) in a specific order. 
+      Additionally, the system performs continuous input monitoring; any incorrect action triggers an immediate game-over state to ensure a realistic challenge.
     </p>
+
+    
 
     <div class="section-title">
       <h4>Mechanical Fabrication</h4>
     </div>
     <p>
-      [cite_start]The "Doghouse" enclosure was modeled in SolidWorks and manufactured from laser-cut 1/8 inch plywood[cite: 286, 293, 294]. 
-      [cite_start]Structural integrity was achieved through sliding-joint panels reinforced with wood glue[cite: 303, 304]. 
-      [cite_start]Internal limit switches were mounted on custom-fabricated wooden cubes to ensure they sat at the precise height for reliable activation by a tennis ball[cite: 324, 325].
+      The enclosure was modeled in <strong>SolidWorks</strong> as a doghouse and manufactured from laser-cut 1/8 inch plywood. 
+      Structural integrity was achieved through sliding joints reinforced with wood glue. 
+      To solve mounting issues, custom-fabricated wooden cubes were used to position the limit switches at the precise height and angle for reliable ball activation. 
+      Internal wires were wrapped in black tape to maintain a professional, organized appearance.
     </p>
 
     <div class="tech-details-section">
-      <h4>Retrospective and Future Iterations</h4>
+      <h4>Mistakes and Future Steps</h4>
       <p>
-        The Mk. [cite_start]I prototype highlighted the importance of robust sensor selection; switching from ultrasonic sensors to limit switches drastically improved reliability by requiring physical interaction[cite: 14, 16, 17]. 
-        [cite_start]Future versions will incorporate non-volatile memory for high-score retention and integrated voice commands to improve accessibility for the animals[cite: 54, 467, 468, 469].
+        <strong>Iterative Learning:</strong> During prototyping, we discovered that ultrasonic sensors were unreliable for detecting ball placement; we pivoted to limit switches to reduce false positives. 
+        Additionally, we learned to favor wood glue over hot glue for cleaner, more durable vertical joints.
+      </p>
+      <p>
+        <strong>Next Steps:</strong> Future iterations will incorporate <strong>voice commands</strong> (replacing tones with recorded speech like "Dig It!") and <strong>non-volatile memory</strong> to store session high scores permanently.
       </p>
     </div>
 
