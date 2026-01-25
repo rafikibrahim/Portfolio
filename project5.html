@@ -22,17 +22,17 @@
     
     <div class="project-description">
       [cite_start]<p><strong>Client:</strong> Junior Design Project [cite: 86]</p>
-      <p><strong>Location:</strong> Pittsburgh, PA</p>
+      [cite_start]<p><strong>Location:</strong> Pittsburgh, PA [cite: 293]</p>
       <p><strong>Year:</strong> 2025</p>
 
       <p>
         [cite_start]Bark It! is an automated, sensor-driven system designed to provide physical and mental enrichment for canines[cite: 2]. 
-        [cite_start]Utilizing an <strong>ATMega32 microcontroller</strong>, the device facilitates a real-time gaming loop that tracks performance and scales difficulty based on the user's success rate[cite: 6, 31, 50].
+        [cite_start]By utilizing an <strong>ATMega32 microcontroller</strong>, the device facilitates a real-time gaming loop that tracks performance and scales difficulty based on the user's success rate[cite: 31, 50].
       </p>
     </div>
 
     <div class="section-title">
-      <h4>Engineering Objectives</h4>
+      <h4>Design Constraints & Objectives</h4>
     </div>
     <p>The development of the trainer was guided by specific functional requirements to ensure accessibility for the animal and reliability for the owner:</p>
     <ul>
@@ -45,7 +45,7 @@
     <div class="section-title">
       <h4>System Architecture</h4>
     </div>
-    [cite_start]<p>The system randomly cycles through three primary behavioral commands, each requiring a unique sensor interaction[cite: 3, 45, 196]:</p>
+    [cite_start]<p>The system randomly cycles through three primary behavioral commands, each requiring a unique sensor interaction[cite: 45]:</p>
     <ul>
       [cite_start]<li><strong>Tug It (Joystick Logic):</strong> Detects directional tension when a rope is pulled beyond a calibrated voltage threshold[cite: 9, 46].</li>
       [cite_start]<li><strong>Dig It (Tactile Input):</strong> Monitors a high-visibility red push button for a sequence of three rapid presses to simulate digging behavior[cite: 11, 47].</li>
@@ -68,10 +68,10 @@
       <h4>Software Validation & Control Logic</h4>
     </div>
     <p>
-      [cite_start]The firmware, written in C++, manages random task generation and continuous sensor polling[cite: 154, 196]. 
+      [cite_start]The firmware manages random task generation and continuous sensor polling[cite: 196, 205]. 
       [cite_start]A critical engineering challenge involved the "Place It" command logic[cite: 64]. 
-      [cite_start]The initial code failed to track the sequence correctly, requiring a revision to monitor specific state changes: the first switch must move from active to inactive (ball removed) before the second switch moves from inactive to active (ball placed)[cite: 69, 70]. 
-      [cite_start]Furthermore, the system performs continuous monitoring; any incorrect action outside of the active command triggers an immediate game-over state to ensure a realistic challenge[cite: 337, 338, 340].
+      [cite_start]The code was refined to monitor specific state changes: the first switch must move from active to inactive (ball removed) before the second switch moves from inactive to active (ball placed)[cite: 69, 70]. 
+      [cite_start]Furthermore, the system performs continuous monitoring; any incorrect action outside of the active command triggers an immediate game-over state[cite: 337, 338, 340].
     </p>
 
     
@@ -81,7 +81,7 @@
     </div>
     <p>
       [cite_start]The enclosure was modeled in <strong>SolidWorks</strong> and constructed from <strong>laser-cut 1/8 inch plywood</strong>[cite: 293, 294, 302]. 
-      [cite_start]The structure uses sliding joints reinforced with wood glue for high durability[cite: 303, 304]. 
+      [cite_start]The structure uses sliding joints reinforced with wood glue for high durability[cite: 303, 304, 312]. 
       [cite_start]To ensure sensor reliability, I fabricated custom wooden mounts to position the limit switches at the precise height and angle required for ball activation[cite: 324, 325]. 
       [cite_start]The final assembly features a "porch" for paw-based tasks and a "storage" area for cognitive object movement[cite: 289, 290].
     </p>
@@ -90,7 +90,7 @@
       <h4>Design Iterations & Future Work</h4>
     </div>
     <p>
-      [cite_start]During development, we identified that ultrasonic sensors were prone to false positives in this application, leading to a pivot to physical limit switches for superior accuracy[cite: 14, 16, 17]. 
+      [cite_start]During development, it was determined that ultrasonic sensors were prone to false positives, leading to a pivot to physical limit switches for superior accuracy[cite: 14, 15, 16]. 
       [cite_start]Future iterations will focus on integrating <strong>voice-recorded commands</strong> to replace simple tones and <strong>non-volatile memory</strong> to allow high scores to persist after power-cycling[cite: 54, 467, 468].
     </p>
   </section>
