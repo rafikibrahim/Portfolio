@@ -21,64 +21,64 @@
     <h3>High Voltage Power System Diagnostics Simulator</h3>
     
     <div class="project-description">
-      <p><strong>Platform:</strong> Python (NumPy, Pandas)</p>
-      <p><strong>Technical Focus:</strong> Power Flow Analysis & Fault Diagnostics</p>
-      <p><strong>Repository:</strong> <a href="https://github.com/Rri3/ECE-1774" target="_blank">View on GitHub</a></p>
+      [cite_start]<p><strong>Development Environment:</strong> Python (NumPy, Pandas) [cite: 585, 592]</p>
+      [cite_start]<p><strong>Technical Focus:</strong> Newton-Raphson Power Flow & Sub-transient Fault Analysis [cite: 594, 599]</p>
 
       <p>
-        I developed a high-performance simulation engine designed to model large-scale electrical grids and perform critical steady-state and fault diagnostics. This tool serves as a comprehensive guide for modeling power system components using Python, encapsulating complex physical attributes into a modular, object-oriented framework.
+        [cite_start]I developed a high-performance simulation engine designed to model large-scale electrical grids and perform critical steady-state and fault diagnostics[cite: 473, 475]. [cite_start]This tool provides a comprehensive framework for modeling power system components, encapsulating complex physical attributes into a modular, object-oriented software architecture[cite: 478, 479].
       </p>
     </div>
 
     <div class="section-title">
-      <h4>Core Simulation Capabilities</h4>
+      <h4>Advanced Analytical Capabilities</h4>
     </div>
-    <p>The engine automates the high-level mathematical modeling required for utility-grade grid analysis:</p>
+    [cite_start]<p>The simulator automates the high-level mathematical modeling required for utility-grade grid analysis and troubleshooting[cite: 476, 580]:</p>
     <ul>
-      <li><strong>Newton-Raphson Power Flow Solver:</strong> An iterative numerical method implemented to solve the non-linear power flow equations, calculating voltage magnitudes and angles across the network.</li>
-      <li><strong>Sub-transient Fault Analysis:</strong> Specialized routines for determining network responses during positive and negative sequence faults, essential for protection coordination.</li>
-      <li><strong>Automated Matrix Construction:</strong> Programmatically generates the system Y-Bus matrix by aggregating primitive admittance data from individual lines and transformers.</li>
-      <li><strong>Per-Unit (PU) Normalization:</strong> Automatically calculates base system impedance and converts physical values to per-unit parameters for consistent multi-voltage level analysis.</li>
+      [cite_start]<li><strong>Newton-Raphson Power Flow Solver:</strong> An iterative numerical method implemented to solve non-linear power flow equations, calculating precise voltage magnitudes and phase angles across the network[cite: 594].</li>
+      [cite_start]<li><strong>Sub-transient Fault Diagnostics:</strong> Specialized routines for determining network responses during positive and negative sequence faults, essential for protection coordination and equipment rating[cite: 595, 597, 599].</li>
+      [cite_start]<li><strong>Automated Matrix Construction:</strong> Programmatically generates the system Y-bus matrix by aggregating primitive admittance data from individual transmission lines and transformers[cite: 574, 585].</li>
+      [cite_start]<li><strong>Per-Unit (PU) Normalization:</strong> Automatically calculates base system impedance and converts physical values to per-unit parameters for consistent analysis across multiple voltage levels[cite: 517, 535].</li>
     </ul>
 
     <div class="section-title">
       <h4>Object-Oriented Grid Architecture</h4>
     </div>
-    <p>The software is built on a robust library of classes representing essential power system elements:</p>
+    [cite_start]<p>The software is built on a robust library of classes representing essential power system elements[cite: 478, 480]:</p>
     <ul>
-      <li><strong>Bus Class:</strong> Manages node indices and identifies bus types (Slack, PV, PQ) while tracking voltage magnitude and phase angles.</li>
-      <li><strong>TransmissionLine & LineCode:</strong> Calculates line impedance (Z) and shunt admittance (Y) by processing physical line geometry, bundle spacing, and conductor resistance (Partridge).</li>
-      <li><strong>XFMR (Transformer):</strong> Models high/low voltage transitions, percentage impedance, and X/R ratios to integrate voltage step-ups/downs into the system matrix.</li>
-      <li><strong>Generator & Load:</strong> Represents active power injections and reactive demands, serving as the boundary conditions for the power flow solver.</li>
+      [cite_start]<li><strong>Network Nodes (Bus):</strong> Manages node indices and identifies bus types (Slack, PV, PQ) while tracking voltage states[cite: 538, 541, 543].</li>
+      [cite_start]<li><strong>Transmission Lines (TransmissionLine & LineCode):</strong> Calculates line impedance (Z) and shunt admittance (Y) by processing physical line geometry, bundle spacing, and conductor resistance[cite: 483, 493, 500, 512, 514].</li>
+      [cite_start]<li><strong>Power Transformers (XFMR):</strong> Models high/low voltage transitions, percentage impedance, and X/R ratios to integrate voltage step-ups/downs into the system matrix[cite: 520, 523, 531, 534].</li>
+      [cite_start]<li><strong>Active Elements:</strong> Models Generators as active power sources with voltage targets and Loads as consumer nodes with specified real (P) and reactive (Q) power demands[cite: 548, 552, 556, 560].</li>
     </ul>
 
+    
+
     <div class="section-title">
-      <h4>Numerical Methods & Algorithm Logic</h4>
+      <h4>Numerical Methods & Algorithm Implementation</h4>
     </div>
-    <p>The core value of this simulator lies in the ground-up implementation of complex power system algorithms:</p>
+    [cite_start]<p>The core value of this simulator lies in the ground-up implementation of complex power system algorithms[cite: 582]:</p>
     <ul>
-      <li><strong>Jacobian Matrix Computation:</strong> I developed the logic to assemble the full Jacobian matrix from four distinct quadrants (J1, J2, J3, J4), which is the most mathematically intensive part of the Newton-Raphson process.</li>
-      <li><strong>Power Mismatch Validation:</strong> Real-time calculation of real (P) and reactive (Q) power mismatches to monitor convergence and ensure the physical accuracy of the grid state.</li>
-      <li><strong>Z-Bus Matrix Inversion:</strong> A critical routine for fault analysis that inverts the Y-Bus to obtain the Z-Bus, allowing for the determination of post-fault voltages and current injections.</li>
+      [cite_start]<li><strong>Jacobian Matrix Computation:</strong> I developed the logic to assemble the full Jacobian matrix from four distinct quadrants (J1, J2, J3, J4), which is the most mathematically intensive part of the Newton-Raphson process[cite: 588, 589, 590, 591].</li>
+      [cite_start]<li><strong>Power Mismatch Validation:</strong> Real-time calculation of real (P) and reactive (Q) power mismatches to monitor convergence and ensure the physical accuracy of the grid state[cite: 592].</li>
+      [cite_start]<li><strong>Z-bus Matrix Inversion:</strong> A critical routine for fault analysis that inverts the fault-condition Y-bus to obtain the Z-bus, allowing for the determination of post-fault voltages and current injections[cite: 598, 599].</li>
     </ul>
 
+    
+
     <div class="section-title">
-      <h4>Professional Data Processing</h4>
+      <h4>Data Processing & Diagnostics</h4>
     </div>
     <p>
-      The simulator leverages the <strong>Pandas</strong> library to manage and display high-dimensional data. This provides a clean, tabular interface for engineers to analyze polar-form matrices and identify current ampacity violations or system power losses. 
+      [cite_start]The tool leverages the <strong>Pandas</strong> library to manage and display high-dimensional data[cite: 569, 585]. [cite_start]This provides a clean, tabular interface for engineers to verify grid stability, line current limits, and total system power losses, effectively identifying potential failure points in the high-voltage infrastructure[cite: 585, 594].
     </p>
 
     <div class="section-title">
-      <h4>Considerations & Future Enhancements</h4>
+      <h4>Future Development & Enhancements</h4>
     </div>
-    <p>
-      While the current script provides an in-depth understanding of power system components, I am working toward several enhancements:
-    </p>
     <ul>
-      <li>Integration of <strong>Zero-Sequence modeling</strong> for asymmetrical fault analysis (L-G, L-L-G).</li>
-      <li>Development of a <strong>Graphical User Interface (GUI)</strong> to replace the current console-based input system.</li>
-      <li>Scaling the solver for large-scale networks with over 100+ buses using sparse matrix optimization.</li>
+      [cite_start]<li>Integration of <strong>Zero-Sequence modeling</strong> for asymmetrical fault analysis (L-G, L-L-G)[cite: 603].</li>
+      <li>Development of a <strong>Graphical User Interface (GUI)</strong> to enhance user interaction and grid visualization.</li>
+      [cite_start]<li>Scaling the solver for large-scale networks with optimized sparse matrix algorithms for high-speed performance[cite: 605].</li>
     </ul>
   </section>
 
