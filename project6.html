@@ -1,1 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Autonomous Line-Following Robot | Rafik Ibrahim</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
+  <header class="navbar">
+    <div class="nav-name">Rafik Ibrahim</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="resume.html">Resume</a>
+      <a href="projects.html">Projects</a>
+    </nav>
+  </header>
+
+  <section class="projects">
+    <h3>Autonomous Line-Following Robot</h3>
+    
+    <div class="project-description">
+      <p><strong>Platform:</strong> Arduino (C++/Embedded C)</p>
+      <p><strong>Technical Focus:</strong> Real-time Control Systems, PWM Optimization, and Infrared Sensing</p>
+
+      <p>
+        I designed and implemented an autonomous mobile robotics system engineered to track high-contrast paths using a dual-sensor array. The project involved solving critical hardware-software integration challenges, specifically regarding motor torque at low speeds and sensor calibration under varying ambient light conditions.
+      </p>
+    </div>
+
+    <div class="section-title">
+      <h4>1. System Architecture & Hardware</h4>
+    </div>
+    <p>The robot is built on a modular chassis designed for stability and rapid response:</p>
+    <ul>
+      <li><strong>Central Processing Unit:</strong> An Arduino Uno executes the navigation algorithms and manages high-frequency PWM signals.</li>
+      <li><strong>Sensing Array:</strong> Dual IR (Infrared) sensor modules are mounted at the front of the chassis. These sensors detect the black line by measuring the reflection of infrared light off the surface.</li>
+      <li><strong>Motor Control:</strong> Integrated an L298N H-Bridge motor driver to facilitate independent bi-directional control of the drive wheels.</li>
+      <li><strong>Drive Train:</strong> High-torque TT Gear Motors provide the necessary actuation for precise steering and consistent forward velocity.</li>
+      <li><strong>Power Management:</strong> Utilized a 7.4V LiPo battery system to provide a high discharge rate required for consistent motor performance.</li>
+    </ul>
+
+    
+
+    <div class="section-title">
+      <h4>2. Control Logic & Navigation Algorithm</h4>
+    </div>
+    <p>The robot operates on a closed-loop feedback system that continuously polls the IR sensors to adjust its trajectory:</p>
+    <ul>
+      <li><strong>Forward State:</strong> When neither sensor detects the black line (both sensors on the white surface), the controller maintains equal PWM signals to both motors for straight-line motion.</li>
+      <li><strong>Differential Steering:</strong> 
+        <ul>
+          <li><strong>Right Correction:</strong> If the right sensor detects the black line, the algorithm reverses the right motor while moving the left motor forward to pivot the robot back onto the path.</li>
+          <li><strong>Left Correction:</strong> Conversely, if the left sensor detects the line, the left motor reverses to correct the heading.</li>
+        </ul>
+      </li>
+      <li><strong>Stop State:</strong> If both sensors detect the black line (e.g., at a finish line), the system executes a full stop command to all motor pins.</li>
+    </ul>
+
+    <div class="section-title">
+      <h4>3. Engineering Challenges & Optimization</h4>
+    </div>
+    <p>A major technical hurdle in this project was the non-linear behavior of the gear motors at low speeds. I implemented several optimizations to ensure smooth movement:</p>
+    <ul>
+      <li><strong>High-Frequency PWM:</strong> Standard PWM frequencies often cause TT motors to stall or "hum" at low duty cycles. I optimized the code to increase the PWM frequency to approximately 7.8 kHz. This ensures the motors run smoothly at low speeds with sufficient torque to overcome static friction.</li>
+      <li><strong>Sensitivity Calibration:</strong> I implemented a hardware-level calibration routine using the onboard potentiometers of the IR modules to ensure a 4cm wide path could be reliably detected regardless of the floor's reflectivity.</li>
+      <li><strong>Adaptive Speed Scaling:</strong> The software includes a variable speed constant that allows for real-time calibration based on battery voltage drop, maintaining a consistent performance profile throughout the discharge cycle.</li>
+    </ul>
+
+    
+
+    <div class="section-title">
+      <h4>4. Performance Results</h4>
+    </div>
+    <p>
+      The final implementation successfully tracked complex curves and 90-degree turns with minimal oscillation. By fine-tuning the differential steering delays, I achieved a balanced ratio between speed and tracking accuracy, making the system robust against minor path imperfections.
+    </p>
+
+  </section>
+
+  <footer>
+    © 2026 Rafik Ibrahim
+  </footer>
+
+</body>
+</html>
