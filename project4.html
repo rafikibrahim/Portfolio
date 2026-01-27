@@ -15,7 +15,7 @@
       --bg-deep: #020204;
       --bg-panel: #0f0f13;
       --accent-cyan: #00f2ff;
-      --accent-green: #00ff88; /* Green for "Access Granted" vibe */
+      --accent-green: #00ff88; 
       --accent-purple: #bd00ff;
       --text-primary: #ffffff;
       --text-secondary: #a0a0b0;
@@ -292,18 +292,18 @@
     <section>
       <h4>1. Introduction & Project Scope</h4>
       <p>
-        <strong>The Mission:</strong> Secure vehicle access control is a critical component of modern infrastructure. Inspired by the automated gate systems at the Soldiers and Sailors Garage, this project aimed to design and build a fully functional, miniaturized RFID-based authentication system. The goal was to replicate real-world parking lot functionality, including user authentication, automated actuation, and safety sensing.
+        [cite_start]<strong>Concept & Inspiration:</strong> This project is a functional prototype of an automated parking gate system [cite: 1340][cite_start], directly inspired by the gate system at the Soldiers and Sailors Garage where I park daily for university[cite: 1352]. Fascinated by the mechanism that controls secure vehicle entry, I challenged myself to replicate and improve upon this real-world system using embedded technology.
       </p>
       <p>
-        <strong>The Innovation:</strong> This system integrates multiple subsystems—RFID authentication, LCD user feedback, servo actuation, and ultrasonic safety sensors—into a cohesive, standalone unit. Unlike simple keypads, this system provides a contactless, secure, and automated experience with visual and audio feedback for the user.
+        <strong>The Solution:</strong> The system addresses the need for secure, efficient, and contactless vehicle management. [cite_start]Unlike simple manual gates, this prototype integrates an RFID-based authentication system with an automated mechanical gate[cite: 1340]. [cite_start]It features an interactive 16x2 LCD interface to prompt users [cite: 1341][cite_start], a servo-actuated gate arm [cite: 1342][cite_start], and an intelligent ultrasonic sensor loop that prevents the gate from closing until the vehicle has safely passed[cite: 1344].
       </p>
       <p>
-        <strong>My Role (Solo Engineer):</strong> As this was an individual project, I was responsible for the full engineering stack:
+        <strong>My Role :</strong> As an individual project, I was responsible for every phase of the engineering lifecycle:
       </p>
       <ul>
-        <li><strong>Electrical Engineering:</strong> Designing the power architecture and custom PCB.</li>
-        <li><strong>Firmware Engineering:</strong> Writing the C++ code to coordinate sensors and logic.</li>
-        <li><strong>Mechanical Design:</strong> Fabricating a custom enclosure for component housing.</li>
+        [cite_start]<li><strong>Electrical Engineering:</strong> Designed the mixed-voltage power architecture and fabricated the custom PCB[cite: 2027].</li>
+        [cite_start]<li><strong>Firmware Engineering:</strong> Wrote the C++ firmware to coordinate the RFID reader, servo timing, and safety sensors[cite: 1367].</li>
+        [cite_start]<li><strong>Mechanical Design:</strong> Modeled and fabricated a custom enclosure using SolidWorks and woodworking tools[cite: 2150].</li>
       </ul>
     </section>
 
@@ -312,22 +312,22 @@
         <div class="card">
           <h5>System Architecture</h5>
           <p>
-            The system is built around a standalone <strong>ATmega328P microcontroller</strong>. It features a dual-voltage power architecture to support mixed-signal components.
+            [cite_start]The system is built around a standalone <strong>ATmega328P microcontroller</strong>[cite: 1367]. It features a dual-voltage power architecture to support mixed-signal components.
           </p>
           <ul>
             <li><strong>Processing:</strong> ATmega328P (16MHz Internal Clock).</li>
-            <li><strong>Authentication:</strong> MFRC522 RFID Module (13.56 MHz).</li>
-            <li><strong>User Interface:</strong> 16x2 LCD (I2C) + Piezo Speaker + LEDs.</li>
-            <li><strong>Actuation:</strong> Micro Servo Motor (PWM Controlled).</li>
-            <li><strong>Safety:</strong> HC-SR04 Ultrasonic Sensor for vehicle detection.</li>
+            [cite_start]<li><strong>Authentication:</strong> MFRC522 RFID Module (13.56 MHz)[cite: 1365].</li>
+            [cite_start]<li><strong>User Interface:</strong> 16x2 LCD (I2C) + Piezo Speaker + Status LEDs[cite: 1363, 1371].</li>
+            [cite_start]<li><strong>Actuation:</strong> Micro Servo Motor (PWM Controlled)[cite: 1364].</li>
+            [cite_start]<li><strong>Safety:</strong> HC-SR04 Ultrasonic Sensor for vehicle detection[cite: 1366].</li>
           </ul>
         </div>
         <div class="card">
           <h5>Design Challenges Solved</h5>
           <ul>
-            <li><strong>Mixed Voltage Logic:</strong> The RFID sensor requires 3.3V logic, while the servo and LCD require 5V. I designed a custom regulator circuit to bridge these domains safely.</li>
-            <li><strong>Resource Optimization:</strong> With limited pins on the ATmega328P, I utilized I2C for the LCD to save GPIO lines for sensors.</li>
-            <li><strong>Power Stability:</strong> To prevent servo motor noise from resetting the microcontroller, I implemented decoupling capacitors and separate power rails on the PCB.</li>
+            [cite_start]<li><strong>Mixed Voltage Logic:</strong> The RFID sensor requires 3.3V logic, while the servo and LCD require 5V[cite: 1777]. [cite_start]I designed a custom regulator circuit using LM7805 and LM2937 chips to bridge these domains safely[cite: 2018].</li>
+            <li><strong>Resource Optimization:</strong> With limited pins on the ATmega328P, I utilized the I2C protocol for the LCD to save GPIO lines for sensors.</li>
+            [cite_start]<li><strong>Power Stability:</strong> To prevent servo motor noise from resetting the microcontroller, I implemented decoupling capacitors and separate power rails on the PCB[cite: 2031].</li>
           </ul>
         </div>
       </div>
@@ -336,7 +336,7 @@
     <section>
       <h4>3. Hardware Design & PCB Implementation</h4>
       <p>
-        Moving from a breadboard prototype to a final product required a custom PCB design. The primary challenge was integrating the voltage regulation directly onto the board to eliminate external power bricks.
+        Moving from a breadboard prototype to a final product required a custom PCB design. [cite_start]The primary challenge was integrating the voltage regulation directly onto the board to eliminate external power bricks[cite: 2017].
       </p>
       
       <div class="tech-grid">
@@ -346,20 +346,20 @@
             The system is powered by a 9V source. I engineered a dual-regulator circuit directly on the PCB:
           </p>
           <ul>
-            <li><strong>5V Rail:</strong> An <strong>LM7805CV</strong> linear regulator powers the ATmega328P, LCD, and Servo.</li>
-            <li><strong>3.3V Rail:</strong> An <strong>LM2937ET-3.3</strong> regulator provides clean power to the sensitive MFRC522 RFID module.</li>
-            <li><strong>Thermal Management:</strong> Regulators were spaced to dissipate heat, and decoupling capacitors were placed close to the power pins to filter high-frequency noise.</li>
+            [cite_start]<li><strong>5V Rail:</strong> An <strong>LM7805CV</strong> linear regulator powers the ATmega328P, LCD, and Servo[cite: 2018].</li>
+            [cite_start]<li><strong>3.3V Rail:</strong> An <strong>LM2937ET-3.3</strong> regulator provides clean power to the sensitive MFRC522 RFID module[cite: 2031].</li>
+            [cite_start]<li><strong>Thermal Management:</strong> Regulators were spaced to dissipate heat, and decoupling capacitors were placed close to the power pins to filter high-frequency noise[cite: 2032].</li>
           </ul>
         </div>
         <div class="card">
           <h5>PCB Design Strategy</h5>
           <p>
-            Designed in <strong>Altium Designer</strong>, the PCB features:
+            [cite_start]Designed in <strong>Altium Designer</strong>[cite: 2030], the PCB features:
           </p>
           <ul>
-            <li><strong>Modular Headers:</strong> Instead of soldering components directly, I used female headers for the RFID, Ultrasonic, and Servo connections. This allows for easy replacement of faulty sensors.</li>
-            <li><strong>ISP Programming Header:</strong> Included to allow in-circuit programming of the ATmega328P without removing the chip.</li>
-            <li><strong>Compact Layout:</strong> Traces were routed to minimize cross-talk between the high-current servo lines and the sensitive RFID SPI lines.</li>
+            [cite_start]<li><strong>Modular Headers:</strong> Instead of soldering components directly, I used female headers for the RFID, Ultrasonic, and Servo connections[cite: 2033]. This allows for easy replacement of faulty sensors.</li>
+            [cite_start]<li><strong>ISP Programming Header:</strong> Included to allow in-circuit programming of the ATmega328P without removing the chip[cite: 2035].</li>
+            [cite_start]<li><strong>Compact Layout:</strong> Traces were routed to minimize cross-talk between the high-current servo lines and the sensitive RFID SPI lines[cite: 2037].</li>
           </ul>
         </div>
       </div>
@@ -367,24 +367,24 @@
       <div class="image-gallery">
         <div class="gallery-item">
           <img src="images/RFID%20GATE%20OPENER/RFID%20GATE%20OPENER%20schematic.png" alt="RFID Gate Opener Schematic">
-          <div class="caption">1. System Schematic: Showing ATmega328P, Dual Voltage Regulators, and Sensor Interfaces.</div>
+          <div class="caption">1. [cite_start]System Schematic: Showing ATmega328P, Dual Voltage Regulators, and Sensor Interfaces[cite: 2065].</div>
         </div>
         <div class="gallery-item">
           <img src="images/RFID%20GATE%20OPENER/RFID%20GATE%20OPENER%20pcb.png" alt="RFID Gate Opener PCB">
-          <div class="caption">2. Custom PCB Layout: Optimized for compact enclosure fitment with modular headers.</div>
+          <div class="caption">2. [cite_start]Custom PCB Layout: Optimized for compact enclosure fitment with modular headers[cite: 2074].</div>
         </div>
       </div>
     </section>
 
     <section>
-      <h4>4. Firmware & Software Implementation</h4>
+      <h4>4. Firmware & Software Implementation (Sample Code)</h4>
       <p>
-        I wrote the firmware in C++ using the Arduino IDE. The logic relies on a state machine that handles card scanning, authentication, and safety checks before moving the gate. Below are snippets of the core logic I implemented.
+        I wrote the firmware in C++ using the Arduino IDE. The logic relies on a state machine that handles card scanning, authentication, and safety checks before moving the gate. [cite_start]Below are <strong>sample snippets</strong> of the core logic I implemented[cite: 1431].
       </p>
 
       <div class="code-window">
         <div class="code-header">
-          <span>File: RFID_Logic.ino</span>
+          <span>File: RFID_Logic.ino (Sample)</span>
           <span>Role: Authentication & Access Control</span>
         </div>
         <pre class="code-content">
@@ -412,7 +412,7 @@
 
       <div class="code-window">
         <div class="code-header">
-          <span>File: Gate_Control.ino</span>
+          <span>File: Gate_Control.ino (Sample)</span>
           <span>Role: Actuation & Safety Sensing</span>
         </div>
         <pre class="code-content">
@@ -454,7 +454,7 @@
     <section>
       <h4>5. Project Demonstration</h4>
       <div class="video-container">
-        <p style="color: #ccc; margin-bottom: 15px;">Video demonstrating the full authentication cycle, servo actuation, and safety sensor logic.</p>
+        [cite_start]<p style="color: #ccc; margin-bottom: 15px;">Video demonstrating the full authentication cycle, servo actuation, and safety sensor logic[cite: 2168].</p>
         <video controls autoplay loop muted playsinline>
           <source src="images/RFID%20GATE%20OPENER/RFID-Based%20Smart%20Car%20Gate%20Opener.webm" type="video/webm">
           Your browser does not support the video tag.
@@ -472,17 +472,31 @@
             <span class="skill-tag">Mixed-Signal PCB Layout</span>
             <span class="skill-tag">Voltage Regulation (LM7805/LM2937)</span>
             <span class="skill-tag">Soldering & Fabrication</span>
-            <span class="skill-tag">Circuit Prototyping</span>
+            <span class="skill-tag">Datasheet Analysis</span>
+            <span class="skill-tag">Power Budgeting</span>
+            <span class="skill-tag">Circuit Analysis</span>
           </div>
         </div>
         <div class="card">
           <h5>Firmware & Logic</h5>
           <div>
-            <span class="skill-tag">C++ (Arduino)</span>
+            <span class="skill-tag">C++ (Arduino IDE)</span>
             <span class="skill-tag">SPI Communication (RFID)</span>
             <span class="skill-tag">I2C Communication (LCD)</span>
             <span class="skill-tag">PWM Control (Servo)</span>
             <span class="skill-tag">State Machine Design</span>
+            <span class="skill-tag">System Integration</span>
+            <span class="skill-tag">Debugging & Troubleshooting</span>
+          </div>
+        </div>
+        <div class="card">
+          <h5>Mechanical & Design</h5>
+          <div>
+            <span class="skill-tag">SolidWorks</span>
+            <span class="skill-tag">Enclosure Design</span>
+            <span class="skill-tag">Woodworking Fabrication</span>
+            <span class="skill-tag">Rapid Prototyping</span>
+            <span class="skill-tag">Project Documentation</span>
           </div>
         </div>
       </div>
