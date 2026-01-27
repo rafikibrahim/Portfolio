@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Rafik Ibrahim - Hardware Engineer - Bark It! Interactive Dog Trainer" />
+  <meta name="description" content="Rafik Ibrahim - Hardware Engineer - Bark It! Interactive Game" />
   <title>Bark It! | Rafik Ibrahim</title>
   <link rel="stylesheet" href="style.css" />
   <style>
@@ -15,13 +15,12 @@
       --bg-deep: #020204;
       --bg-panel: #0f0f13;
       --accent-cyan: #00f2ff;
-      --accent-orange: #ff9100; /* Orange for "Playful/Dog" vibe */
+      --accent-orange: #ff9100; /* Orange for the playful nature of the project */
       --accent-purple: #bd00ff;
       --text-primary: #ffffff;
       --text-secondary: #a0a0b0;
       --border-light: rgba(255, 255, 255, 0.08);
       --glass-surface: rgba(20, 20, 30, 0.7);
-      --code-bg: #1e1e1e;
     }
 
     body {
@@ -134,38 +133,38 @@
       font-size: 1.5rem;
     }
 
-    /* CODE BLOCKS */
-    .code-window {
-      background: var(--code-bg);
+    /* DATA TABLES */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-panel);
       border-radius: 12px;
-      border: 1px solid var(--border-light);
       overflow: hidden;
       margin: 30px 0;
-      font-family: 'Consolas', 'Monaco', monospace;
+      border: 1px solid var(--border-light);
     }
 
-    .code-header {
-      background: #252526;
-      padding: 10px 20px;
-      border-bottom: 1px solid var(--border-light);
-      display: flex;
-      justify-content: space-between;
-      color: #ccc;
-      font-size: 0.9rem;
-    }
-
-    .code-content {
+    .data-table th, .data-table td {
       padding: 20px;
-      overflow-x: auto;
-      color: #dcdcdc;
-      font-size: 0.95rem;
-      line-height: 1.5;
+      text-align: left;
+      border-bottom: 1px solid var(--border-light);
     }
 
-    .keyword { color: #569cd6; }
-    .type { color: #4ec9b0; }
-    .string { color: #ce9178; }
-    .comment { color: #6a9955; font-style: italic; }
+    .data-table th {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+    }
+
+    .data-table td {
+      color: var(--text-secondary);
+    }
+
+    .data-table tr:last-child td {
+      border-bottom: none;
+    }
 
     /* IMAGE GALLERY */
     .image-gallery {
@@ -287,24 +286,21 @@
 
   <div class="container">
     
-    <h3 style="margin-bottom: 40px;">Bark It! Interactive Cognitive Trainer</h3>
+    <h3 style="margin-bottom: 40px;">Bark It! Interactive Sensor-Based Game</h3>
 
     <section>
-      <h4>1. Introduction & Motivation</h4>
+      <h4>1. Project Overview & Competitive Edge</h4>
       <p>
-        <strong>The Mission:</strong> "Bark It!" is an automated, sensor-driven gaming system designed to provide both mental and physical enrichment for canines. The project goal was to build a device that challenges dogs with varying stimuli, rewarding them for correct actions while providing entertainment for their owners through a competitive scoring system.
+        <strong>The Engineering Mission:</strong> Bark It! is a sensor-driven interactive game that brings the complexity of embedded systems to canine enrichment. Unlike standard toys, this project required designing a robust hardware system capable of interpreting physical commands—tugging, digging, and placing—in real-time. The goal was to build a device that provides mental and physical stimulation through an increasing difficulty curve, similar to the classic "Bop It" game.
       </p>
       <p>
-        <strong>The Mechanics:</strong> Inspired by the classic "Bop It!" toy, the system randomly issues one of three commands—"Tug It," "Dig It," or "Place It." The dog must interpret the auditory cue and interact with the correct physical sensor within a decreasing time limit. Success extends the game streak and increases the speed, while failure triggers a game-over state.
-      </p>
-      <p>
-        <strong>My Contribution:</strong> Working in a multidisciplinary team, I focused heavily on the <strong>hardware integration and PCB design</strong>. I was responsible for selecting robust sensors capable of withstanding canine interaction, designing the custom circuit board to minimize wiring clutter, and validating the mixed-signal logic between the sensors and the microcontroller.
+        <strong>System Complexity:</strong> This project simulates a competitive product development environment, moving from conceptual sketches to a fully integrated hardware prototype. It features a custom-designed PCB to manage multiple sensor inputs, an LCD for real-time score tracking, and an automated state-machine architecture that coordinates audio cues with user inputs. The system demonstrates the ability to integrate distinct hardware components into a unified, reliable product.
       </p>
     </section>
 
     <section>
       <div class="video-container">
-        <p style="color: #ccc; margin-bottom: 15px;">Preliminary Testing: Validating Sensor Logic and Game Loop</p>
+        <p style="color: #ccc; margin-bottom: 15px;">System Validation: Testing Sensor Response and Game Logic</p>
         <video controls autoplay loop muted playsinline>
           <source src="images/Bark_it/bark%20it.webm" type="video/webm">
           Your browser does not support the video tag.
@@ -315,55 +311,57 @@
     <section>
       <div class="tech-grid">
         <div class="card">
-          <h5>Sensor Architecture</h5>
+          <h5>My Role: Lead Hardware Engineer</h5>
           <p>
-            The system relies on three distinct electromechanical inputs, each requiring unique signal processing:
+            I took ownership of the <strong>Hardware Design and Physical Integration</strong> phases. My focus was on creating a reliable electrical foundation that could support the game's logic.
           </p>
           <ul>
-            <li><strong>Tug It (Analog):</strong> A rope tethered to an analog joystick. The system reads voltage changes on the X/Y axes to detect a "pull" event.</li>
-            <li><strong>Dig It (Digital):</strong> A large, high-visibility red push button. The firmware implements a counter to detect three rapid presses, simulating a digging motion.</li>
-            <li><strong>Place It (State Machine):</strong> A ball transfer task monitored by dual limit switches. The logic requires a specific sequence (Switch A releases -> Switch B triggers) to validate the move.</li>
+            <li><strong>PCB Design:</strong> Transitioned the circuit from a complex breadboard prototype to a streamlined, custom Printed Circuit Board using Altium Designer.</li>
+            <li><strong>Sensor Optimization:</strong> Evaluated and selected input components (Joysticks, Limit Switches) based on reliability and signal stability.</li>
+            <li><strong>System Integration:</strong> Managed the wiring and layout within the laser-cut enclosure to ensure components remained secure during interaction.</li>
+            <li><strong>Critical Problem Solving:</strong> Led the decision to pivot from ultrasonic sensors to limit switches for the "Place It" command to eliminate signal noise.</li>
           </ul>
         </div>
         <div class="card">
-          <h5>Hardware Specifications</h5>
+          <h5>Technical Specifications</h5>
           <ul>
-            <li><strong>Microcontroller:</strong> ATMega32 (8-bit AVR).</li>
-            <li><strong>Display:</strong> 16x2 LCD for score tracking and visual feedback.</li>
-            <li><strong>Audio:</strong> Active Buzzer for distinct command tones.</li>
-            <li><strong>PCB:</strong> Custom 2-layer board with modular 2-pin connectors.</li>
-            <li><strong>Enclosure:</strong> Laser-cut 1/8" plywood with sliding joinery.</li>
+            <li><strong>Central Processor:</strong> ATMega32 Microcontroller.</li>
+            <li><strong>Input Sensors:</strong> Analog Joystick (Tug), Red Push Button (Dig), SPDT Limit Switches (Place).</li>
+            <li><strong>User Feedback:</strong> 16x2 LCD Screen and Piezo Buzzer.</li>
+            <li><strong>Power System:</strong> 5V Regulated supply with noise filtering for analog lines.</li>
+            <li><strong>Enclosure:</strong> Custom-designed plywood housing with sliding joinery.</li>
           </ul>
         </div>
       </div>
     </section>
 
     <section>
-      <h4>3. Hardware Design & PCB Implementation</h4>
+      <h4>2. Advanced Hardware Implementation</h4>
       <p>
-        Transitioning from a breadboard mess to a reliable product was critical, especially given the physical nature of the user (a dog). I led the design of a custom PCB to centralize all connections.
+        The hardware design required precise coordination between the electrical circuit and the physical enclosure. I utilized industry-standard tools to create a professional-grade prototype.
       </p>
       
       <div class="tech-grid">
         <div class="card">
-          <h5>PCB Design Strategy</h5>
+          <h5>PCB Engineering & Layout</h5>
           <p>
-            I designed the PCB to serve as a modular "motherboard" for the doghouse enclosure.
+            I designed a custom PCB to serve as the central hub for the game, replacing a chaotic web of wires with a reliable, manufactured board.
           </p>
           <ul>
-            <li><strong>Modular I/O:</strong> Instead of soldering sensors directly, I implemented JST and standard 0.1" headers for all external components (Joystick, Buttons, Switches). This allowed us to route wires through the enclosure walls easily during assembly.</li>
-            <li><strong>Noise Filtering:</strong> The joystick lines included pull-down resistors and capacitors to prevent floating signals from triggering false "Tug" events.</li>
-            <li><strong>Layout Optimization:</strong> The Keep-Out layer was utilized to ensure safety margins, and traces were routed to separate the noisy buzzer PWM signals from the sensitive analog joystick lines.</li>
+            <li><strong>Signal Routing:</strong> Routed traces to separate the noise-sensitive analog joystick signals from the high-frequency digital lines of the LCD and buzzer.</li>
+            <li><strong>Component Interface:</strong> Implemented modular headers for all external sensors. This design choice allowed us to mount sensors on the enclosure walls and run wires back to the PCB cleanly.</li>
+            <li><strong>Stability:</strong> Included necessary pull-down resistors and decoupling capacitors directly on the board to ensure stable logic levels for the ATMega32.</li>
           </ul>
         </div>
         <div class="card">
-          <h5>The "Place It" Engineering Challenge</h5>
+          <h5>Engineering Challenge: Sensor Reliability</h5>
           <p>
-            <strong>Problem:</strong> Initially, we used an ultrasonic sensor to detect the ball. However, the dog's fur and erratic movement caused constant false positives, breaking the game loop.
+            A major engineering hurdle occurred with the "Place It" command.
           </p>
-          <p>
-            <strong>Solution:</strong> We pivoted to a mechanical solution using **Limit Switches**. I designed a custom wooden lever arm inside the "Place It" bin. When the ball is dropped, its weight physically depresses the switch. This binary mechanical input proved 100% reliable compared to the noisy acoustic data of the ultrasonic sensor.
-          </p>
+          <ul>
+            <li><strong>The Problem:</strong> We initially planned to use an ultrasonic sensor to detect when the ball was placed. However, testing revealed that the sensor was unreliable due to signal scattering from the ball's curved surface.</li>
+            <li><strong>The Solution:</strong> I re-engineered the input to use a <strong>Limit Switch</strong> mechanism. I designed a physical lever arm that triggers the switch when the ball drops. This mechanical approach provided a clean, binary signal (High/Low) that was far more reliable than the ultrasonic data, ensuring the game functioned correctly every time.</li>
+          </ul>
         </div>
       </div>
 
@@ -374,71 +372,74 @@
         </div>
         <div class="gallery-item">
           <img src="images/Bark_it/bark%20it%20pcb.png" alt="Bark It Custom PCB">
-          <div class="caption">2. Custom PCB Layout: Features modular connectors for distributed sensors.</div>
+          <div class="caption">2. Custom PCB Layout: Engineered for modularity with external sensor headers.</div>
         </div>
       </div>
     </section>
 
     <section>
-      <h4>4. Firmware Logic (Sample Snippets)</h4>
+      <h4>3. Sensor Integration & Functionality</h4>
       <p>
-        The firmware operates on a tight loop that manages random command generation and input polling. Below is a representation of the input validation logic used for the "Dig It" command.
+        The core of the project relies on interpreting physical actions into digital logic. Each command utilizes a specific sensor chosen for its mechanical properties.
       </p>
 
-      <div class="code-window">
-        <div class="code-header">
-          <span>File: Input_Validation.c (Sample)</span>
-          <span>Role: Sensor Debouncing & Logic</span>
-        </div>
-        <pre class="code-content">
-<span class="comment">// Function to validate 'Dig It' (3 Rapid Presses)</span>
-<span class="type">bool</span> <span class="type">checkDigIt</span>() {
-    <span class="type">int</span> pressCount = 0;
-    <span class="type">unsigned long</span> startTime = millis();
-
-    <span class="keyword">while</span> ((millis() - startTime) < gameTimer) {
-        <span class="comment">// Read Button State (Active Low)</span>
-        <span class="keyword">if</span> (digitalRead(DIG_BTN) == LOW) {
-            delay(50); <span class="comment">// Debounce delay</span>
-            <span class="keyword">if</span> (digitalRead(DIG_BTN) == LOW) {
-                pressCount++;
-                <span class="keyword">while</span>(digitalRead(DIG_BTN) == LOW); <span class="comment">// Wait for release</span>
-            }
-        }
-        
-        <span class="comment">// Success Condition</span>
-        <span class="keyword">if</span> (pressCount >= 3) {
-            lcd.print(<span class="string">"Good Boy!"</span>);
-            return <span class="keyword">true</span>;
-        }
-    }
-    return <span class="keyword">false</span>; <span class="comment">// Timeout</span>
-}</pre>
-      </div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Command</th>
+            <th>Sensor Component</th>
+            <th>Hardware Implementation</th>
+            <th>Engineering Function</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Tug It</strong></td>
+            <td>Analog Joystick</td>
+            <td>Voltage Divider (X/Y Axis)</td>
+            <td>Detects directional movement when the rope is pulled. The joystick's internal potentiometers provide an analog voltage change read by the ATMega32 ADC.</td>
+          </tr>
+          <tr>
+            <td><strong>Dig It</strong></td>
+            <td>Large Push Button</td>
+            <td>Digital Input (Active Low)</td>
+            <td>A durable interface for paw presses. Wired with pull-up resistors to ensure a clean transition from High to Low voltage when actuated.</td>
+          </tr>
+          <tr>
+            <td><strong>Place It</strong></td>
+            <td>Limit Switch</td>
+            <td>Mechanical Trigger</td>
+            <td>Replaced unreliable ultrasonic sensors. The switch creates a physical break/make in the circuit when the ball's weight depresses the lever.</td>
+          </tr>
+        </tbody>
+      </table>
     </section>
 
     <section>
-      <h4>5. Engineering Skills Applied</h4>
+      <h4>4. Engineering Skills & Tools Applied</h4>
       <div class="tech-grid">
         <div class="card">
-          <h5>Hardware & Electronics</h5>
+          <h5>Hardware & Design</h5>
           <div>
-            <span class="skill-tag">PCB Design</span>
-            <span class="skill-tag">Sensor Characterization</span>
-            <span class="skill-tag">Electromechanical Integration</span>
-            <span class="skill-tag">Rapid Prototyping</span>
-            <span class="skill-tag">Soldering</span>
-            <span class="skill-tag">Circuit Analysis</span>
+            <span class="skill-tag">PCB Design (Altium)</span>
+            <span class="skill-tag">Schematic Capture</span>
+            <span class="skill-tag">Sensor Selection</span>
+            <span class="skill-tag">Circuit Prototyping</span>
+            <span class="skill-tag">Soldering & Assembly</span>
+            <span class="skill-tag">SolidWorks (Enclosure)</span>
+            <span class="skill-tag">Laser Cutting</span>
           </div>
         </div>
         <div class="card">
-          <h5>System Design</h5>
+          <h5>System Integration</h5>
           <div>
-            <span class="skill-tag">SolidWorks (Enclosure)</span>
-            <span class="skill-tag">State Machine Logic</span>
-            <span class="skill-tag">User Interface Design</span>
-            <span class="skill-tag">Failure Mode Analysis</span>
+            <span class="skill-tag">Signal Integrity</span>
+            <span class="skill-tag">Failure Analysis</span>
+            <span class="skill-tag">System Debugging</span>
+            <span class="skill-tag">Technical Documentation</span>
             <span class="skill-tag">Team Collaboration</span>
+            <span class="skill-tag">Project Management</span>
+            <span class="skill-tag">Design Verification</span>
           </div>
         </div>
       </div>
