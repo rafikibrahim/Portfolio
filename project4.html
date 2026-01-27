@@ -83,6 +83,8 @@
       font-weight: 600;
     }
 
+    a { text-decoration: none; transition: 0.3s; }
+
     /* LAYOUT CONTAINERS */
     .container {
       max-width: 1400px;
@@ -95,7 +97,7 @@
     }
 
     /* ========================================
-       NAVBAR (Unified with Home Page)
+       NAVBAR (FIXED: ALIGNS NAME TO LEFT)
        ========================================
     */
     .navbar {
@@ -109,10 +111,10 @@
     }
 
     .navbar-inner {
-      max-width: 1400px; /* Aligned with content width */
+      max-width: 1200px; /* MATCHES HOME PAGE WIDTH */
       margin: 0 auto;
       display: flex;
-      justify-content: space-between;
+      justify-content: space-between; /* This pushes Name Left and Links Right */
       align-items: center;
       padding: 0 30px;
     }
@@ -129,11 +131,9 @@
       color: var(--text-secondary);
       margin-left: 30px;
       font-weight: 500;
-      text-decoration: none;
-      transition: color 0.3s;
     }
 
-    /* Active Link Highlight */
+    /* Active Link Highlight - Sky Blue */
     .navbar nav a:hover, .navbar nav a.active {
       color: var(--accent-cyan);
     }
@@ -271,6 +271,14 @@
       margin: 5px 5px 0 0;
       font-size: 0.9rem;
       color: var(--accent-cyan);
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 60px 0;
+      border-top: 1px solid var(--border-light);
+      color: var(--text-secondary);
     }
 
     @media (max-width: 900px) {
