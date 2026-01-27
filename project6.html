@@ -30,6 +30,16 @@
     </div>
 
     <div class="section-title">
+      <h4>Project Demonstration</h4>
+    </div>
+    <div class="project-video-container" style="text-align: center; margin: 20px 0;">
+      <video width="30%" height="auto" autoplay loop muted playsinline controls style="border-radius: 8px; border: 2px solid #333; background-color: #000;">
+        <source src="images/Autonomous%20Line-Following%20Robot/Autonomous%20Line-Following%20Robot.webm" type="video/webm">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div class="section-title">
       <h4>1. System Architecture & Hardware</h4>
     </div>
     <p>The robot is built on a modular chassis designed for stability and rapid response:</p>
@@ -58,6 +68,8 @@
       <li><strong>Stop State:</strong> If both sensors detect the black line (e.g., at a finish line), the system executes a full stop command to all motor pins.</li>
     </ul>
 
+    
+
     <div class="section-title">
       <h4>3. Engineering Challenges & Optimization</h4>
     </div>
@@ -67,8 +79,6 @@
       <li><strong>Sensitivity Calibration:</strong> I implemented a hardware-level calibration routine using the onboard potentiometers of the IR modules to ensure a 4cm wide path could be reliably detected regardless of the floor's reflectivity.</li>
       <li><strong>Adaptive Speed Scaling:</strong> The software includes a variable speed constant that allows for real-time calibration based on battery voltage drop, maintaining a consistent performance profile throughout the discharge cycle.</li>
     </ul>
-
-    
 
     <div class="section-title">
       <h4>4. Performance Results</h4>
