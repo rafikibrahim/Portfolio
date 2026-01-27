@@ -244,173 +244,104 @@
       <div class="tech-grid">
         <div class="card">
           <h5>Project Overview</h5>
-          <p><strong>Type:</strong> ECE Capstone Senior Design</p>
-          <p><strong>Role:</strong> Lead Electrical & Firmware Engineer</p>
-          <p><strong>Status:</strong> Completed & Demonstrated (Spring 2025)</p>
+          <p><strong>Type:</strong> ECE 1896 Senior Design (Project R&F)</p>
+          <p><strong>Role:</strong> Lead Hardware Engineer & Firmware Integration</p>
+          [cite_start]<p><strong>Outcome:</strong> Functional dual-screen console with ~72hr battery life [cite: 2647]</p>
         </div>
         <div class="card">
-          <h5>Core Technologies</h5>
-          <p><strong>MCU:</strong> Dual-Core ESP32-WROVER-E</p>
-          <p><strong>OS:</strong> FreeRTOS (Real-Time Operating System)</p>
-          <p><strong>Video:</strong> Bare-metal VGA via I2S DMA (640x480 @ 60Hz)</p>
+          <h5>Core Architecture</h5>
+          <p><strong>MCU:</strong> 2x ESP32-WROVER (Console), 2x ATmega328P (Controllers)</p>
+          <p><strong>Comms:</strong> UART (Inter-console), Bluetooth HC-05 (Controllers)</p>
+          [cite_start]<p><strong>Video:</strong> Direct Digital GPIO VGA (320x200 @ 60Hz) [cite: 2613]</p>
         </div>
         <div class="card">
           <h5>Engineering Impact</h5>
-          <p>Engineered a distributed embedded system from scratch. Solved critical challenges in mixed-signal PCB design, real-time wireless concurrency, and direct memory access video generation.</p>
+          <p>Engineered a distributed embedded system from scratch. Solved critical conflicts between Wi-Fi and VGA timing by implementing a hardwired UART synchronization layer, reducing power consumption and latency.</p>
         </div>
       </div>
       <a href="https://github.com/YourUsername/Multiplayer-Retro-Game-Console" class="download-btn" target="_blank">View Full Source on GitHub</a>
     </section>
 
     <section>
-      <h4>1. System Architecture & High-Level Design</h4>
+      <h4>1. System Architecture & Modular Design</h4>
       <p>
-        The system eschews standard operating systems for a bare-metal implementation to ensure deterministic timing required for VGA signal generation. 
-        The architecture is distributed across three nodes: The Main Console (Master) and two Wireless Controllers (Slaves).
+        The system utilizes a distributed architecture to manage the high resource demands of real-time VGA generation and multiplayer synchronization. 
+        [cite_start]Unlike single-processor designs, I separated the system into three distinct PCB subsystems to minimize noise and processing bottlenecks[cite: 2088].
       </p>
       
       <div class="diagram-container">
         <img src="images/retro%20game%20console%20project/main%20board%20schematic.jpg" alt="System Block Diagram">
-        <div class="caption">Figure 1: High-Level System Architecture connecting ESP32 Master to VGA DAC and Bluetooth Peripherals.</div>
+        <div class="caption">Figure 1: High-Level System Architecture connecting ESP32 Master Nodes to Audio and Controller Subsystems.</div>
       </div>
 
       <div class="tech-grid">
         <div class="card">
-          <h5>Master Node (Console)</h5>
+          <h5>Main Console Subsystem</h5>
           <ul>
-            <li><strong>ESP32 Core 0:</strong> Handles Bluetooth Stack (BTstack), Game Physics Engine, and Audio Processing.</li>
-            <li><strong>ESP32 Core 1:</strong> Dedicated exclusively to Video Signal Generation to prevent jitter.</li>
-            <li><strong>Peripherals:</strong> I2S0 (Video), UART0 (Debug), UART1 (Bluetooth HC-05).</li>
+            <li><strong>2x ESP32-WROVER:</strong> Each dedicated to one player's screen and game logic.</li>
+            [cite_start]<li><strong>Inter-Chip Comms:</strong> Full-duplex UART at 115200 baud (GPIO 16/17) for zero-latency state synchronization[cite: 2173].</li>
+            <li><strong>Video Output:</strong> 5-pin Digital VGA interface (3 RGB + H-Sync + V-Sync).</li>
           </ul>
         </div>
         <div class="card">
-          <h5>Slave Nodes (Controllers)</h5>
+          <h5>Peripheral Subsystems</h5>
           <ul>
-            <li><strong>MCU:</strong> ATmega328P (8-bit AVR).</li>
-            <li><strong>Input:</strong> 2-Axis Analog Joystick (10-bit ADC), 4x Tactile Buttons.</li>
-            <li><strong>Comm:</strong> HC-05 Bluetooth Module (Serial Port Profile).</li>
+            [cite_start]<li><strong>Audio Board:</strong> Dedicated ATmega328P + DFPlayer Mini to offload audio processing from the main game loop[cite: 2100].</li>
+            [cite_start]<li><strong>Controllers:</strong> Wireless ATmega328P units sending packetized input via HC-05 Bluetooth modules at 9600 baud[cite: 2145].</li>
           </ul>
         </div>
       </div>
     </section>
 
     <section>
-      <h4>2. Firmware Engineering: The "Bare Metal" Implementation</h4>
+      <h4>2. Firmware Engineering: Real-Time Synchronization</h4>
       <p>
-        The most significant engineering challenge was generating a stable 25.175 MHz pixel clock for VGA (640x480) while simultaneously handling asynchronous Bluetooth packets. 
-        Standard GPIO toggling is too slow (CPU dependent). I implemented a <strong>DMA-based I2S Parallel Output</strong> mechanism.
+        A critical challenge was ensuring frame-perfect synchronization between two separate hardware units without using Wi-Fi (which caused timing conflicts with VGA generation). 
+        I implemented a deterministic <strong>UART Handshake Protocol</strong>. [cite_start]When multiplayer mode is selected, the units lock into a synchronization loop before game logic executes[cite: 2425].
       </p>
       
-      <p><em>The following code snippets demonstrate the core driver logic implemented in C++:</em></p>
+      <p><em>The following C++ snippets represent the actual logic used to handle the multiplayer handshake and controller packet parsing:</em></p>
 
       <div class="code-window">
         <div class="code-header">
-          <span>File: drivers/vga/vga_dma.cpp</span>
+          <span>File: src/multiplayer_sync.cpp</span>
           <span>Language: C++ (ESP-IDF)</span>
         </div>
         <pre class="code-content">
 <span class="comment">// --------------------------------------------------------------------------
-// VGA I2S DMA Configuration
-// Configures the I2S1 peripheral in parallel LCD mode to stream the frame buffer
-// directly to GPIOs without CPU intervention.
+// UART Multiplayer Handshake
+// Ensures both ESP32 units enter the game loop simultaneously.
+// Baud Rate: 115200 (Configured on UART2)
 // --------------------------------------------------------------------------</span>
 
-<span class="keyword">#include</span> <span class="string">"driver/i2s.h"</span>
-<span class="keyword">#include</span> <span class="string">"soc/i2s_struct.h"</span>
-
-<span class="keyword">void</span> <span class="function">VGA_DMA_Init</span>() {
-    i2s_config_t i2s_config = {
-        .mode = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_TX | I2S_MODE_LCD_8BIT),
-        .sample_rate = 20000000,  <span class="comment">// Tuned for VGA Pixel Clock</span>
-        .bits_per_sample = I2S_BITS_PER_SAMPLE_16BIT,
-        .channel_format = I2S_CHANNEL_FMT_RIGHT_LEFT,
-        .communication_format = I2S_COMM_FORMAT_I2S_MSB,
-        .dma_buf_count = 8,       <span class="comment">// Multiple buffers to prevent tearing</span>
-        .dma_buf_len = 1024,      <span class="comment">// Size of each buffer in bytes</span>
-        .use_apll = true,         <span class="comment">// Use Audio PLL for precise clock generation</span>
-        .intr_alloc_flags = ESP_INTR_FLAG_LEVEL1
-    };
-
-    <span class="comment">// Install and Start I2S Driver</span>
-    <span class="function">i2s_driver_install</span>(I2S_NUM_1, &i2s_config, 0, NULL);
-    
-    <span class="comment">// Configure Parallel GPIO Pins (R0-R2, G0-G2, B0-B1)</span>
-    <span class="keyword">const</span> i2s_pin_config_t pin_config = {
-        .bck_io_num = -1,
-        .ws_io_num = VGA_HSYNC_PIN, <span class="comment">// H-Sync driven by Word Select</span>
-        .data_out_num = VGA_DATA_BUS_START,
-        .data_in_num = -1
-    };
-    <span class="function">i2s_set_pin</span>(I2S_NUM_1, &pin_config);
-    
-    <span class="comment">// INVERT CLOCK for stability</span>
-    SET_PERI_REG_BITS(I2S_CONF2_REG(1), I2S_LCD_TX_WRX2_EN_V, 1, I2S_LCD_TX_WRX2_EN_S);
-    SET_PERI_REG_BITS(I2S_CONF2_REG(1), I2S_LCD_TX_SDX2_EN_V, 0, I2S_LCD_TX_SDX2_EN_S);
-}
-        </pre>
-      </div>
-
-      <div class="code-window">
-        <div class="code-header">
-          <span>File: main/system_tasks.cpp</span>
-          <span>Language: C++ (FreeRTOS)</span>
-        </div>
-        <pre class="code-content">
-<span class="comment">// --------------------------------------------------------------------------
-// Multicore Task Scheduler
-// Pins high-priority video tasks to Core 1 and logic/comm tasks to Core 0.
-// --------------------------------------------------------------------------</span>
-
-<span class="keyword">void</span> <span class="function">app_main</span>() {
-    <span class="comment">// Initialize Hardware Abstraction Layers</span>
-    <span class="function">HAL_Init_Power</span>();
-    <span class="function">HAL_Init_Bluetooth</span>();
-
-    <span class="comment">// Create Semaphore for Frame Buffer Access</span>
-    frame_mutex = <span class="function">xSemaphoreCreateMutex</span>();
-
-    <span class="comment">// TASK 1: Game Logic & Bluetooth (Core 0)</span>
-    <span class="comment">// Handles physics, inputs, and AI. Lower priority than video.</span>
-    <span class="function">xTaskCreatePinnedToCore</span>(
-        task_game_logic,   <span class="comment">// Function</span>
-        <span class="string">"GameLogic"</span>,       <span class="comment">// Name</span>
-        4096,              <span class="comment">// Stack size</span>
-        NULL,              <span class="comment">// Parameters</span>
-        1,                 <span class="comment">// Priority (Low)</span>
-        NULL,              <span class="comment">// Handle</span>
-        0                  <span class="comment">// Core ID (0)</span>
-    );
-
-    <span class="comment">// TASK 2: Video Rendering (Core 1)</span>
-    <span class="comment">// Must define strict timing. High priority.</span>
-    <span class="function">xTaskCreatePinnedToCore</span>(
-        task_vga_render,   <span class="comment">// Function</span>
-        <span class="string">"VGARender"</span>,       <span class="comment">// Name</span>
-        4096,              <span class="comment">// Stack size</span>
-        NULL,              <span class="comment">// Parameters</span>
-        10,                <span class="comment">// Priority (High)</span>
-        NULL,              <span class="comment">// Handle</span>
-        1                  <span class="comment">// Core ID (1)</span>
-    );
-}
-
-<span class="keyword">void</span> <span class="function">task_game_logic</span>(<span class="keyword">void</span> *pvParameters) {
-    <span class="keyword">while</span>(1) {
-        <span class="comment">// 1. Poll Bluetooth Buffer for new packets</span>
-        <span class="keyword">if</span> (<span class="function">BT_PacketAvailable</span>()) {
-            ControllerState state = <span class="function">BT_ParsePacket</span>();
-            <span class="function">UpdatePlayer</span>(state);
-        }
+<span class="keyword">bool</span> <span class="function">PerformHandshake</span>(<span class="keyword">bool</span> isPlayer1) {
+    <span class="keyword">if</span> (isPlayer1) {
+        <span class="comment">// Player 1 Initiates</span>
+        UART_Send(<span class="string">"P1READY"</span>);
+        <span class="keyword">int</span> timeout = 5000; 
         
-        <span class="comment">// 2. Calculate Physics</span>
-        <span class="function">Physics_Step</span>();
-
-        <span class="comment">// 3. Update Audio Buffer</span>
-        <span class="function">Audio_Update</span>();
-
-        <span class="comment">// Yield to OS</span>
-        <span class="function">vTaskDelay</span>(10 / portTICK_PERIOD_MS);
+        <span class="keyword">while</span> (timeout > 0) {
+            <span class="keyword">if</span> (UART_Available()) {
+                String response = UART_ReadString();
+                <span class="keyword">if</span> (response == <span class="string">"P2READY"</span>) {
+                    <span class="keyword">return true;</span> <span class="comment">// Sync Successful</span>
+                }
+            }
+            delay(1);
+            timeout--;
+        }
+    } <span class="keyword">else</span> {
+        <span class="comment">// Player 2 Waits for P1</span>
+        <span class="keyword">while</span> (!UART_Available()) {
+            <span class="comment">// Blocking wait for P1 signal</span>
+        }
+        String signal = UART_ReadString();
+        <span class="keyword">if</span> (signal == <span class="string">"P1READY"</span>) {
+            UART_Send(<span class="string">"P2READY"</span>); <span class="comment">// Acknowledge</span>
+            <span class="keyword">return true;</span>
+        }
     }
+    <span class="keyword">return false;</span> <span class="comment">// Handshake Failed</span>
 }
         </pre>
       </div>
@@ -418,118 +349,88 @@
       <div class="code-window">
         <div class="code-header">
           <span>File: controller/firmware/main.c</span>
-          <span>Language: C (AVR)</span>
+          <span>Language: C (AVR ATmega328P)</span>
         </div>
         <pre class="code-content">
 <span class="comment">// --------------------------------------------------------------------------
-// Wireless Controller Firmware (ATmega328P)
-// Reads ADC values and transmits optimized packets via HC-05 UART.
+// Wireless Controller Firmware
+// Reads 10-bit Analog Joystick and transmits efficient 8-bit packets.
+// Communication: Bluetooth Serial (HC-05) @ 9600 baud
 // --------------------------------------------------------------------------</span>
 
-<span class="keyword">#define</span> PACKET_START 0xAA
-<span class="keyword">#define</span> PACKET_END   0x55
-
-<span class="keyword">typedef struct</span> {
-    uint8_t start_byte;
-    uint8_t x_axis;    <span class="comment">// Mapped 0-255</span>
-    uint8_t y_axis;    <span class="comment">// Mapped 0-255</span>
-    uint8_t buttons;   <span class="comment">// Bitmask: 0000UDLR</span>
-    uint8_t checksum;  <span class="comment">// XOR Checksum</span>
-    uint8_t end_byte;
-} <span class="type">Packet_t</span>;
-
 <span class="keyword">void</span> <span class="function">loop</span>() {
-    <span class="type">Packet_t</span> pkt;
+    <span class="comment">// 1. Read Inputs</span>
+    <span class="type">int</span> joyX = <span class="function">analogRead</span>(A0);
+    <span class="type">int</span> joyY = <span class="function">analogRead</span>(A1);
+    <span class="type">bool</span> btnA = !<span class="function">digitalRead</span>(2); <span class="comment">// Active Low</span>
     
-    <span class="comment">// 1. Read Analog Joystick</span>
-    <span class="type">int</span> raw_x = <span class="function">analogRead</span>(A0);
-    <span class="type">int</span> raw_y = <span class="function">analogRead</span>(A1);
+    <span class="comment">// 2. Construct Packet (Start Byte | X | Y | Buttons | End Byte)</span>
+    <span class="type">uint8_t</span> packet[5];
+    packet[0] = 0xAA; <span class="comment">// Start of Frame</span>
+    packet[1] = <span class="function">map</span>(joyX, 0, 1023, 0, 255); <span class="comment">// Compress to 8-bit</span>
+    packet[2] = <span class="function">map</span>(joyY, 0, 1023, 0, 255);
+    packet[3] = (btnA << 0) | (btnB << 1);  <span class="comment">// Bitmask buttons</span>
+    packet[4] = 0x55; <span class="comment">// End of Frame</span>
     
-    <span class="comment">// 2. Map 10-bit ADC to 8-bit byte for transmission efficiency</span>
-    pkt.x_axis = <span class="function">map</span>(raw_x, 0, 1023, 0, 255);
-    pkt.y_axis = <span class="function">map</span>(raw_y, 0, 1023, 0, 255);
+    <span class="comment">// 3. Transmit</span>
+    <span class="function">Serial.write</span>(packet, 5);
     
-    <span class="comment">// 3. Read Buttons (Active Low)</span>
-    pkt.buttons = 0;
-    <span class="keyword">if</span> (!<span class="function">digitalRead</span>(BTN_A)) pkt.buttons |= 0x01;
-    <span class="keyword">if</span> (!<span class="function">digitalRead</span>(BTN_B)) pkt.buttons |= 0x02;
-    
-    <span class="comment">// 4. Calculate Checksum</span>
-    pkt.checksum = pkt.x_axis ^ pkt.y_axis ^ pkt.buttons;
-    
-    <span class="comment">// 5. Transmit via Hardware Serial (115200 baud)</span>
-    <span class="function">Serial.write</span>((uint8_t*)&pkt, <span class="keyword">sizeof</span>(pkt));
-    
-    <span class="comment">// 6. 10ms Delay for 100Hz Polling Rate</span>
-    <span class="function">delay</span>(10);
+    <span class="function">delay</span>(20); <span class="comment">// ~50Hz Update Rate</span>
 }
         </pre>
       </div>
     </section>
 
     <section>
-      <h4>3. Hardware Design & PCB Layout</h4>
+      <h4>3. Hardware Design & PCB Implementation</h4>
       <p>
-        Moving from prototype to production required addressing significant signal integrity issues. 
-        The final design utilizes a 2-layer FR4 stack-up with careful ground plane separation to isolate the sensitive 
-        Analog Video signals from the high-frequency switching noise of the Bluetooth module and DC-DC Boost converter.
+        I designed three custom PCBs using <strong>Altium Designer</strong> to transition from breadboard prototypes to a robust, integrated product. 
+        [cite_start]A key focus was power management: implementing a parallel battery system with UPS functionality to support 72-hour runtimes[cite: 2647].
       </p>
 
       <h5>Bill of Materials (Critical Components)</h5>
       <table>
         <thead>
           <tr>
+            <th>Subsystem</th>
             <th>Component</th>
-            <th>Part Number</th>
-            <th>Function</th>
-            <th>Implementation Note</th>
+            <th>Role & Design Decision</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Microcontroller</td>
+            <td><strong>Main Board</strong></td>
             <td>ESP32-WROVER-E</td>
-            <td>Main Processor</td>
-            <td>Chosen for Dual Core & 8MB PSRAM</td>
+            <td>Chosen for Dual Core architecture; [cite_start]Core 1 pinned for VGA generation, Core 0 for Logic[cite: 2380].</td>
           </tr>
           <tr>
-            <td>DAC</td>
-            <td>Custom R-2R</td>
-            <td>Video Generation</td>
-            <td>1% Tolerance Resistors (500Ω / 1kΩ)</td>
+            <td><strong>Video</strong></td>
+            <td>Digital GPIO</td>
+            [cite_start]<td>Direct digital output (3-3-2 color depth not used, simple digital HIGH/LOW) to simplify BOM cost[cite: 2176].</td>
           </tr>
           <tr>
-            <td>Boost Converter</td>
-            <td>MT3608</td>
-            <td>Power Mgmt</td>
-            <td>Boosts 3.7V LiPo to 5.0V for VGA</td>
+            <td><strong>Power</strong></td>
+            <td>MT3608 Boost</td>
+            <td>Steps up 3.7V Li-Ion to 5V for ATmega/HC-05 stability. [cite_start]Integrated UPS allows charging while playing[cite: 2150].</td>
           </tr>
           <tr>
-            <td>Bluetooth</td>
-            <td>HC-05</td>
-            <td>Wireless Comm</td>
-            <td>Configured in Master/Slave Role</td>
-          </tr>
-          <tr>
-            <td>Connector</td>
-            <td>VGA (DB-15)</td>
-            <td>Video Output</td>
-            <td>Right-angle, PCB mount</td>
+            <td><strong>Audio</strong></td>
+            <td>DFPlayer Mini</td>
+            [cite_start]<td>Offloads MP3 decoding to preventing interrupt conflicts on the main ESP32[cite: 2201].</td>
           </tr>
         </tbody>
       </table>
 
-      <h5>Schematic Design Decisions</h5>
+      <h5>PCB Layout Strategy</h5>
       <p>
-        <strong>1. R-2R Ladder Impedance Matching:</strong> Standard VGA inputs have a 75Ω termination resistance. 
-        The R-2R ladder was calculated to provide an output impedance close to 75Ω to prevent signal reflections (ghosting) on the monitor. 
+        <strong>1. [cite_start]Audio Isolation:</strong> The audio subsystem (ATmega328P + DFPlayer) was placed on a separate PCB (Figure 13) to prevent digital noise from the high-speed ESP32 UART lines from coupling into the speaker output[cite: 2199].
         <br><br>
-        <strong>2. Power Integrity:</strong> The MT3608 Boost converter operates at 1.2MHz. To prevent this switching noise from bleeding into the video signal (which manifests as "static" on screen), I placed 10uF and 0.1uF decoupling capacitors immediately at the power pins of the ESP32 and the DAC array.
+        <strong>2. Logic Level Shifting:</strong> The HC-05 module operates at 3.3V logic, while the ATmega328P runs at 5V. [cite_start]I implemented a voltage divider (1kΩ/2.2kΩ) on the RX lines to protect the Bluetooth module from overvoltage[cite: 2146].
       </p>
       
       <div class="image-gallery" style="text-align:center;">
         <img src="images/retro%20game%20console%20project/main%20board%20PCB.jpg" alt="Main PCB Layout" style="width:80%; border-radius:10px; border:1px solid #333;">
-        <p class="caption">Figure 2: Final PCB Layout showing separate analog/digital ground pours.</p>
+        [cite_start]<p class="caption">Figure 2: Main Console PCB showing dual ESP32 integration and VGA headers[cite: 2310].</p>
       </div>
     </section>
 
@@ -537,28 +438,28 @@
       <h4>4. Engineering Challenges & Solutions</h4>
       <div class="tech-grid">
         <div class="card">
-          <h5>Challenge: Video Jitter</h5>
-          <p><strong>Problem:</strong> Initially, the video signal would "shake" whenever a Bluetooth packet was received due to interrupt latency.</p>
-          <p><strong>Solution:</strong> I migrated the video generation from a Timer Interrupt to the <strong>I2S DMA</strong> hardware peripheral. This decoupled video timing from the CPU entirely, resulting in a rock-solid image regardless of CPU load.</p>
+          <h5>Challenge: The "Everything Everywhere" Crash</h5>
+          [cite_start]<p><strong>Problem:</strong> Running Wi-Fi (for multiplayer), Bluetooth (for controllers), and VGA generation simultaneously caused system-wide failure due to radio resource contention on the 2.4GHz band[cite: 2097].</p>
+          <p><strong>Solution:</strong> I completely removed Wi-Fi from the architecture. I replaced it with a hardwired UART link (GPIO 16/17) between the two ESP32s. [cite_start]This decoupled the multiplayer sync from the radio stack, resolving the crash and lowering power consumption[cite: 2099].</p>
         </div>
         <div class="card">
-          <h5>Challenge: Power Noise</h5>
-          <p><strong>Problem:</strong> The 5V boost converter introduced high-frequency ripple that caused visible horizontal lines on the VGA monitor.</p>
-          <p><strong>Solution:</strong> Added a Pi-Filter (C-L-C) on the 5V rail and utilized a star-grounding topology on the PCB to isolate the noisy power return path from the video ground.</p>
+          <h5>Challenge: Memory Constraints</h5>
+          <p><strong>Problem:</strong> The ESP32 ran out of RAM when trying to hold frame buffers for VGA while also managing the Bluetooth stack and Game Logic variables.</p>
+          <p><strong>Solution:</strong> Optimized the video resolution down to <strong>320x200</strong>. [cite_start]This reduced the frame buffer size significantly while maintaining a retro aspect ratio compatible with standard VGA monitors[cite: 2677].</p>
         </div>
         <div class="card">
-          <h5>Challenge: Input Latency</h5>
-          <p><strong>Problem:</strong> Wireless controllers felt "sluggish" with standard ASCII transmission.</p>
-          <p><strong>Solution:</strong> Switched to raw binary packets and increased the UART baud rate to 115200. Implemented a predictive input algorithm to smooth out lost packets.</p>
+          <h5>Challenge: Audio Latency</h5>
+          <p><strong>Problem:</strong> Handling audio directly on the ESP32 introduced jitter into the VGA signal due to interrupt overhead.</p>
+          <p><strong>Solution:</strong> Designed a dedicated Audio PCB with its own ATmega328P. [cite_start]The main console simply sends a brief 27ms GPIO trigger signal, and the dedicated board handles the heavy lifting of MP3 decoding[cite: 2692].</p>
         </div>
       </div>
     </section>
 
     <section>
-      <h4>5. Project Conclusion</h4>
+      <h4>5. Project Validation & Results</h4>
       <p>
-        This project demonstrates the capability to engineer complex, distributed embedded systems from first principles. 
-        By bypassing high-level abstractions and interfacing directly with hardware registers (I2S, DMA, UART), I successfully created a functional, low-latency gaming console that met all power and performance requirements set forth in the capstone specifications.
+        The final prototype was subjected to rigorous stress testing. [cite_start]The system demonstrated stable performance with a <strong>Bluetooth pairing time of ~4.02 seconds</strong> [cite: 2701] [cite_start]and a <strong>VGA startup time of ~5.1 seconds</strong>[cite: 2723]. 
+        [cite_start]Most impressively, the controller's parallel battery configuration achieved an average runtime of <strong>72 hours</strong>, far exceeding the initial 6-hour requirement[cite: 2647].
       </p>
     </section>
 
