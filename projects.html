@@ -1,98 +1,306 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Projects | Rafik Ibrahim</title>
-<link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects | Rafik Ibrahim</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========================================
+       GLOBAL VARIABLES & RESET
+       ========================================
+    */
+    :root {
+      --bg-deep: #050505;
+      --bg-panel: #121212;
+      --accent-cyan: #00f2ff;
+      --accent-blue: #0077ff;
+      --accent-purple: #bd00ff;
+      --text-primary: #ffffff;
+      --text-secondary: #b0b0b0;
+      --border-light: rgba(255, 255, 255, 0.1);
+      --glass-bg: rgba(20, 20, 30, 0.6);
+      --gradient-glow: radial-gradient(circle at 50% 50%, rgba(0, 242, 255, 0.15) 0%, transparent 50%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-deep);
+      color: var(--text-primary);
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(0, 119, 255, 0.05) 0%, transparent 25%),
+        radial-gradient(circle at 80% 80%, rgba(0, 242, 255, 0.05) 0%, transparent 25%);
+    }
+
+    h1, h2, h3, h4 {
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    a { text-decoration: none; transition: 0.3s; }
+
+    /* ========================================
+       NAVBAR
+       ========================================
+    */
+    .navbar {
+      background: rgba(5, 5, 5, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-light);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 30px;
+    }
+
+    .nav-name {
+      font-weight: 800;
+      font-size: 1.5rem;
+      background: linear-gradient(90deg, #fff, var(--accent-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .navbar nav a {
+      color: var(--text-secondary);
+      margin-left: 30px;
+      font-weight: 500;
+    }
+
+    .navbar nav a:hover, .navbar nav a.active {
+      color: var(--accent-cyan);
+    }
+
+    /* ========================================
+       PROJECTS GRID STYLES
+       ========================================
+    */
+    .projects-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px 100px;
+    }
+
+    .section-heading {
+      font-size: 3rem;
+      margin-bottom: 50px;
+      text-align: center;
+      background: linear-gradient(135deg, #fff 0%, #a0a0b0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .project-grid {
+      display: grid;
+      /* Min 450px ensures 2 cards per row on desktops */
+      grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); 
+      gap: 40px;
+    }
+
+    .project-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      height: 100%;
+    }
+
+    .project-card:hover {
+      transform: translateY(-7px);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 10px 40px rgba(0, 242, 255, 0.1);
+    }
+
+    /* MEDIA CONTAINER (Images/Videos) */
+    .media-wrapper {
+      width: 100%;
+      height: 300px; /* Fixed height for uniform grid */
+      background: #161616;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      border: 1px solid var(--border-light);
+    }
+
+    .media-wrapper img, 
+    .media-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Ensures images fill the box cleanly */
+      display: block;
+    }
+
+    /* TEXT STYLES */
+    .project-card h4 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .project-card h4 a {
+      color: #fff;
+    }
+
+    .project-card h4 a:hover {
+      color: var(--accent-cyan);
+    }
+
+    .project-card p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      margin-bottom: 20px;
+      flex-grow: 1; /* Pushes the tag to the bottom */
+    }
+
+    .project-card span {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-top: 1px solid var(--border-light);
+      padding-top: 15px;
+      width: 100%;
+    }
+
+    /* ========================================
+       FOOTER
+       ========================================
+    */
+    footer {
+      text-align: center;
+      padding: 40px;
+      border-top: 1px solid var(--border-light);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* ========================================
+       RESPONSIVE
+       ========================================
+    */
+    @media (max-width: 900px) {
+      .navbar-inner {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .project-grid {
+        grid-template-columns: 1fr; /* 1 column on mobile */
+      }
+      .media-wrapper {
+        height: 250px; /* Smaller images on mobile */
+      }
+    }
+  </style>
 </head>
 <body>
 
-<header class="navbar">
-<div class="nav-name">Rafik Ibrahim</div>
-<nav>
-<a href="index.html">Home</a>
-<a href="resume.html">Resume</a>
-<a href="projects.html">Projects</a>
-</nav>
-</header>
+  <header class="navbar">
+    <div class="navbar-inner">
+      <div class="nav-name">Rafik Ibrahim</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="resume.html">Resume</a>
+        <a href="projects.html" class="active">Projects</a>
+      </nav>
+    </div>
+  </header>
 
-<section class="projects">
-<h3>Selected Engineering Projects</h3>
+  <section class="projects-section">
+    <h3 class="section-heading">Selected Engineering Projects</h3>
 
-<div class="project-grid">
+    <div class="project-grid">
 
-<div class="project-card">
-<a href="project1.html">
-<img src="images/Low%20Voltage%20Residential%20Electrical%20Distribution%20&%20Lighting%20Design/Low%20Voltage%20Residential%20Electrical%20Distribution%20&%20Lighting%20Design.png" 
-alt="Low Voltage Residential Design" 
-style="object-fit: contain; background: #161616; width: 100%; height: 350px; border-radius: 8px; margin-bottom: 20px;">
-</a>
-<h4><a href="project1.html">Low Voltage Residential Electrical Distribution & Lighting Design</a></h4>
-<p>Comprehensive design and load analysis for residential and commercial distribution systems.</p>
-<span>Power Systems</span>
-</div>
-
-<div class="project-card">
-<a href="project2.html">
-<video width="100%" height="auto" autoplay loop muted playsinline style="border-radius: 8px; margin-bottom: 20px;">
-<source src="images/High%20Voltage%20Power%20System%20Diagnostics%20Simulator/powerworld%20simulation%20video.mp4" type="video/mp4">
-Your browser does not support the video tag.
-</video>
-</a>
-<h4><a href="project2.html">High Voltage Power System Diagnostics Simulator</a></h4>
-<p>A Python-based simulation environment for diagnosing faults and performing Newton-Raphson power flow analysis.</p>
-<span>Simulation & Analysis</span>
-</div>
-
-<div class="project-card">
-<a href="project3.html">
-<img src="images/retro%20game%20console%20project/retro%20game%20console%20project.png" alt="Retro Multiplayer Game Console">
-</a>
-<h4><a href="project3.html">Retro Multiplayer Game Console - Capstone Senior Design</a></h4>
-<p>Dual-screen ESP32 system with real-time multiplayer synchronization and custom PCB design.</p>
-<span>Embedded Systems</span>
-</div>
-
-<div class="project-card">
-        <a href="project4.html">
-          <img src="images/RFID%20GATE%20OPENER/RFID-Based%20Smart%20Car%20Gate%20Opener.png" 
-               alt="RFID Smart Gate Opener" 
-               style="object-fit: contain; background: #161616; width: 100%; height: 350px; border-radius: 8px; margin-bottom: 20px;">
+      <div class="project-card">
+        <a href="project1.html" class="media-wrapper">
+          <img src="images/Low%20Voltage%20Residential%20Electrical%20Distribution%20&%20Lighting%20Design/Low%20Voltage%20Residential%20Electrical%20Distribution%20&%20Lighting%20Design.png" 
+               alt="Low Voltage Residential Design">
         </a>
-<h4><a href="project4.html">RFID-Based Smart Car Gate Opener</a></h4>
-<p>Automated security access system utilizing 13.56 MHz RFID technology and motorized actuation.</p>
-<span>Automation</span>
-</div>
+        <h4><a href="project1.html">Low Voltage Residential Electrical Distribution & Lighting Design</a></h4>
+        <p>Comprehensive design and load analysis for residential and commercial distribution systems.</p>
+        <span>Power Systems</span>
+      </div>
 
-<div class="project-card">
-<a href="project5.html">
-<img src="images/Bark_it/barkit_final.png" 
-alt="Bark It! Interactive Trainer" 
-style="object-fit: contain; background: #161616; width: 100%; height: 450px; border-radius: 8px; margin-bottom: 20px;">
-</a>
-<h4><a href="project5.html">Bark It!: Interactive Cognitive Trainer</a></h4>
-<p>Sensor-driven doghouse game featuring three interaction modes and real-time adaptive scoring logic.</p>
-<span>ATMega32 & PCB Design</span>
-</div>
+      <div class="project-card">
+        <a href="project2.html" class="media-wrapper">
+          <video autoplay loop muted playsinline>
+            <source src="images/High%20Voltage%20Power%20System%20Diagnostics%20Simulator/powerworld%20simulation%20video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </a>
+        <h4><a href="project2.html">High Voltage Power System Diagnostics Simulator</a></h4>
+        <p>A Python-based simulation environment for diagnosing faults and performing Newton-Raphson power flow analysis.</p>
+        <span>Simulation & Analysis</span>
+      </div>
 
-<div class="project-card">
-<a href="project6.html">
-<img src="images/Autonomous%20Line-Following%20Robot/Autonomous%20Line-Following%20Robot.png" 
-alt="Autonomous Line-Following Robot" 
-style="object-fit: contain; background: #161616; width: 100%; height: 350px; border-radius: 8px; margin-bottom: 20px;">
-</a>
-<h4><a href="project6.html">Autonomous Line-Following Robot</a></h4>
-<p>Mobile robotics featuring PID control algorithms and infrared sensor array integration.</p>
-<span>Robotics & Controls</span>
-</div>
+      <div class="project-card">
+        <a href="project3.html" class="media-wrapper">
+          <img src="images/retro%20game%20console%20project/retro%20game%20console%20project.png" alt="Retro Multiplayer Game Console">
+        </a>
+        <h4><a href="project3.html">Retro Multiplayer Game Console - Capstone Senior Design</a></h4>
+        <p>Dual-screen ESP32 system with real-time multiplayer synchronization and custom PCB design.</p>
+        <span>Embedded Systems</span>
+      </div>
 
-</div>
-</section>
+      <div class="project-card">
+        <a href="project4.html" class="media-wrapper">
+          <img src="images/RFID%20GATE%20OPENER/RFID-Based%20Smart%20Car%20Gate%20Opener.png" alt="RFID Smart Gate Opener">
+        </a>
+        <h4><a href="project4.html">RFID-Based Smart Car Gate Opener</a></h4>
+        <p>Automated security access system utilizing 13.56 MHz RFID technology and motorized actuation.</p>
+        <span>Automation</span>
+      </div>
 
-<footer>
-© 2026 Rafik Ibrahim
-</footer>
+      <div class="project-card">
+        <a href="project5.html" class="media-wrapper">
+          <img src="images/Bark_it/barkit_final.png" alt="Bark It! Interactive Trainer">
+        </a>
+        <h4><a href="project5.html">Bark It!: Interactive Cognitive Trainer</a></h4>
+        <p>Sensor-driven doghouse game featuring three interaction modes and real-time adaptive scoring logic.</p>
+        <span>ATMega32 & PCB Design</span>
+      </div>
+
+      <div class="project-card">
+        <a href="project6.html" class="media-wrapper">
+          <img src="images/Autonomous%20Line-Following%20Robot/Autonomous%20Line-Following%20Robot.png" alt="Autonomous Line-Following Robot">
+        </a>
+        <h4><a href="project6.html">Autonomous Line-Following Robot</a></h4>
+        <p>Mobile robotics featuring PID control algorithms and infrared sensor array integration.</p>
+        <span>Robotics & Controls</span>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="padding: 0;">
+      <p>&copy; 2026 Rafik Ibrahim | Electrical Engineer</p>
+    </div>
+  </footer>
 
 </body>
 </html>
