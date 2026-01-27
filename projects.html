@@ -5,93 +5,77 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Projects | Rafik Ibrahim</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
   <header class="navbar">
-    <div class="nav-name">Rafik Ibrahim</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="resume.html">Resume</a>
-      <a href="projects.html">Projects</a>
-    </nav>
+    <div class="navbar-inner">
+      <div class="nav-name">Rafik Ibrahim</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="resume.html">Resume</a>
+        <a href="projects.html" class="active">Projects</a>
+      </nav>
+    </div>
   </header>
 
-  <section class="projects">
-    <h3>Selected Engineering Projects</h3>
-
-    <div class="project-grid">
+  <div class="container">
+    <section class="projects-section">
+      <h3 class="section-heading">Engineering Portfolio</h3>
       
-      <div class="project-card">
-        <a href="project1.html">
-          <img src="images/Low%20Voltage%20Residential%20Electrical%20Distribution%20&%20Lighting%20Design/Low%20Voltage%20Residential%20Electrical%20Distribution%20&%20Lighting%20Design.png" 
-               alt="Low Voltage Residential Design" 
-               style="object-fit: contain; background: #161616; width: 100%; height: 350px; border-radius: 8px; margin-bottom: 20px;">
-        </a>
-        <h4><a href="project1.html">Low Voltage Residential Electrical Distribution & Lighting Design</a></h4>
-        <p>Comprehensive design and load analysis for residential and commercial distribution systems.</p>
-        <span>Power Systems</span>
-      </div>
+      <div class="project-grid">
+        
+        <div class="project-card">
+          <img src="images/project1.jpg" alt="Project 1">
+          <h4><a href="project1.html">High Voltage Diagnostics Simulator</a></h4>
+          <p>A Python-based simulation tool using PowerWorld to analyze high voltage distribution and fault scenarios.</p>
+          <a href="project1.html" class="project-link">View Details &rarr;</a>
+        </div>
 
-      <div class="project-card">
-        <a href="project2.html">
-          <video width="100%" height="auto" autoplay loop muted playsinline style="border-radius: 8px; margin-bottom: 20px;">
-            <source src="images/High%20Voltage%20Power%20System%20Diagnostics%20Simulator/powerworld%20simulation%20video.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </a>
-        <h4><a href="project2.html">High Voltage Power System Diagnostics Simulator</a></h4>
-        <p>A Python-based simulation environment for diagnosing faults and performing Newton-Raphson power flow analysis.</p>
-        <span>Simulation & Analysis</span>
-      </div>
+        <div class="project-card">
+          <img src="images/project2.jpg" alt="Project 2">
+          <h4><a href="project2.html">Residential Lighting Design</a></h4>
+          <p>Complete electrical distribution plan for a residential complex, ensuring code compliance and load balancing.</p>
+          <a href="project2.html" class="project-link">View Details &rarr;</a>
+        </div>
 
-      <div class="project-card">
-        <a href="project3.html">
-          <img src="images/retro%20game%20console%20project/retro%20game%20console%20project.png" alt="Retro Multiplayer Game Console">
-        </a>
-        <h4><a href="project3.html">Retro Multiplayer Game Console - Capstone Senior Design</a></h4>
-        <p>Dual-screen ESP32 system with real-time multiplayer synchronization and custom PCB design.</p>
-        <span>Embedded Systems</span>
-      </div>
+        <div class="project-card">
+          <img src="images/retro%20game%20console%20project/overall%20PCB.png" alt="Retro Console">
+          <h4><a href="project3.html">Retro Multiplayer Console</a></h4>
+          <p>Dual-screen distributed embedded system featuring 72-hour battery life and custom mixed-signal PCB design.</p>
+          <a href="project3.html" class="project-link">View Details &rarr;</a>
+        </div>
 
-      <div class="project-card">
-        <a href="project4.html">
-          <img src="images/RFID%20GATE%20OPENER/RFID-Based%20Smart%20Car%20Gate%20Opener.png" 
-               alt="RFID Smart Gate Opener" 
-               style="object-fit: contain; background: #161616; width: 100%; height: 350px; border-radius: 8px; margin-bottom: 20px;">
-        </a>
-        <h4><a href="project4.html">RFID-Based Smart Car Gate Opener</a></h4>
-        <p>Automated security access system utilizing 13.56 MHz RFID technology and motorized actuation.</p>
-        <span>Automation</span>
-      </div>
+        <div class="project-card">
+          <img src="images/RFID%20GATE%20OPENER/RFID%20GATE%20OPENER%20pcb.png" alt="RFID Gate">
+          <h4><a href="project4.html">RFID Smart Gate Opener</a></h4>
+          <p>Automated vehicle access system integrating RFID authentication, servo actuation, and safety sensors.</p>
+          <a href="project4.html" class="project-link">View Details &rarr;</a>
+        </div>
 
-      <div class="project-card">
-        <a href="project5.html">
-          <img src="images/Bark_it/barkit_final.png" 
-               alt="Bark It! Interactive Trainer" 
-               style="object-fit: contain; background: #161616; width: 100%; height: 450px; border-radius: 8px; margin-bottom: 20px;">
-        </a>
-        <h4><a href="project5.html">Bark It!: Interactive Cognitive Trainer</a></h4>
-        <p>Sensor-driven doghouse game featuring three interaction modes and real-time adaptive scoring logic.</p>
-        <span>ATMega32 & PCB Design</span>
-      </div>
+        <div class="project-card">
+          <img src="images/Bark_it/bark%20it%20pcb.png" alt="Bark It">
+          <h4><a href="project5.html">Bark It! Cognitive Trainer</a></h4>
+          <p>Bio-interactive electromechanical game for dogs utilizing robust sensor integration and custom enclosures.</p>
+          <a href="project5.html" class="project-link">View Details &rarr;</a>
+        </div>
 
-      <div class="project-card">
-        <a href="project6.html">
-          <img src="images/Autonomous%20Line-Following%20Robot/Autonomous%20Line-Following%20Robot.png" 
-               alt="Autonomous Line-Following Robot" 
-               style="object-fit: contain; background: #161616; width: 100%; height: 350px; border-radius: 8px; margin-bottom: 20px;">
-        </a>
-        <h4><a href="project6.html">Autonomous Line-Following Robot</a></h4>
-        <p>Mobile robotics featuring PID control algorithms and infrared sensor array integration.</p>
-        <span>Robotics & Controls</span>
-      </div>
+        <div class="project-card">
+          <img src="images/project6.jpg" alt="Line Follower Robot">
+          <h4><a href="project6.html">Autonomous Line Follower</a></h4>
+          <p>PID-controlled robotics project focusing on sensor fusion and motor drive algorithms.</p>
+          <a href="project6.html" class="project-link">View Details &rarr;</a>
+        </div>
 
-    </div>
-  </section>
+      </div>
+    </section>
+  </div>
 
   <footer>
-    © 2026 Rafik Ibrahim
+    <div class="container">
+      <p>&copy; 2026 Rafik Ibrahim | Electrical Engineer</p>
+    </div>
   </footer>
 
 </body>
