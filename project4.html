@@ -3,88 +3,495 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RFID-Based Smart Car Gate Opener | Rafik Ibrahim</title>
+  <meta name="description" content="Rafik Ibrahim - Embedded Systems Engineer - RFID Smart Gate Opener" />
+  <title>RFID Smart Gate Opener | Rafik Ibrahim</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ========================================
+       PREMIUM ENGINEERING PORTFOLIO THEME
+       ========================================
+    */
+    :root {
+      --bg-deep: #020204;
+      --bg-panel: #0f0f13;
+      --accent-cyan: #00f2ff;
+      --accent-green: #00ff88; /* Green for "Access Granted" vibe */
+      --accent-purple: #bd00ff;
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0b0;
+      --border-light: rgba(255, 255, 255, 0.08);
+      --glass-surface: rgba(20, 20, 30, 0.7);
+      --code-bg: #1e1e1e;
+    }
+
+    body {
+      background-color: var(--bg-deep);
+      color: var(--text-primary);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.8;
+      margin: 0;
+      padding: 0;
+      background-image: 
+        radial-gradient(circle at 10% 10%, rgba(0, 255, 136, 0.03) 0%, transparent 20%),
+        radial-gradient(circle at 90% 90%, rgba(0, 242, 255, 0.03) 0%, transparent 20%);
+    }
+
+    /* TYPOGRAPHY */
+    h1, h2, h3, h4, h5 {
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    h3 {
+      font-size: 3.5rem;
+      text-align: center;
+      background: linear-gradient(135deg, #fff 0%, #a0a0b0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+      margin-top: 40px;
+    }
+
+    h4 {
+      font-size: 1.8rem;
+      color: var(--accent-cyan);
+      margin-top: 80px;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--border-light);
+      display: inline-block;
+    }
+
+    h5 {
+      font-size: 1.2rem;
+      color: var(--accent-green);
+      margin-top: 0;
+    }
+
+    p, li {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
+
+    strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* LAYOUT CONTAINERS */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px 100px;
+    }
+
+    section {
+      position: relative;
+    }
+
+    /* INFO CARDS (Glassmorphism) */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 30px;
+      margin: 50px 0;
+    }
+
+    .card {
+      background: var(--glass-surface);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-light);
+      border-radius: 20px;
+      padding: 40px;
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      border-color: rgba(0, 255, 136, 0.3);
+    }
+
+    .card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .card li {
+      padding-left: 25px;
+      position: relative;
+    }
+
+    .card li::before {
+      content: "▪";
+      color: var(--accent-cyan);
+      position: absolute;
+      left: 0;
+      top: -2px;
+      font-size: 1.5rem;
+    }
+
+    /* CODE BLOCKS */
+    .code-window {
+      background: var(--code-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border-light);
+      overflow: hidden;
+      margin: 30px 0;
+      font-family: 'Consolas', 'Monaco', monospace;
+    }
+
+    .code-header {
+      background: #252526;
+      padding: 10px 20px;
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      justify-content: space-between;
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+
+    .code-content {
+      padding: 20px;
+      overflow-x: auto;
+      color: #dcdcdc;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .keyword { color: #569cd6; }
+    .type { color: #4ec9b0; }
+    .string { color: #ce9178; }
+    .comment { color: #6a9955; font-style: italic; }
+
+    /* IMAGE GALLERY */
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+    .gallery-item {
+      background: var(--bg-panel);
+      padding: 20px;
+      border-radius: 16px;
+      border: 1px solid var(--border-light);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      display: block;
+      transition: opacity 0.3s;
+    }
+
+    .caption {
+      margin-top: 15px;
+      color: var(--accent-cyan);
+      font-size: 0.9rem;
+      text-align: center;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    /* NAVIGATION */
+    .navbar {
+      background: rgba(2, 2, 4, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-light);
+      padding: 25px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 40px;
+    }
+
+    .nav-name {
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: #fff;
+    }
+
+    .navbar nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin-left: 40px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .navbar nav a:hover {
+      color: var(--accent-cyan);
+    }
+
+    /* VIDEO CONTAINER */
+    .video-container {
+      text-align: center;
+      margin: 60px 0;
+      padding: 20px;
+      background: var(--glass-surface);
+      border-radius: 20px;
+      border: 1px solid var(--border-light);
+    }
+
+    .video-container video {
+      width: 45%; 
+      border-radius: 10px; 
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    /* SKILLS TAGS */
+    .skill-tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-light);
+      padding: 8px 16px;
+      border-radius: 20px;
+      margin: 5px 5px 0 0;
+      font-size: 0.9rem;
+      color: var(--accent-cyan);
+    }
+
+    @media (max-width: 900px) {
+      .image-gallery { grid-template-columns: 1fr; }
+      .video-container video { width: 100%; }
+      h3 { font-size: 2.5rem; }
+    }
+  </style>
 </head>
 <body>
 
   <header class="navbar">
-    <div class="nav-name">Rafik Ibrahim</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="resume.html">Resume</a>
-      <a href="projects.html">Projects</a>
-    </nav>
+    <div class="navbar-inner">
+      <div class="nav-name">Rafik Ibrahim</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="resume.html">Resume</a>
+        <a href="projects.html">Projects</a>
+      </nav>
+    </div>
   </header>
 
-  <section class="projects">
-    <h3>RFID-Based Smart Car Gate Opener</h3>
+  <div class="container">
     
-    <div class="project-description">
-      <p><strong>Platform:</strong> ATmega328P Standalone Microcontroller</p>
-      <p><strong>Engineering Focus:</strong> Embedded Systems, Custom PCB Fabrication, and Security Automation</p>
+    <h3 style="margin-bottom: 40px;">RFID Smart Car Gate Opener</h3>
 
+    <section>
+      <h4>1. Introduction & Project Scope</h4>
       <p>
-        Inspired by the gate systems at the Soldiers and Sailors Garage, I designed and built an automated vehicle access control prototype. This system operates by prompting users to scan their ID cards through an LCD interface.
+        <strong>The Mission:</strong> Secure vehicle access control is a critical component of modern infrastructure. Inspired by the automated gate systems at the Soldiers and Sailors Garage, this project aimed to design and build a fully functional, miniaturized RFID-based authentication system. The goal was to replicate real-world parking lot functionality, including user authentication, automated actuation, and safety sensing.
       </p>
-    </div>
+      <p>
+        <strong>The Innovation:</strong> This system integrates multiple subsystems—RFID authentication, LCD user feedback, servo actuation, and ultrasonic safety sensors—into a cohesive, standalone unit. Unlike simple keypads, this system provides a contactless, secure, and automated experience with visual and audio feedback for the user.
+      </p>
+      <p>
+        <strong>My Role (Solo Engineer):</strong> As this was an individual project, I was responsible for the full engineering stack:
+      </p>
+      <ul>
+        <li><strong>Electrical Engineering:</strong> Designing the power architecture and custom PCB.</li>
+        <li><strong>Firmware Engineering:</strong> Writing the C++ code to coordinate sensors and logic.</li>
+        <li><strong>Mechanical Design:</strong> Fabricating a custom enclosure for component housing.</li>
+      </ul>
+    </section>
 
-    <div class="section-title">
-      <h4>Project Demonstration</h4>
-    </div>
-    <div class="project-video-container" style="text-align: center; margin: 10px 0;">
-      <video width="30%" height="auto" autoplay loop muted playsinline controls style="border-radius: 8px; border: 2px solid #333; background-color: #000;">
-        <source src="images/RFID%20GATE%20OPENER/RFID-Based%20Smart%20Car%20Gate%20Opener.webm" type="video/webm">
-        Your browser does not support the video tag.
-      </video>
-    </div>
+    <section>
+      <div class="tech-grid">
+        <div class="card">
+          <h5>System Architecture</h5>
+          <p>
+            The system is built around a standalone <strong>ATmega328P microcontroller</strong>. It features a dual-voltage power architecture to support mixed-signal components.
+          </p>
+          <ul>
+            <li><strong>Processing:</strong> ATmega328P (16MHz Internal Clock).</li>
+            <li><strong>Authentication:</strong> MFRC522 RFID Module (13.56 MHz).</li>
+            <li><strong>User Interface:</strong> 16x2 LCD (I2C) + Piezo Speaker + LEDs.</li>
+            <li><strong>Actuation:</strong> Micro Servo Motor (PWM Controlled).</li>
+            <li><strong>Safety:</strong> HC-SR04 Ultrasonic Sensor for vehicle detection.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h5>Design Challenges Solved</h5>
+          <ul>
+            <li><strong>Mixed Voltage Logic:</strong> The RFID sensor requires 3.3V logic, while the servo and LCD require 5V. I designed a custom regulator circuit to bridge these domains safely.</li>
+            <li><strong>Resource Optimization:</strong> With limited pins on the ATmega328P, I utilized I2C for the LCD to save GPIO lines for sensors.</li>
+            <li><strong>Power Stability:</strong> To prevent servo motor noise from resetting the microcontroller, I implemented decoupling capacitors and separate power rails on the PCB.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-    <div class="section-title">
-      <h4>1. Design & Functional Overview</h4>
-    </div>
-    <p>The system provides a seamless, secure entry process through several integrated stages:</p>
-    <ul>
-      <li><strong>Authentication:</strong> Users scan an ID card via an RFID sensor to verify authorized access.</li>
-      <li><strong>Interactive Interface:</strong> A 16x2 LCD provides real-time prompts, such as "Scan your ID," "Access Granted," or "Access Denied."</li>
-      <li><strong>Physical Actuation:</strong> Upon valid authentication, a servo motor opens the gate arm.</li>
-      <li><strong>Intelligent Closure:</strong> An ultrasonic sensor detects vehicles at the gate, enabling automatic closure once the vehicle passes through.</li>
-      <li><strong>Audio-Visual Feedback:</strong> A speaker plays distinct tones to indicate access approval or denial, while LEDs visually reinforce these responses (green for granted, red for denied).</li>
-    </ul>
+    <section>
+      <h4>3. Hardware Design & PCB Implementation</h4>
+      <p>
+        Moving from a breadboard prototype to a final product required a custom PCB design. The primary challenge was integrating the voltage regulation directly onto the board to eliminate external power bricks.
+      </p>
+      
+      <div class="tech-grid">
+        <div class="card">
+          <h5>Power Architecture</h5>
+          <p>
+            The system is powered by a 9V source. I engineered a dual-regulator circuit directly on the PCB:
+          </p>
+          <ul>
+            <li><strong>5V Rail:</strong> An <strong>LM7805CV</strong> linear regulator powers the ATmega328P, LCD, and Servo.</li>
+            <li><strong>3.3V Rail:</strong> An <strong>LM2937ET-3.3</strong> regulator provides clean power to the sensitive MFRC522 RFID module.</li>
+            <li><strong>Thermal Management:</strong> Regulators were spaced to dissipate heat, and decoupling capacitors were placed close to the power pins to filter high-frequency noise.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h5>PCB Design Strategy</h5>
+          <p>
+            Designed in <strong>Altium Designer</strong>, the PCB features:
+          </p>
+          <ul>
+            <li><strong>Modular Headers:</strong> Instead of soldering components directly, I used female headers for the RFID, Ultrasonic, and Servo connections. This allows for easy replacement of faulty sensors.</li>
+            <li><strong>ISP Programming Header:</strong> Included to allow in-circuit programming of the ATmega328P without removing the chip.</li>
+            <li><strong>Compact Layout:</strong> Traces were routed to minimize cross-talk between the high-current servo lines and the sensitive RFID SPI lines.</li>
+          </ul>
+        </div>
+      </div>
 
+      <div class="image-gallery">
+        <div class="gallery-item">
+          <img src="images/RFID%20GATE%20OPENER/RFID%20GATE%20OPENER%20schematic.png" alt="RFID Gate Opener Schematic">
+          <div class="caption">1. System Schematic: Showing ATmega328P, Dual Voltage Regulators, and Sensor Interfaces.</div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/RFID%20GATE%20OPENER/RFID%20GATE%20OPENER%20pcb.png" alt="RFID Gate Opener PCB">
+          <div class="caption">2. Custom PCB Layout: Optimized for compact enclosure fitment with modular headers.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h4>4. Firmware & Software Implementation</h4>
+      <p>
+        I wrote the firmware in C++ using the Arduino IDE. The logic relies on a state machine that handles card scanning, authentication, and safety checks before moving the gate. Below are snippets of the core logic I implemented.
+      </p>
+
+      <div class="code-window">
+        <div class="code-header">
+          <span>File: RFID_Logic.ino</span>
+          <span>Role: Authentication & Access Control</span>
+        </div>
+        <pre class="code-content">
+<span class="keyword">void</span> <span class="type">loop</span>() {
+    <span class="comment">// 1. Check for new card presence</span>
+    <span class="keyword">if</span> (!mfrc522.PICC_IsNewCardPresent()) <span class="keyword">return</span>;
+    <span class="keyword">if</span> (!mfrc522.PICC_ReadCardSerial()) <span class="keyword">return</span>;
+
+    <span class="comment">// 2. Read UID and Compare with Authorized Database</span>
+    String content = <span class="string">""</span>;
+    <span class="keyword">for</span> (<span class="type">byte</span> i = 0; i < mfrc522.uid.size; i++) {
+        content.concat(String(mfrc522.uid.uidByte[i] < 0x10 ? <span class="string">" 0"</span> : <span class="string">" "</span>));
+        content.concat(String(mfrc522.uid.uidByte[i], HEX));
+    }
+    content.toUpperCase();
+
+    <span class="comment">// 3. Determine Access State</span>
+    <span class="keyword">if</span> (content.substring(1) == AUTHORIZED_UID) {
+        grantAccess(); <span class="comment">// Trigger Green LED, Servo Open, Success Tone</span>
+    } <span class="keyword">else</span> {
+        denyAccess();  <span class="comment">// Trigger Red LED, Error Tone</span>
+    }
+}</pre>
+      </div>
+
+      <div class="code-window">
+        <div class="code-header">
+          <span>File: Gate_Control.ino</span>
+          <span>Role: Actuation & Safety Sensing</span>
+        </div>
+        <pre class="code-content">
+<span class="keyword">void</span> <span class="type">grantAccess</span>() {
+    lcd.clear();
+    lcd.print(<span class="string">"Access Granted"</span>);
     
+    <span class="comment">// 1. Open Gate</span>
+    servo.write(90); 
+    delay(2000); 
 
-    <div class="section-title">
-      <h4>2. Technical Implementation & PCB Design</h4>
-    </div>
-    <p>The project moved from a breadboard prototype to a streamlined custom PCB designed in Altium Designer:</p>
-    <ul>
-      <li><strong>Power Regulation:</strong> To manage dual voltage requirements, I integrated an LM2937ET-3.3 (for 3.3V RFID requirements) and an LM7805CV (for 5V components) directly onto the PCB.</li>
-      <li><strong>Microcontroller Architecture:</strong> I configured a standalone ATmega328P chip, including an AVR programming header for future firmware maintenance.</li>
-      <li><strong>Hardware Reliability:</strong> Voltage drops during simultaneous operation were addressed by the strategic placement of capacitors to ensure stable power delivery.</li>
-    </ul>
+    <span class="comment">// 2. Safety Loop: Wait for vehicle to pass using Ultrasonic Sensor</span>
+    <span class="keyword">while</span> (isObjectDetected()) {
+        delay(100); <span class="comment">// Hold gate open if car is detected</span>
+    }
 
+    <span class="comment">// 3. Close Gate after vehicle clears</span>
+    delay(1000); 
+    servo.write(0); 
+    resetSystem();
+}
+
+<span class="type">bool</span> <span class="type">isObjectDetected</span>() {
+    <span class="comment">// Ultrasonic Logic: Trigger Pulse -> Echo Read</span>
+    digitalWrite(TRIG_PIN, LOW);
+    delayMicroseconds(2);
+    digitalWrite(TRIG_PIN, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(TRIG_PIN, LOW);
     
+    <span class="type">long</span> duration = pulseIn(ECHO_PIN, HIGH);
+    <span class="type">int</span> distance = duration * 0.034 / 2;
+    
+    <span class="keyword">return</span> (distance < 10); <span class="comment">// Return TRUE if object is within 10cm</span>
+}</pre>
+      </div>
+    </section>
 
-    <div class="section-title">
-      <h4>3. Challenges & Engineering Solutions</h4>
-    </div>
-    <ul>
-      <li><strong>Debugging Without Serial:</strong> Since the prototype used a standalone chip, I lacked a standard serial monitor. I utilized the LCD screen as a substitute to display important debugging messages and test outputs.</li>
-      <li><strong>Mechanical Engineering:</strong> I modeled a custom enclosure in SolidWorks and constructed the final version from wood to house all components securely and improve aesthetics.</li>
-      <li><strong>Firmware Integration:</strong> Coordinating the timing between the servo motor, RFID authentication, and ultrasonic detection required precise optimization to ensure reliable operation.</li>
-    </ul>
+    <section>
+      <h4>5. Project Demonstration</h4>
+      <div class="video-container">
+        <p style="color: #ccc; margin-bottom: 15px;">Video demonstrating the full authentication cycle, servo actuation, and safety sensor logic.</p>
+        <video controls autoplay loop muted playsinline>
+          <source src="images/RFID%20GATE%20OPENER/RFID-Based%20Smart%20Car%20Gate%20Opener.webm" type="video/webm">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </section>
 
-    <div class="section-title">
-      <h4>4. Project Summary</h4>
-    </div>
-    <p>
-      The final prototype successfully replicates real-world parking functionality, demonstrating effective integration of sensors, dual-voltage power regulation, and custom hardware design.
-    </p>
+    <section>
+      <h4>6. Engineering Skills Applied</h4>
+      <div class="tech-grid">
+        <div class="card">
+          <h5>Hardware & Power</h5>
+          <div>
+            <span class="skill-tag">Altium Designer</span>
+            <span class="skill-tag">Mixed-Signal PCB Layout</span>
+            <span class="skill-tag">Voltage Regulation (LM7805/LM2937)</span>
+            <span class="skill-tag">Soldering & Fabrication</span>
+            <span class="skill-tag">Circuit Prototyping</span>
+          </div>
+        </div>
+        <div class="card">
+          <h5>Firmware & Logic</h5>
+          <div>
+            <span class="skill-tag">C++ (Arduino)</span>
+            <span class="skill-tag">SPI Communication (RFID)</span>
+            <span class="skill-tag">I2C Communication (LCD)</span>
+            <span class="skill-tag">PWM Control (Servo)</span>
+            <span class="skill-tag">State Machine Design</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  </section>
+  </div>
 
-  <footer>
-    © 2026 Rafik Ibrahim
+  <footer style="text-align: center; padding: 60px 0; border-top: 1px solid var(--border-light); color: var(--text-secondary);">
+    <p>&copy; 2026 Rafik Ibrahim | Electrical Engineer</p>
   </footer>
 
 </body>
