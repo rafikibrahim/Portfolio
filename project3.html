@@ -49,7 +49,7 @@
       background: linear-gradient(135deg, #fff 0%, #a0a0b0 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 60px;
+      margin-bottom: 20px;
       margin-top: 40px;
     }
 
@@ -240,6 +240,25 @@
       color: var(--accent-cyan);
     }
 
+    /* BUTTONS */
+    .btn-glow {
+      display: inline-block;
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+      color: #000;
+      padding: 16px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-top: 40px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-glow:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(0, 242, 255, 0.4);
+    }
+
     /* SKILLS TAGS */
     .skill-tag {
       display: inline-block;
@@ -274,12 +293,27 @@
 
   <div class="container">
     
-    <section>
-      <h3>Retro Multiplayer Game Console</h3>
-      <p style="text-align: center; max-width: 900px; margin: 0 auto 60px; color: #fff; font-size: 1.4rem; font-weight: 300;">
-        A distributed embedded system featuring dual-screen output, 72-hour battery life, wireless controllers, and custom mixed-signal hardware.
-      </p>
+    <h3 style="margin-bottom: 20px;">Retro Multiplayer Game Console</h3>
 
+    <section>
+      <h4>1. Introduction & Motivation</h4>
+      <p>
+        <strong>The Mission:</strong> Modern gaming has become increasingly complex, expensive, and isolated, often relying on high-end hardware and internet connectivity. "Project R&F" was conceived to revive the social aspect of gaming by engineering a console that bridges retro nostalgia with modern embedded technology. Our goal was to create a cost-effective, accessible, and purely offline multiplayer experience that encourages face-to-face interaction.
+      </p>
+      <p>
+        <strong>The Innovation:</strong> The primary innovation is to make old retro single-player games into multiplayer experiences. Unlike traditional retro emulators that use a single shared screen or split-screen software, this system drives <strong>two independent VGA monitors</strong> simultaneously. This allows for true "head-to-head" multiplayer functionality where each player has a dedicated view, yet the game state remains perfectly synchronized via a custom hardware link.
+      </p>
+      <p>
+        <strong>The Engineering Challenge:</strong> The project required the development of a <strong>distributed embedded network</strong>. To achieve real-time performance without an Operating System, we offloaded tasks across multiple specialized microcontrollers:
+      </p>
+      <ul>
+        <li><strong>Main Console:</strong> Two ESP32-WROVER units communicate via a high-speed UART bridge to sync physics with zero latency.</li>
+        <li><strong>Wireless Control:</strong> Custom-built controllers use ATmega328P chips to process analog inputs and transmit data via <strong>HC-05 Bluetooth</strong> modules.</li>
+        <li><strong>Visuals:</strong> Video signals are generated "bare metal" using Direct Memory Access (DMA) and GPIO bit-banging to produce standard VGA signals without a GPU.</li>
+      </ul>
+    </section>
+
+    <section>
       <div class="tech-grid">
         <div class="card">
           <h5>My Role: Lead Electrical Engineer</h5>
@@ -304,61 +338,47 @@
           </ul>
         </div>
       </div>
-    </section>
-
-    <section>
-      <h4>1. Introduction & Motivation</h4>
-      <p>
-        <strong>The Mission:</strong> Modern gaming has become increasingly complex, expensive, and isolated, often relying on high-end hardware and internet connectivity. "Project R&F" was conceived to revive the social aspect of gaming by engineering a console that bridges retro nostalgia with modern embedded technology. The goal was to create a cost-effective, accessible, and purely offline multiplayer experience that encourages face-to-face interaction.
-      </p>
-      <p>
-        <strong>The Innovation:</strong> Unlike traditional retro emulators that use a single shared screen or split-screen software, this system drives <strong>two independent VGA monitors</strong> simultaneously. This allows for true "head-to-head" multiplayer functionality where each player has a dedicated view, yet the game state remains perfectly synchronized via a custom hardware link.
-      </p>
-      <p>
-        <strong>The Engineering Challenge:</strong> The project required the development of a <strong>distributed embedded network</strong>. To achieve real-time performance without an Operating System, tasks were offloaded across multiple specialized microcontrollers:
-      </p>
-      <ul>
-        <li><strong>Main Console:</strong> Two ESP32-WROVER units communicate via a high-speed UART bridge to sync physics with zero latency.</li>
-        <li><strong>Wireless Control:</strong> Custom-built controllers use ATmega328P chips to process analog inputs and transmit data via Bluetooth.</li>
-        <li><strong>Visuals:</strong> Video signals are generated "bare metal" using Direct Memory Access (DMA) and GPIO bit-banging to produce standard VGA signals without a GPU.</li>
-      </ul>
+      
+      <div style="text-align: center;">
+        <a href="https://github.com/YourUsername/Multiplayer-Retro-Game-Console" class="btn-glow" target="_blank">View Project Repository</a>
+      </div>
     </section>
 
     <section>
       <h4>2. System Architecture & Component Selection</h4>
       <p>
-        The decision to use a distributed multi-processor architecture was driven by the need to isolate high-speed video generation from asynchronous user input. Below is the rationale for the key components I selected for the final design.
+        The decision to use a distributed multi-processor architecture was driven by the need to isolate high-speed video generation from asynchronous user input. Below is the rationale for the key components we selected for the final design.
       </p>
       
       <div class="tech-grid">
         <div class="card">
           <h5>Main Processing Unit: ESP32-WROVER-E</h5>
           <p>
-            I selected the ESP32-WROVER-E for the main console due to its dual-core Xtensa LX6 architecture running at 240 MHz.
+            We selected the ESP32-WROVER-E for the main console due to its dual-core Xtensa LX6 architecture running at 240 MHz.
           </p>
           <ul>
-            <li><strong>Reasoning:</strong> The VGA signal generation requires strict timing (25.175 MHz pixel clock). A single-core MCU would struggle to handle this alongside game logic. With the ESP32, I could dedicate <strong>Core 1</strong> entirely to video signal generation (using the I2S peripheral in parallel mode) while <strong>Core 0</strong> handled the game physics, audio triggers, and UART communication.</li>
+            <li><strong>Reasoning:</strong> The VGA signal generation requires strict timing (25.175 MHz pixel clock). A single-core MCU would struggle to handle this alongside game logic. With the ESP32, we could dedicate <strong>Core 1</strong> entirely to video signal generation (using the I2S peripheral in parallel mode) while <strong>Core 0</strong> handled the game physics, audio triggers, and UART communication.</li>
             <li><strong>Memory:</strong> The WROVER module includes 8MB of PSRAM, which was essential for storing the double-buffered frame data required for smooth 60fps animation.</li>
           </ul>
         </div>
         <div class="card">
           <h5>Controller Logic: ATmega328P</h5>
           <p>
-            For the wireless controllers, I chose the ATmega328P (the chip found in the Arduino Uno).
+            For the wireless controllers, we chose the ATmega328P (the chip found in the Arduino Uno).
           </p>
           <ul>
             <li><strong>Reasoning:</strong> The controllers only need to sample analog inputs (joysticks) and digital buttons (tactile switches) and transmit them via UART. The ATmega328P is extremely power-efficient in this role and offers robust 10-bit ADC channels for precise joystick tracking.</li>
-            <li><strong>Form Factor:</strong> Using the standalone DIP-28 chip allowed me to design a custom PCB footprint that fits comfortably in a handheld enclosure, rather than using a bulky development board.</li>
+            <li><strong>Form Factor:</strong> Using the standalone DIP-28 chip allowed us to design a custom PCB footprint that fits comfortably in a handheld enclosure, rather than using a bulky development board.</li>
           </ul>
         </div>
         <div class="card">
           <h5>Wireless Communication: HC-05 Bluetooth</h5>
           <p>
-            I utilized the HC-05 Bluetooth Classic module in a Master/Slave configuration.
+            We utilized the HC-05 Bluetooth Classic module in a Master/Slave configuration.
           </p>
           <ul>
             <li><strong>Reasoning:</strong> While Wi-Fi was an option, it introduces significant power overhead and connection latency. The HC-05 operating over the Serial Port Profile (SPP) provides a dedicated, low-latency data pipe that is simpler to debug and consumes less power than Wi-Fi.</li>
-            <li><strong>Implementation:</strong> I configured the controller modules as Masters and the console modules as Slaves, binding them to specific MAC addresses to prevent cross-talk in noisy RF environments.</li>
+            <li><strong>Implementation:</strong> We configured the controller modules as Masters and the console modules as Slaves, binding them to specific MAC addresses to prevent cross-talk in noisy RF environments.</li>
           </ul>
         </div>
       </div>
@@ -367,17 +387,17 @@
     <section>
       <h4>3. Detailed Hardware Implementation</h4>
       <p>
-        As the sole Electrical Engineer, I designed the system from the ground up, moving from breadboard prototypes to three custom-fabricated Printed Circuit Boards (PCBs). This required careful consideration of power integrity, signal routing, and thermal management.
+        As a group, we focused on building a robust hardware ecosystem. My specific focus was on moving from breadboard prototypes to three custom-fabricated Printed Circuit Boards (PCBs). This required careful consideration of power integrity, signal routing, and thermal management.
       </p>
 
       <div class="tech-grid">
         <div class="card">
           <h5>Power Architecture Design</h5>
           <p>
-            I engineered a power system designed for extreme endurance. The controller uses two <strong>18650 Lithium-Ion batteries (3300mAh each)</strong> wired in parallel, providing a total capacity of <strong>6.6Ah at 3.7V</strong>.
+            We engineered a power system designed for extreme endurance. The controller uses two <strong>18650 Lithium-Ion batteries (3300mAh each)</strong> wired in parallel, providing a total capacity of <strong>6.6Ah at 3.7V</strong>.
           </p>
           <ul>
-            <li><strong>Regulation:</strong> I integrated a high-efficiency DC-DC Step-Up Boost Converter to elevate the 3.7V battery voltage to a stable 5V, required for the ATmega328P and HC-05 modules.</li>
+            <li><strong>Regulation:</strong> We integrated a high-efficiency DC-DC Step-Up Boost Converter to elevate the 3.7V battery voltage to a stable 5V, required for the ATmega328P and HC-05 modules.</li>
             <li><strong>UPS Functionality:</strong> The design includes a TP4056-based load-sharing circuit that allows the device to charge via USB-C while simultaneously powering the system.</li>
             <li><strong>Efficiency Analysis:</strong> With a 92% efficiency boost converter, the calculated usable energy is approximately 22.47 Wh, enabling over 72 hours of continuous runtime—far exceeding the initial 6-hour requirement.</li>
           </ul>
@@ -388,14 +408,15 @@
             Generating a clean VGA signal from a microcontroller requires precise signal integrity.
           </p>
           <ul>
-            <li><strong>Logic Level Shifting:</strong> The HC-05 Bluetooth module operates at 3.3V logic, while the ATmega328P runs at 5V. I designed voltage divider circuits (1kΩ / 2.2kΩ) on the PCB TX/RX lines to safely step down signals.</li>
-            <li><strong>Audio Isolation:</strong> To prevent digital switching noise from coupling into the audio output, I physically separated the Audio Subsystem onto its own PCB with a dedicated ground plane.</li>
-            <li><strong>VGA Output:</strong> I routed the 5-pin VGA signals (Red, Green, Blue, H-Sync, V-Sync) directly from the ESP32 GPIOs, carefully matching trace lengths to minimize skew.</li>
+            <li><strong>Logic Level Shifting:</strong> The HC-05 Bluetooth module operates at 3.3V logic, while the ATmega328P runs at 5V. We designed voltage divider circuits (1kΩ / 2.2kΩ) on the PCB TX/RX lines to safely step down signals.</li>
+            <li><strong>Audio Isolation:</strong> To prevent digital switching noise from coupling into the audio output, we physically separated the Audio Subsystem onto its own PCB with a dedicated ground plane.</li>
+            <li><strong>VGA Output:</strong> We routed the 5-pin VGA signals (Red, Green, Blue, H-Sync, V-Sync) directly from the ESP32 GPIOs, carefully matching trace lengths to minimize skew.</li>
           </ul>
         </div>
       </div>
       
-      <h5>Bill of Materials (Key Components)</h5>
+      <h5 style="margin-top: 40px; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 0.05em;">Bill of Materials (Selected Key Components)</h5>
+      <p style="font-size: 0.9rem; margin-bottom: 20px;">*Note: This list highlights the most critical components in the system architecture.</p>
       <table class="data-table">
         <thead>
           <tr>
@@ -421,7 +442,7 @@
           <tr>
             <td>HC-05 Bluetooth</td>
             <td>Bluetooth 2.0+EDR, SPP Profile</td>
-            <td>4</td>
+            <td>2</td>
             <td>Wireless Data Transmission (Input)</td>
           </tr>
           <tr>
@@ -449,7 +470,7 @@
     <section>
       <h4>4. Schematic Capture & PCB Fabrication</h4>
       <p>
-        I utilized <strong>Altium Designer</strong> for the complete ECAD workflow. Below is the documentation of the three distinct boards I designed, routed, and assembled for this project.
+        We utilized <strong>Altium Designer</strong> for the complete ECAD workflow. Below is the documentation of the three distinct boards we designed, routed, and assembled for this project.
       </p>
 
       <div class="image-gallery">
@@ -551,12 +572,12 @@
         <div class="card">
           <h5>Challenge: The "Everything Everywhere" Crash</h5>
           <p><strong>Problem:</strong> Running Wi-Fi (for multiplayer), Bluetooth (for controllers), and VGA generation simultaneously caused system-wide failure due to radio resource contention on the 2.4GHz band.</p>
-          <p><strong>Solution:</strong> I completely removed Wi-Fi from the architecture. I replaced it with a hardwired UART link (GPIO 16/17) between the two ESP32s. This decoupled the multiplayer sync from the radio stack, resolving the crash and lowering power consumption.</p>
+          <p><strong>Solution:</strong> We completely removed Wi-Fi from the architecture. We replaced it with a hardwired UART link (GPIO 16/17) between the two ESP32s. This decoupled the multiplayer sync from the radio stack, resolving the crash and lowering power consumption.</p>
         </div>
         <div class="card">
           <h5>Challenge: Audio Latency & Jitter</h5>
           <p><strong>Problem:</strong> Handling audio directly on the ESP32 introduced jitter into the VGA signal due to interrupt overhead.</p>
-          <p><strong>Solution:</strong> I designed a dedicated Audio PCB with its own ATmega328P. The main console simply sends a brief 27ms GPIO trigger signal, and the dedicated board handles the heavy lifting of MP3 decoding via the DFPlayer Mini.</p>
+          <p><strong>Solution:</strong> We designed a dedicated Audio PCB with its own ATmega328P. The main console simply sends a brief 27ms GPIO trigger signal, and the dedicated board handles the heavy lifting of MP3 decoding via the DFPlayer Mini.</p>
         </div>
       </div>
     </section>
@@ -564,7 +585,7 @@
     <section>
       <h4>7. Engineering Skills & Tools Applied</h4>
       <p>
-        This project served as a comprehensive application of my electrical engineering curriculum, requiring the integration of power, analog, and digital domains.
+        This project served as a comprehensive application of electrical engineering curriculum, requiring the integration of power, analog, and digital domains.
       </p>
       
       <div class="tech-grid">
@@ -577,6 +598,8 @@
             <span class="skill-tag">Mixed-Signal Routing</span>
             <span class="skill-tag">Component Selection</span>
             <span class="skill-tag">Design for Manufacturing (DFM)</span>
+            <span class="skill-tag">Circuit Analysis</span>
+            <span class="skill-tag">BOM Management</span>
           </div>
         </div>
         <div class="card">
@@ -588,6 +611,7 @@
             <span class="skill-tag">ATmega328P</span>
             <span class="skill-tag">ESP32</span>
             <span class="skill-tag">Interrupt Handling</span>
+            <span class="skill-tag">Serial Communication (I2C/SPI)</span>
           </div>
         </div>
         <div class="card">
@@ -599,6 +623,8 @@
             <span class="skill-tag">Logic Analyzers</span>
             <span class="skill-tag">Current Profiling</span>
             <span class="skill-tag">Signal Integrity Analysis</span>
+            <span class="skill-tag">Voltage Regulation</span>
+            <span class="skill-tag">Soldering & Assembly</span>
           </div>
         </div>
       </div>
