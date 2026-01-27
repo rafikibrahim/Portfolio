@@ -202,7 +202,7 @@
       grid-column: span 2;
     }
 
-    /* NAVIGATION */
+    /* NAVIGATION - Updated Styles */
     .navbar {
       background: rgba(2, 2, 4, 0.95);
       backdrop-filter: blur(20px);
@@ -225,7 +225,10 @@
     .nav-name {
       font-weight: 800;
       font-size: 1.5rem;
-      color: #fff;
+      /* Gradient Name Style */
+      background: linear-gradient(90deg, #fff, var(--accent-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .navbar nav a {
@@ -236,7 +239,8 @@
       transition: color 0.3s;
     }
 
-    .navbar nav a:hover {
+    /* Active Link Style */
+    .navbar nav a:hover, .navbar nav a.active {
       color: var(--accent-cyan);
     }
 
@@ -267,7 +271,7 @@
       <nav>
         <a href="index.html">Home</a>
         <a href="resume.html">Resume</a>
-        <a href="projects.html">Projects</a>
+        <a href="projects.html" class="active">Projects</a>
       </nav>
     </div>
   </header>
