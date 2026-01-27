@@ -21,27 +21,71 @@
     <h3>RFID-Based Smart Car Gate Opener</h3>
     
     <div class="project-description">
-      <p>This project involved designing and implementing an automated security gate system using **RFID (Radio Frequency Identification)** technology. The system provides secure, hands-free access for vehicles by identifying authorized tags and controlling a motorized gate mechanism.</p>
+      <p><strong>Platform:</strong> ATmega328P (Standalone Microcontroller)</p>
+      <p><strong>Engineering Focus:</strong> Embedded Systems, Custom PCB Design, and Security Automation</p>
+
+      <p>
+        Inspired by the gate systems at the Soldiers and Sailors Garage, I designed and built an automated vehicle access control prototype. This system utilizes RFID technology for secure authentication, integrated with real-time user feedback and automated physical actuation.
+      </p>
     </div>
 
     <div class="section-title">
-      <h4>Engineering Challenges & Solutions</h4>
+      <h4>Project Demonstration</h4>
+    </div>
+    <div class="project-video-container" style="text-align: center; margin: 20px 0;">
+      <video width="80%" height="auto" controls style="border-radius: 8px; border: 2px solid #333;">
+        <source src="images/RFID%20GATE%20OPENER/RFID-Based%20Smart%20Car%20Gate%20Opener.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div class="section-title">
+      <h4>1. Design & Functional Overview</h4>
+    </div>
+    <p>The system provides a seamless, secure entry process through several integrated stages:</p>
+    <ul>
+      <li><strong>Authentication:</strong> Users scan an ID card via the RFID sensor. The system is programmed to accept only specific UIDs (Unique Identifiers) to ensure authorized access only.</li>
+      <li><strong>Interactive Interface:</strong> A 16x2 LCD provides real-time prompts, such as "Scan your ID," "Access Granted," or "Access Denied."</li>
+      <li><strong>Physical Actuation:</strong> Upon valid authentication, a servo motor opens the gate arm to 180 degrees.</li>
+      <li><strong>Intelligent Closure:</strong> An ultrasonic sensor detects the vehicle at the gate. The system is programmed to close the gate automatically only after the vehicle has passed through, ensuring safety and efficiency.</li>
+      <li><strong>Audio-Visual Feedback:</strong> A speaker provides tones for success or denial, complemented by a Green LED for granted access and a Red LED for denied access.</li>
+    </ul>
+
+    
+
+    <div class="section-title">
+      <h4>2. Technical Implementation & PCB Design</h4>
+    </div>
+    <p>The project moved from a complex breadboard prototype to a streamlined custom PCB designed in Altium Designer:</p>
+    <ul>
+      <li><strong>Power Regulation:</strong> A primary challenge was managing dual voltage requirements: 3.3V for the RFID sensor and 5V for the LCD and servo. I integrated an LM2937ET-3.3 and an LM7805CV regulator directly onto the PCB to provide stable power from a 9V source.</li>
+      <li><strong>Microcontroller Architecture:</strong> I configured a standalone ATmega328P chip on the PCB, including an AVR programming header to allow for future firmware updates without removing the chip.</li>
+      <li><strong>Hardware Reliability:</strong> Voltage drops during simultaneous servo and RFID operation were stabilized through the strategic placement of decoupling capacitors.</li>
+    </ul>
+
+    
+
+    <div class="section-title">
+      <h4>3. Challenges & Engineering Solutions</h4>
     </div>
     <ul>
-      <li><strong>Signal Integrity:</strong> Optimized RFID reader antenna placement to ensure reliable tag detection through windshields while minimizing metal interference.</li>
-      <li><strong>Control Logic:</strong> Developed precise timing and safety protocols for the gate actuator, including auto-close functionality and obstruction detection.</li>
-      <li><strong>Voltage Regulation:</strong> Integrated a 12V to 5V/3.3V regulation system to ensure stable power delivery for sensors and the microcontroller.</li>
+      <li><strong>Debugging Without Serial:</strong> Since the prototype used a standalone chip, I lacked a standard USB serial monitor. I solved this by using the LCD screen as a substitute for the serial monitor to display debugging messages.</li>
+      <li><strong>Mechanical Engineering:</strong> The final enclosure was modeled in SolidWorks and constructed from wood to house all components securely while maintaining an organized internal wire structure.</li>
+      <li><strong>Firmware Integration:</strong> Coordinating the timing of the ultrasonic sensor and servo motor required precise coding to ensure the gate didn't close prematurely on the vehicle.</li>
     </ul>
 
     <div class="section-title">
-      <h4>Technical Specifications</h4>
+      <h4>4. Project Summary</h4>
     </div>
-    <ul>
-      <li><strong>Controller:</strong> ATmega328P based control logic.</li>
-      <li><strong>Sensors:</strong> MFRC522 RFID module for 13.56 MHz frequency detection.</li>
-      <li><strong>Actuation:</strong> H-Bridge driver with DC motor integration for bidirectional gate movement.</li>
-    </ul>
+    <p>
+      The final prototype successfully replicates real-world parking access functionality. It demonstrates the effectiveness of integrating sensors, dual-voltage power regulation, and custom hardware design into a robust, practical access control solution.
+    </p>
+
   </section>
+
+  <footer>
+    © 2026 Rafik Ibrahim
+  </footer>
 
 </body>
 </html>
