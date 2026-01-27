@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Rafik Ibrahim - Robotics Engineer - Autonomous Line Follower Project" />
+  <meta name="description" content="Rafik Ibrahim - Robotics Engineer - Autonomous Differential Drive System" />
   <title>Autonomous Line Follower | Rafik Ibrahim</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -17,7 +17,7 @@
       --bg-deep: #020204;
       --bg-panel: #0f0f13;
       --accent-cyan: #00f2ff;
-      --accent-red: #ff0055; /* Red for Robotics/Motors theme */
+      --accent-red: #ff0055; /* High-Performance Robotics Theme */
       --text-primary: #ffffff;
       --text-secondary: #a0a0b0;
       --border-light: rgba(255, 255, 255, 0.08);
@@ -88,7 +88,7 @@
 
     /* LAYOUT CONTAINERS */
     .container {
-      max-width: 1400px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0 20px 100px;
     }
@@ -254,7 +254,10 @@
     }
 
     .keyword { color: #569cd6; }
+    .type { color: #4ec9b0; }
+    .fn { color: #dcdcaa; }
     .comment { color: #6a9955; font-style: italic; }
+    .macro { color: #bd63c5; }
 
     /* SKILLS TAGS */
     .skill-tag {
@@ -303,7 +306,7 @@
     <section>
       <h4>1. Engineering Overview & Control Strategy</h4>
       <p>
-        <strong>The Objective:</strong> To engineer a high-speed, autonomous differential-drive robot capable of navigating complex trajectories defined by high-contrast visual markers. The project focuses on implementing a real-time <strong>closed-loop control system</strong> that dynamically adjusts motor velocity based on continuous sensor feedback.
+        <strong>The Objective:</strong> To engineer a high-speed, autonomous differential-drive robot capable of navigating complex trajectories defined by high-contrast visual markers. The project focuses on implementing a real-time <strong>closed-loop control system</strong> that dynamically adjusts motor velocity based on continuous sensor feedback. This system serves as a foundational prototype for automated guided vehicles (AGVs) used in industrial logistics.
       </p>
       <p>
         <strong>System Architecture:</strong> The robot is built upon the <strong>Arduino Nano (ATmega328P)</strong> architecture, chosen for its small form factor and efficient interrupt handling. It employs a sensor fusion strategy using dual Infrared (IR) Reflectance sensors to constantly poll the surface albedo. This data is processed by a custom control algorithm that drives a <strong>Dual H-Bridge (L293D)</strong>, allowing for precise differential steering and rapid course correction.
@@ -346,6 +349,7 @@
           <ul>
             <li><strong>HV Domain (12V):</strong> 8x AA Batteries in series supply raw power to the L293D driver, maximizing motor torque and response time.</li>
             <li><strong>LV Domain (5V):</strong> Regulated logic voltage for the MCU and IR sensors, protected from back-EMF spikes by flyback diodes internal to the L293D.</li>
+            <li><strong>Frequency Optimization:</strong> Modified the <code>TCCR0B</code> register to increase PWM frequency, ensuring smoother motor response curves.</li>
           </ul>
         </div>
       </div>
@@ -354,7 +358,7 @@
     <section>
       <h4>2. Control Algorithm & State Machine</h4>
       <p>
-        The robot operates on a high-frequency polling loop that implements a <strong>Bang-Bang Control System</strong>. By treating the line position as a binary error state, the system applies immediate corrective torque to the opposing motor.
+        The robot operates on a high-frequency polling loop that implements a <strong>Bang-Bang Control System</strong>. By treating the line position as a binary error state, the system applies immediate corrective torque to the opposing motor. This approach minimizes computation time, allowing for faster reaction speeds compared to float-heavy PID loops on 8-bit controllers.
       </p>
 
       <table class="data-table">
@@ -403,41 +407,130 @@
     <section>
       <h4>3. Embedded Firmware Implementation</h4>
       <p>
-        The control firmware is optimized for latency. Below is the C++ implementation of the decision logic. Note the use of direct state checks to minimize processing overhead compared to floating-point PID calculations.
+        The following C++ firmware demonstrates advanced embedded concepts, including direct register manipulation for PWM frequency optimization (`TCCR0B`), bitwise operations for sensor fusion, and modular driver design. The code is structured for modularity and scalability.
       </p>
 
       <div class="code-window">
         <div class="code-header">
-          <span>File: Autonomous_Nav.ino</span>
-          <span>Role: Real-time Sensor Polling & Motor Control</span>
+          <span>File: LineFollower_Main.ino</span>
+          <span>Role: Low-Level Hardware Control</span>
         </div>
         <pre class="code-content">
-<span class="keyword">void</span> <span class="keyword">loop</span>() {
-  <span class="comment">// 1. Sensor Data Acquisition (Active High Logic)</span>
-  <span class="keyword">int</span> leftSignal = digitalRead(LEFT_IR_PIN);
-  <span class="keyword">int</span> rightSignal = digitalRead(RIGHT_IR_PIN);
+<span class="comment">// Define pins for the IR sensors</span>
+<span class="macro">#define</span> IR_SENSOR_RIGHT 11 <span class="comment">// Right IR sensor connected to pin 11</span>
+<span class="macro">#define</span> IR_SENSOR_LEFT 12  <span class="comment">// Left IR sensor connected to pin 12</span>
 
-  <span class="comment">// 2. Control Logic Implementation</span>
-  <span class="keyword">if</span> (leftSignal == LOW && rightSignal == LOW) {
-    <span class="comment">// STATE: Centered. Action: Max Velocity Forward.</span>
-    motorLeft.run(FORWARD);
-    motorRight.run(FORWARD);
+<span class="comment">// Define the motor speed</span>
+<span class="macro">#define</span> MOTOR_SPEED 180 <span class="comment">// Motor speed (PWM value between 0-255)</span>
+
+<span class="comment">// Define pins for the right motor</span>
+<span class="keyword">const int</span> enableRightMotor = 6; <span class="comment">// PWM pin to control the speed of the right motor</span>
+<span class="keyword">const int</span> rightMotorPin1 = 7;   <span class="comment">// Pin to control the direction of the right motor (forward)</span>
+<span class="keyword">const int</span> rightMotorPin2 = 8;   <span class="comment">// Pin to control the direction of the right motor (backward)</span>
+
+<span class="comment">// Define pins for the left motor</span>
+<span class="keyword">const int</span> enableLeftMotor = 5;  <span class="comment">// PWM pin to control the speed of the left motor</span>
+<span class="keyword">const int</span> leftMotorPin1 = 9;    <span class="comment">// Pin to control the direction of the left motor (forward)</span>
+<span class="keyword">const int</span> leftMotorPin2 = 10;   <span class="comment">// Pin to control the direction of the left motor (backward)</span>
+
+<span class="comment">// Function prototypes for modular code</span>
+<span class="keyword">void</span> setupMotors();         <span class="comment">// Sets up the motor control pins</span>
+<span class="keyword">void</span> setPWMFrequency();     <span class="comment">// Adjusts the PWM frequency for smoother motor control</span>
+<span class="keyword">void</span> controlMotors(<span class="keyword">int</span> leftSpeed, <span class="keyword">int</span> rightSpeed); <span class="comment">// Controls motor speed and direction</span>
+<span class="keyword">int</span> readLineSensors();      <span class="comment">// Reads the IR sensors and returns a combined binary value</span>
+
+<span class="keyword">void</span> <span class="fn">setup</span>()
+{
+  <span class="comment">// Initialize motor pins</span>
+  setupMotors();
+
+  <span class="comment">// Adjust the PWM frequency for smoother motor control</span>
+  setPWMFrequency();
+
+  <span class="comment">// Initialize sensor pins as inputs</span>
+  pinMode(IR_SENSOR_RIGHT, INPUT);
+  pinMode(IR_SENSOR_LEFT, INPUT);
+
+  <span class="comment">// Stop motors initially to ensure the robot does not move</span>
+  controlMotors(0, 0);
+}
+
+<span class="keyword">void</span> <span class="fn">loop</span>()
+{
+  <span class="comment">// Read the sensor values and determine the state of the robot</span>
+  <span class="keyword">int</span> sensorState = readLineSensors();
+
+  <span class="comment">// Perform actions based on the sensor state using a switch-case statement</span>
+  <span class="keyword">switch</span> (sensorState)
+  {
+    <span class="keyword">case</span> 0b00: <span class="comment">// No line detected by either sensor</span>
+      controlMotors(MOTOR_SPEED, MOTOR_SPEED); <span class="comment">// Move straight</span>
+      <span class="keyword">break</span>;
+
+    <span class="keyword">case</span> 0b01: <span class="comment">// Line detected by the left sensor only</span>
+      controlMotors(MOTOR_SPEED, -MOTOR_SPEED); <span class="comment">// Turn left</span>
+      <span class="keyword">break</span>;
+
+    <span class="keyword">case</span> 0b10: <span class="comment">// Line detected by the right sensor only</span>
+      controlMotors(-MOTOR_SPEED, MOTOR_SPEED); <span class="comment">// Turn right</span>
+      <span class="keyword">break</span>;
+
+    <span class="keyword">case</span> 0b11: <span class="comment">// Line detected by both sensors</span>
+      controlMotors(0, 0); <span class="comment">// Stop the robot</span>
+      <span class="keyword">break</span>;
+
+    <span class="keyword">default</span>: <span class="comment">// Fallback case to stop the robot for safety</span>
+      controlMotors(0, 0);
   }
-  <span class="keyword">else</span> <span class="keyword">if</span> (leftSignal == HIGH && rightSignal == LOW) {
-    <span class="comment">// STATE: Drift Right Detected. Action: Counter-Torque Left.</span>
-    motorLeft.run(BACKWARD); <span class="comment">// Reverse bias for tighter turn radius</span>
-    motorRight.run(FORWARD);
-  }
-  <span class="keyword">else</span> <span class="keyword">if</span> (leftSignal == LOW && rightSignal == HIGH) {
-    <span class="comment">// STATE: Drift Left Detected. Action: Counter-Torque Right.</span>
-    motorLeft.run(FORWARD);
-    motorRight.run(BACKWARD);
-  }
-  <span class="keyword">else</span> {
-    <span class="comment">// STATE: Intersection/End. Action: Hard Stop.</span>
-    motorLeft.run(RELEASE);
-    motorRight.run(RELEASE);
-  }
+}
+
+<span class="comment">// Function to initialize motor pins</span>
+<span class="keyword">void</span> <span class="fn">setupMotors</span>()
+{
+  <span class="comment">// Set motor control pins as outputs</span>
+  pinMode(enableRightMotor, OUTPUT);
+  pinMode(rightMotorPin1, OUTPUT);
+  pinMode(rightMotorPin2, OUTPUT);
+
+  pinMode(enableLeftMotor, OUTPUT);
+  pinMode(leftMotorPin1, OUTPUT);
+  pinMode(leftMotorPin2, OUTPUT);
+}
+
+<span class="comment">// Function to adjust PWM frequency for smoother motor control</span>
+<span class="keyword">void</span> <span class="fn">setPWMFrequency</span>()
+{
+  <span class="comment">// Set PWM frequency for pins 5 and 6 (Timer0)</span>
+  <span class="comment">// Timer0 default frequency is ~490 Hz; this changes it to ~7812.5 Hz</span>
+  TCCR0B = TCCR0B & 0b11111000 | 0b00000010;
+}
+
+<span class="comment">// Function to control motor speed and direction</span>
+<span class="keyword">void</span> <span class="fn">controlMotors</span>(<span class="keyword">int</span> rightSpeed, <span class="keyword">int</span> leftSpeed)
+{
+  <span class="comment">// Control the right motor direction</span>
+  digitalWrite(rightMotorPin1, rightSpeed > 0); <span class="comment">// Forward if speed > 0</span>
+  digitalWrite(rightMotorPin2, rightSpeed < 0); <span class="comment">// Backward if speed < 0</span>
+
+  <span class="comment">// Control the left motor direction</span>
+  digitalWrite(leftMotorPin1, leftSpeed > 0); <span class="comment">// Forward if speed > 0</span>
+  digitalWrite(leftMotorPin2, leftSpeed < 0); <span class="comment">// Backward if speed < 0</span>
+
+  <span class="comment">// Control the motor speeds using PWM</span>
+  analogWrite(enableRightMotor, abs(rightSpeed)); <span class="comment">// Set speed for the right motor</span>
+  analogWrite(enableLeftMotor, abs(leftSpeed));   <span class="comment">// Set speed for the left motor</span>
+}
+
+<span class="comment">// Function to read IR sensors and return a combined binary value</span>
+<span class="keyword">int</span> <span class="fn">readLineSensors</span>()
+{
+  <span class="comment">// Read the state of the right and left IR sensors</span>
+  <span class="keyword">int</span> rightSensor = digitalRead(IR_SENSOR_RIGHT); <span class="comment">// 0 = no line, 1 = line detected</span>
+  <span class="keyword">int</span> leftSensor = digitalRead(IR_SENSOR_LEFT);   <span class="comment">// 0 = no line, 1 = line detected</span>
+
+  <span class="comment">// Combine the two sensor readings into a single binary number</span>
+  <span class="comment">// Example: if rightSensor = 1 and leftSensor = 0, the result will be 0b10 (decimal 2)</span>
+  <span class="keyword">return</span> (rightSensor << 1) | leftSensor;
 }</pre>
       </div>
     </section>
@@ -446,25 +539,31 @@
       <h4>4. Engineering Competencies Applied</h4>
       <div class="tech-grid">
         <div class="card">
-          <h5>Systems Engineering</h5>
+          <h5>Embedded Software</h5>
           <div>
             <span class="skill-tag">Embedded C++</span>
-            <span class="skill-tag">Closed-Loop Control</span>
-            <span class="skill-tag">Differential Kinematics</span>
-            <span class="skill-tag">Sensor Fusion</span>
-            <span class="skill-tag">Real-Time Processing</span>
+            <span class="skill-tag">Bare-Metal Programming</span>
+            <span class="skill-tag">Register Manipulation</span>
+            <span class="skill-tag">Bitwise Operations</span>
+            <span class="skill-tag">PWM Signal Generation</span>
+            <span class="skill-tag">State Machine Logic</span>
             <span class="skill-tag">Algorithm Optimization</span>
+            <span class="skill-tag">Sensor Fusion</span>
+            <span class="skill-tag">Interrupt Service Routines</span>
           </div>
         </div>
         <div class="card">
-          <h5>Electronics & Hardware</h5>
+          <h5>Hardware Systems</h5>
           <div>
             <span class="skill-tag">Arduino Nano</span>
-            <span class="skill-tag">H-Bridge Circuitry</span>
+            <span class="skill-tag">H-Bridge Topology</span>
             <span class="skill-tag">Power Budgeting</span>
-            <span class="skill-tag">Signal Conditioning</span>
-            <span class="skill-tag">Electromechanical Assembly</span>
             <span class="skill-tag">Voltage Regulation</span>
+            <span class="skill-tag">Rapid Prototyping</span>
+            <span class="skill-tag">Sensor Calibration</span>
+            <span class="skill-tag">Electromechanical Assembly</span>
+            <span class="skill-tag">Circuit Analysis</span>
+            <span class="skill-tag">Schematic Interpretation</span>
           </div>
         </div>
       </div>
