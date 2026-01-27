@@ -1,145 +1,120 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8" />
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <meta name="description" content="Rafik Ibrahim - Electrical Engineer Portfolio" />
   <title>Rafik Ibrahim | Electrical Engineer</title>
-
   <link rel="stylesheet" href="style.css" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
-
-
   <header class="navbar">
-
-    <div class="nav-name">Rafik Ibrahim</div>
-
-    <nav>
-
-      <a href="index.html">Home</a>
-
-      <a href="resume.html">Resume</a>
-
-      <a href="projects.html">Projects</a>
-
-    </nav>
-
+    <div class="navbar-inner">
+      <div class="nav-name">Rafik Ibrahim</div>
+      <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="resume.html">Resume</a>
+        <a href="projects.html">Projects</a>
+      </nav>
+    </div>
   </header>
 
-
-
   <section class="hero">
-
+    <div class="hero-bg-glow"></div>
     <div class="hero-container">
-
-
-
-      <div class="hero-left">
-
-        <img src="images/profile.jpg" alt="Rafik Ibrahim">
-
-      </div>
-
-
-
-      <div class="hero-right">
-
-        <h1 class="main-title">
-
-          I am Rafik Ibrahim,
-
-          <span class="engineer">an Electrical Engineer</span>
-
-          <span class="concentration">with a concentration in Electric Power Systems</span>
-
-        </h1>
-
-
-
-        <br><br>
-
-
-
-        <div class="socials">
-
-          <a href="resume.html">Resume</a>
-
-          <a href="projects.html">Projects</a>
-
-          <a href="https://linkedin.com/in/rafik-i-29448221b" target="_blank">LinkedIn</a>
-
+      
+      <div class="hero-content">
+        <h2 class="greeting">Hello, I'm</h2>
+        <h1 class="main-title">Rafik Ibrahim</h1>
+        <h2 class="job-title">Electrical Engineer</h2>
+        <p class="hero-subtitle">
+          Specializing in <strong>Electric Power Systems</strong>, Circuit Modeling, and Hardware Integration.
+        </p>
+        
+        <div class="cta-group">
+          <a href="projects.html" class="btn-primary">View My Work</a>
+          <a href="resume.html" class="btn-secondary">View Resume</a>
+          <a href="https://linkedin.com/in/rafik-i-29448221b" target="_blank" class="btn-icon">
+            LinkedIn ↗
+          </a>
         </div>
-
       </div>
 
-
+      <div class="hero-image-wrapper">
+        <div class="image-border">
+          <img src="images/profile.jpg" alt="Rafik Ibrahim Profile">
+        </div>
+      </div>
 
     </div>
-
   </section>
 
+  <section class="about-section">
+    <div class="container">
+      <h3 class="section-heading">Engineering Focus</h3>
+      
+      <div class="grid-3">
+        <div class="feature-card">
+          <div class="icon-box">⚡</div>
+          <h4>Power Systems</h4>
+          <p>Analyzing and optimizing electrical distribution, focusing on reliability, efficiency, and high-voltage safety protocols.</p>
+        </div>
 
+        <div class="feature-card">
+          <div class="icon-box">🔌</div>
+          <h4>Circuit Design</h4>
+          <p>From schematic capture to PCB fabrication, translating theoretical requirements into physical hardware solutions.</p>
+        </div>
 
-
-
-  <section id="about" class="about">
-
-    <h3>About Me</h3>
-
-    <p>
-
-      I am an Electrical Engineer with a strong foundation in core electrical engineering principles and experience applying them to practical, real-world problems. My background includes system analysis, electrical design, circuit modeling, and hardware–software integration across a range of engineering applications.
-
-    </p>
-
-
-
-    <p>
-
-      I am comfortable working with both theoretical concepts and hands-on implementation, using industry-standard tools to design, analyze, and optimize electrical systems. I enjoy approaching problems methodically, translating requirements into effective technical solutions, and ensuring reliability, efficiency, and performance in engineering work.
-
-    </p>
-
-
-
-    <p>
-
-      I am a motivated, detail-oriented engineer who values continuous learning and collaboration. I am seeking opportunities where I can contribute to multidisciplinary teams, expand my technical expertise, and support the development of impactful engineering solutions across the broader field of electrical engineering.
-
-    </p>
-
+        <div class="feature-card">
+          <div class="icon-box">💻</div>
+          <h4>Embedded Logic</h4>
+          <p>Integrating hardware with software using C++ and Python to create responsive, sensor-driven electromechanical systems.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
+  <section class="bio-section">
+    <div class="container">
+      <div class="glass-panel">
+        <h3 class="section-heading" style="text-align: left;">About Me</h3>
+        <p>
+          I am an Electrical Engineer with a strong foundation in core engineering principles and experience applying them to practical, real-world problems. My background includes <strong>system analysis, electrical design, and hardware–software integration</strong> across a range of engineering applications.
+        </p>
+        <p>
+          I am comfortable working with both theoretical concepts and hands-on implementation, using industry-standard tools to design, analyze, and optimize electrical systems. I enjoy approaching problems methodically, translating requirements into effective technical solutions, and ensuring reliability in engineering work.
+        </p>
+        <div class="tech-stack">
+          <span>Altium Designer</span>
+          <span>PowerWorld</span>
+          <span>MATLAB</span>
+          <span>Python</span>
+          <span>C++</span>
+          <span>AutoCAD</span>
+          <span>SolidWorks</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-
-
-
-  <section class="contact">
-
-    <h3>Contact</h3>
-
-    <p>Email: rafikibrahim1919@gmail.com</p>
-
-    </section>
-
-
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-box">
+        <h3>Let's Connect</h3>
+        <p>I am currently seeking opportunities to contribute to multidisciplinary engineering teams.</p>
+        <a href="mailto:rafikibrahim1919@gmail.com" class="btn-primary">rafikibrahim1919@gmail.com</a>
+      </div>
+    </div>
+  </section>
 
   <footer>
-
-    © 2026 Rafik Ibrahim
-
+    <div class="container">
+      <p>&copy; 2026 Rafik Ibrahim | Electrical Engineer</p>
+    </div>
   </footer>
 
-
-
 </body>
-
 </html>
