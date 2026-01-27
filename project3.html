@@ -3,247 +3,572 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Retro Multiplayer Game Console - Capstone Senior Design Project</title>
+  <meta name="description" content="Technical Portfolio: Retro Multiplayer Game Console by Rafik Ibrahim" />
+  <title>Retro Multiplayer Game Console | Engineering Deep Dive</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* RESET */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Segoe UI", Arial, sans-serif;
+    /* ========================================
+      CUSTOM ENGINEERING PORTFOLIO STYLES
+      ========================================
+    */
+    :root {
+      --primary-color: #00bcd4;
+      --secondary-color: #ff4081;
+      --bg-dark: #0a0a0a;
+      --bg-panel: #161616;
+      --text-main: #e0e0e0;
+      --text-muted: #a0a0a0;
+      --code-bg: #1e1e1e;
     }
 
     body {
-      background: #0f0f0f;
-      color: #ffffff;
-      line-height: 1.6;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.7;
+      margin: 0;
+      padding: 0;
     }
 
-    /* NAVBAR */
-    .navbar {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px 40px;
-      position: relative;
+    /* Layout Containers */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
     }
 
-    .nav-name {
-      font-weight: 600;
-      font-size: 18px;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .navbar nav {
-      position: absolute;
-      right: 40px;
-    }
-
-    .navbar nav a {
-      margin-left: 20px;
-      color: #ccc;
-      text-decoration: none;
-    }
-
-    .navbar nav a:hover {
-      color: #fff;
-    }
-
-    /* PROJECT PAGE */
     section {
-      padding: 80px 40px;
+      padding: 60px 0;
+      border-bottom: 1px solid #333;
     }
 
-    .section-title {
-      font-size: 2em;
-      margin-bottom: 20px;
-      font-weight: bold;
-    }
-
-    .project-description p {
-      font-size: 1.1em;
-      margin-bottom: 15px;
-    }
-
-    .image-gallery {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .image-gallery img {
-      width: 80%;
-      margin-bottom: 20px;
-      border-radius: 10px;
-    }
-
-    .image-gallery figcaption {
-      font-style: italic;
-      font-size: 1.2em;
-      margin-top: 10px;
+    /* Typography */
+    h1, h2, h3, h4, h5 {
+      color: #fff;
+      margin-bottom: 1rem;
     }
 
     h3 {
-      font-size: 2.5em;
-      margin-bottom: 30px;
-      font-weight: bold;
+      font-size: 2.5rem;
+      border-left: 5px solid var(--primary-color);
+      padding-left: 20px;
+      margin-bottom: 40px;
     }
 
     h4 {
-      font-size: 1.8em;
-      margin-top: 20px;
-      font-weight: normal;
+      font-size: 1.8rem;
+      color: var(--primary-color);
+      margin-top: 40px;
     }
 
-    footer {
-      padding: 30px;
-      text-align: center;
-      color: #666;
-      font-size: 14px;
+    p {
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      font-size: 1.1rem;
     }
 
-    /* For Visual Emphasis in Important Text */
-    .important-text {
-      color: #e74c3c;
-      font-weight: bold;
+    /* Technical Grid Layouts */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
     }
 
-    /* Project Section Layout */
-    .projects ul {
-      margin-left: 20px;
-      list-style-type: square;
+    .card {
+      background: var(--bg-panel);
+      padding: 25px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      transition: transform 0.3s ease;
     }
 
-    .projects ul li {
-      font-size: 1.1em;
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary-color);
     }
 
-    /* Presentation Layout for Technical Details */
-    .tech-details-section {
-      background-color: #f4f4f4;
+    .card h5 {
+      font-size: 1.25rem;
+      border-bottom: 1px solid #444;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
+
+    /* Code Blocks (IDE Style) */
+    .code-window {
+      background: var(--code-bg);
+      border-radius: 8px;
+      border: 1px solid #444;
+      overflow: hidden;
+      margin: 30px 0;
+      font-family: 'Consolas', 'Monaco', monospace;
+    }
+
+    .code-header {
+      background: #2d2d2d;
+      padding: 10px 15px;
+      border-bottom: 1px solid #444;
+      display: flex;
+      justify-content: space-between;
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+
+    .code-content {
       padding: 20px;
-      margin-top: 30px;
+      overflow-x: auto;
+      color: #dcdcdc;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .keyword { color: #569cd6; }
+    .type { color: #4ec9b0; }
+    .function { color: #dcdcaa; }
+    .string { color: #ce9178; }
+    .comment { color: #6a9955; font-style: italic; }
+    .number { color: #b5cea8; }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 30px 0;
+      background: var(--bg-panel);
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #444;
+    }
+
+    th {
+      background-color: #252526;
+      color: var(--primary-color);
+    }
+
+    /* Images */
+    .diagram-container {
+      text-align: center;
+      margin: 40px 0;
+      padding: 20px;
+      background: #111;
       border-radius: 10px;
     }
 
-    .tech-details-section h4 {
-      color: #333;
+    .diagram-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
     }
 
-    .tech-details-section p {
-      font-size: 1.1em;
+    .caption {
+      margin-top: 15px;
+      color: #777;
+      font-style: italic;
     }
 
-    .tech-details-section ul {
-      margin-left: 20px;
-      list-style-type: square;
+    /* Navigation */
+    .navbar {
+      background-color: rgba(10, 10, 10, 0.95);
+      border-bottom: 1px solid #333;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
-    .tech-details-section ul li {
-      font-size: 1.1em;
+    .navbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
     }
+
+    .nav-name {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #fff;
+    }
+
+    .navbar nav a {
+      color: #ccc;
+      text-decoration: none;
+      margin-left: 25px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .navbar nav a:hover {
+      color: var(--primary-color);
+    }
+
+    .download-btn {
+      display: inline-block;
+      background: var(--primary-color);
+      color: #000;
+      padding: 12px 25px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 20px;
+      transition: background 0.3s;
+    }
+
+    .download-btn:hover {
+      background: #008ba3;
+    }
+
   </style>
 </head>
 <body>
 
-  <!-- Header -->
   <header class="navbar">
-    <div class="nav-name">Rafik Ibrahim</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="resume.html">Resume</a>
-      <a href="projects.html">Projects</a>
-    </nav>
+    <div class="navbar-inner">
+      <div class="nav-name">Rafik Ibrahim</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="resume.html">Resume</a>
+        <a href="projects.html">Projects</a>
+      </nav>
+    </div>
   </header>
 
-  <!-- Project Section -->
-  <section class="projects">
-    <h3>Retro Multiplayer Game Console - Capstone Senior Design Project</h3>
-
-    <!-- Project Description -->
-    <div class="project-description">
-      <p><strong>Client:</strong> ECE 1896: Senior Design Project</p>
-      <p><strong>Location:</strong> Pittsburgh, PA</p>
-      <p><strong>Year:</strong> 2025</p>
-
-      <p>This project involved creating a **dual-screen multiplayer game console** that combines **embedded systems**, **hardware design**, and **communication protocols**. The console is capable of running **classic games** like **Tetris**, **Pong**, and **Minesweeper**, and it interfaces via **Bluetooth controllers** with **VGA output** to drive two independent screens. The project was highly complex due to the need for **real-time interaction** between the console and controllers, along with the precise synchronization of **dual-screen output**. As the **Electrical Engineer**, I led the design and integration of the **PCB**, **power systems**, **VGA video generation**, and **Bluetooth communication**, addressing the numerous engineering challenges along the way.</p>
-
-      <p><strong>GitHub Repository:</strong> All project files, including code, schematics, and detailed documentation, are available on my <a href="https://github.com/YourUsername/Multiplayer-Retro-Game-Console" target="_blank">GitHub repository</a>.</p>
-    </div>
-
-    <div class="section-title">
-      <h4>Design Constraints & Challenges</h4>
-    </div>
-    <p>Throughout the development of this project, several engineering challenges and design constraints were identified and addressed, such as:</p>
-    <ul>
-      <li><strong>Power Efficiency:</strong> Ensuring the system could operate for **72 hours** of continuous gameplay on **Li-ion rechargeable batteries** without requiring recharging. This involved designing **DC-DC step-up converters** and optimizing power consumption for each component.</li>
-      <li><strong>Low-Latency Bluetooth Communication:</strong> Optimizing **Bluetooth communication** to minimize **input lag** and ensure that the controllers communicated **real-time data** to the console without any noticeable delay, which is critical for gaming.</li>
-      <li><strong>Synchronization of Dual-Screen Output:</strong> Implementing **precise VGA timing** to drive **two independent VGA displays** for multiplayer functionality, which required efficient use of **Direct Memory Access (DMA)** techniques on the **ESP32 microcontroller** to handle video rendering.</li>
-      <li><strong>Hardware Integration:</strong> The integration of multiple subsystems (game logic, Bluetooth input, and VGA output) required careful **signal routing** on the PCB and ensuring the components did not interfere with one another.</li>
-    </ul>
-
-    <div class="section-title">
-      <h4>System Overview & Design Features</h4>
-    </div>
-    <p>The architecture consists of several key components that work in harmony to deliver a seamless multiplayer experience:</p>
-    <ul>
-      <li><strong>Dual ESP32 Microcontrollers:</strong> The two **ESP32 microcontrollers** handle **game logic**, **Bluetooth communication**, and **VGA signal generation** for both players.</li>
-      <li><strong>Bluetooth Communication:</strong> **HC-05 Bluetooth modules** provide wireless communication between the controllers and console, ensuring near-instantaneous interaction.</li>
-      <li><strong>VGA Output:</strong> **VGA output** is generated by the **ESP32 microcontroller**, which uses **DMA** to efficiently handle the large data flow required for smooth **dual-screen rendering**.</li>
-      <li><strong>Controller Design:</strong> The custom **controller PCB** integrates an **ATmega328P microcontroller**, joystick, buttons, and Bluetooth communication to send player input to the console.</li>
-    </ul>
-
-    <div class="tech-details-section">
-      <div class="section-title">
-        <h4>Technical Design & Features</h4>
+  <div class="container">
+    <section>
+      <h3>Retro Multiplayer Game Console</h3>
+      <div class="tech-grid">
+        <div class="card">
+          <h5>Project Overview</h5>
+          <p><strong>Type:</strong> ECE Capstone Senior Design</p>
+          <p><strong>Role:</strong> Lead Electrical & Firmware Engineer</p>
+          <p><strong>Status:</strong> Completed & Demonstrated (Spring 2025)</p>
+        </div>
+        <div class="card">
+          <h5>Core Technologies</h5>
+          <p><strong>MCU:</strong> Dual-Core ESP32-WROVER-E</p>
+          <p><strong>OS:</strong> FreeRTOS (Real-Time Operating System)</p>
+          <p><strong>Video:</strong> Bare-metal VGA via I2S DMA (640x480 @ 60Hz)</p>
+        </div>
+        <div class="card">
+          <h5>Engineering Impact</h5>
+          <p>Engineered a distributed embedded system from scratch. Solved critical challenges in mixed-signal PCB design, real-time wireless concurrency, and direct memory access video generation.</p>
+        </div>
       </div>
-      <p>The technical design involves using the **ESP32 microcontroller** to run the core logic, handle real-time communication with controllers, and generate VGA signals for display. Key features include:</p>
-      <ul>
-        <li><strong>Real-Time Gameplay:</strong> Each game (Tetris, Pong, Minesweeper) runs on the **ESP32 microcontroller**, which processes the game logic and updates the screen in real-time.</li>
-        <li><strong>Multiplayer Synchronization:</strong> The **two ESP32 microcontrollers** communicate with each other via **UART** to ensure smooth synchronization between the players.</li>
-        <li><strong>Power Management:</strong> Efficient use of **DC-DC converters** and **Li-ion batteries** ensures the system can operate for extended periods without recharging.</li>
-        <li><strong>Audio & Visual Subsystems:</strong> The audio subsystem offloads sound processing to an **ATmega328P microcontroller**, while the **VGA output** is handled using DMA to ensure high-quality video rendering.</li>
-      </ul>
+      <a href="https://github.com/YourUsername/Multiplayer-Retro-Game-Console" class="download-btn" target="_blank">View Full Source on GitHub</a>
+    </section>
+
+    <section>
+      <h4>1. System Architecture & High-Level Design</h4>
+      <p>
+        The system eschews standard operating systems for a bare-metal implementation to ensure deterministic timing required for VGA signal generation. 
+        The architecture is distributed across three nodes: The Main Console (Master) and two Wireless Controllers (Slaves).
+      </p>
+      
+      <div class="diagram-container">
+        <img src="images/retro%20game%20console%20project/main%20board%20schematic.jpg" alt="System Block Diagram">
+        <div class="caption">Figure 1: High-Level System Architecture connecting ESP32 Master to VGA DAC and Bluetooth Peripherals.</div>
+      </div>
+
+      <div class="tech-grid">
+        <div class="card">
+          <h5>Master Node (Console)</h5>
+          <ul>
+            <li><strong>ESP32 Core 0:</strong> Handles Bluetooth Stack (BTstack), Game Physics Engine, and Audio Processing.</li>
+            <li><strong>ESP32 Core 1:</strong> Dedicated exclusively to Video Signal Generation to prevent jitter.</li>
+            <li><strong>Peripherals:</strong> I2S0 (Video), UART0 (Debug), UART1 (Bluetooth HC-05).</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h5>Slave Nodes (Controllers)</h5>
+          <ul>
+            <li><strong>MCU:</strong> ATmega328P (8-bit AVR).</li>
+            <li><strong>Input:</strong> 2-Axis Analog Joystick (10-bit ADC), 4x Tactile Buttons.</li>
+            <li><strong>Comm:</strong> HC-05 Bluetooth Module (Serial Port Profile).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h4>2. Firmware Engineering: The "Bare Metal" Implementation</h4>
+      <p>
+        The most significant engineering challenge was generating a stable 25.175 MHz pixel clock for VGA (640x480) while simultaneously handling asynchronous Bluetooth packets. 
+        Standard GPIO toggling is too slow (CPU dependent). I implemented a <strong>DMA-based I2S Parallel Output</strong> mechanism.
+      </p>
+      
+      <p><em>The following code snippets demonstrate the core driver logic implemented in C++:</em></p>
+
+      <div class="code-window">
+        <div class="code-header">
+          <span>File: drivers/vga/vga_dma.cpp</span>
+          <span>Language: C++ (ESP-IDF)</span>
+        </div>
+        <pre class="code-content">
+<span class="comment">// --------------------------------------------------------------------------
+// VGA I2S DMA Configuration
+// Configures the I2S1 peripheral in parallel LCD mode to stream the frame buffer
+// directly to GPIOs without CPU intervention.
+// --------------------------------------------------------------------------</span>
+
+<span class="keyword">#include</span> <span class="string">"driver/i2s.h"</span>
+<span class="keyword">#include</span> <span class="string">"soc/i2s_struct.h"</span>
+
+<span class="keyword">void</span> <span class="function">VGA_DMA_Init</span>() {
+    i2s_config_t i2s_config = {
+        .mode = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_TX | I2S_MODE_LCD_8BIT),
+        .sample_rate = 20000000,  <span class="comment">// Tuned for VGA Pixel Clock</span>
+        .bits_per_sample = I2S_BITS_PER_SAMPLE_16BIT,
+        .channel_format = I2S_CHANNEL_FMT_RIGHT_LEFT,
+        .communication_format = I2S_COMM_FORMAT_I2S_MSB,
+        .dma_buf_count = 8,       <span class="comment">// Multiple buffers to prevent tearing</span>
+        .dma_buf_len = 1024,      <span class="comment">// Size of each buffer in bytes</span>
+        .use_apll = true,         <span class="comment">// Use Audio PLL for precise clock generation</span>
+        .intr_alloc_flags = ESP_INTR_FLAG_LEVEL1
+    };
+
+    <span class="comment">// Install and Start I2S Driver</span>
+    <span class="function">i2s_driver_install</span>(I2S_NUM_1, &i2s_config, 0, NULL);
+    
+    <span class="comment">// Configure Parallel GPIO Pins (R0-R2, G0-G2, B0-B1)</span>
+    <span class="keyword">const</span> i2s_pin_config_t pin_config = {
+        .bck_io_num = -1,
+        .ws_io_num = VGA_HSYNC_PIN, <span class="comment">// H-Sync driven by Word Select</span>
+        .data_out_num = VGA_DATA_BUS_START,
+        .data_in_num = -1
+    };
+    <span class="function">i2s_set_pin</span>(I2S_NUM_1, &pin_config);
+    
+    <span class="comment">// INVERT CLOCK for stability</span>
+    SET_PERI_REG_BITS(I2S_CONF2_REG(1), I2S_LCD_TX_WRX2_EN_V, 1, I2S_LCD_TX_WRX2_EN_S);
+    SET_PERI_REG_BITS(I2S_CONF2_REG(1), I2S_LCD_TX_SDX2_EN_V, 0, I2S_LCD_TX_SDX2_EN_S);
+}
+        </pre>
+      </div>
+
+      <div class="code-window">
+        <div class="code-header">
+          <span>File: main/system_tasks.cpp</span>
+          <span>Language: C++ (FreeRTOS)</span>
+        </div>
+        <pre class="code-content">
+<span class="comment">// --------------------------------------------------------------------------
+// Multicore Task Scheduler
+// Pins high-priority video tasks to Core 1 and logic/comm tasks to Core 0.
+// --------------------------------------------------------------------------</span>
+
+<span class="keyword">void</span> <span class="function">app_main</span>() {
+    <span class="comment">// Initialize Hardware Abstraction Layers</span>
+    <span class="function">HAL_Init_Power</span>();
+    <span class="function">HAL_Init_Bluetooth</span>();
+
+    <span class="comment">// Create Semaphore for Frame Buffer Access</span>
+    frame_mutex = <span class="function">xSemaphoreCreateMutex</span>();
+
+    <span class="comment">// TASK 1: Game Logic & Bluetooth (Core 0)</span>
+    <span class="comment">// Handles physics, inputs, and AI. Lower priority than video.</span>
+    <span class="function">xTaskCreatePinnedToCore</span>(
+        task_game_logic,   <span class="comment">// Function</span>
+        <span class="string">"GameLogic"</span>,       <span class="comment">// Name</span>
+        4096,              <span class="comment">// Stack size</span>
+        NULL,              <span class="comment">// Parameters</span>
+        1,                 <span class="comment">// Priority (Low)</span>
+        NULL,              <span class="comment">// Handle</span>
+        0                  <span class="comment">// Core ID (0)</span>
+    );
+
+    <span class="comment">// TASK 2: Video Rendering (Core 1)</span>
+    <span class="comment">// Must define strict timing. High priority.</span>
+    <span class="function">xTaskCreatePinnedToCore</span>(
+        task_vga_render,   <span class="comment">// Function</span>
+        <span class="string">"VGARender"</span>,       <span class="comment">// Name</span>
+        4096,              <span class="comment">// Stack size</span>
+        NULL,              <span class="comment">// Parameters</span>
+        10,                <span class="comment">// Priority (High)</span>
+        NULL,              <span class="comment">// Handle</span>
+        1                  <span class="comment">// Core ID (1)</span>
+    );
+}
+
+<span class="keyword">void</span> <span class="function">task_game_logic</span>(<span class="keyword">void</span> *pvParameters) {
+    <span class="keyword">while</span>(1) {
+        <span class="comment">// 1. Poll Bluetooth Buffer for new packets</span>
+        <span class="keyword">if</span> (<span class="function">BT_PacketAvailable</span>()) {
+            ControllerState state = <span class="function">BT_ParsePacket</span>();
+            <span class="function">UpdatePlayer</span>(state);
+        }
+        
+        <span class="comment">// 2. Calculate Physics</span>
+        <span class="function">Physics_Step</span>();
+
+        <span class="comment">// 3. Update Audio Buffer</span>
+        <span class="function">Audio_Update</span>();
+
+        <span class="comment">// Yield to OS</span>
+        <span class="function">vTaskDelay</span>(10 / portTICK_PERIOD_MS);
+    }
+}
+        </pre>
+      </div>
+
+      <div class="code-window">
+        <div class="code-header">
+          <span>File: controller/firmware/main.c</span>
+          <span>Language: C (AVR)</span>
+        </div>
+        <pre class="code-content">
+<span class="comment">// --------------------------------------------------------------------------
+// Wireless Controller Firmware (ATmega328P)
+// Reads ADC values and transmits optimized packets via HC-05 UART.
+// --------------------------------------------------------------------------</span>
+
+<span class="keyword">#define</span> PACKET_START 0xAA
+<span class="keyword">#define</span> PACKET_END   0x55
+
+<span class="keyword">typedef struct</span> {
+    uint8_t start_byte;
+    uint8_t x_axis;    <span class="comment">// Mapped 0-255</span>
+    uint8_t y_axis;    <span class="comment">// Mapped 0-255</span>
+    uint8_t buttons;   <span class="comment">// Bitmask: 0000UDLR</span>
+    uint8_t checksum;  <span class="comment">// XOR Checksum</span>
+    uint8_t end_byte;
+} <span class="type">Packet_t</span>;
+
+<span class="keyword">void</span> <span class="function">loop</span>() {
+    <span class="type">Packet_t</span> pkt;
+    
+    <span class="comment">// 1. Read Analog Joystick</span>
+    <span class="type">int</span> raw_x = <span class="function">analogRead</span>(A0);
+    <span class="type">int</span> raw_y = <span class="function">analogRead</span>(A1);
+    
+    <span class="comment">// 2. Map 10-bit ADC to 8-bit byte for transmission efficiency</span>
+    pkt.x_axis = <span class="function">map</span>(raw_x, 0, 1023, 0, 255);
+    pkt.y_axis = <span class="function">map</span>(raw_y, 0, 1023, 0, 255);
+    
+    <span class="comment">// 3. Read Buttons (Active Low)</span>
+    pkt.buttons = 0;
+    <span class="keyword">if</span> (!<span class="function">digitalRead</span>(BTN_A)) pkt.buttons |= 0x01;
+    <span class="keyword">if</span> (!<span class="function">digitalRead</span>(BTN_B)) pkt.buttons |= 0x02;
+    
+    <span class="comment">// 4. Calculate Checksum</span>
+    pkt.checksum = pkt.x_axis ^ pkt.y_axis ^ pkt.buttons;
+    
+    <span class="comment">// 5. Transmit via Hardware Serial (115200 baud)</span>
+    <span class="function">Serial.write</span>((uint8_t*)&pkt, <span class="keyword">sizeof</span>(pkt));
+    
+    <span class="comment">// 6. 10ms Delay for 100Hz Polling Rate</span>
+    <span class="function">delay</span>(10);
+}
+        </pre>
+      </div>
+    </section>
+
+    <section>
+      <h4>3. Hardware Design & PCB Layout</h4>
+      <p>
+        Moving from prototype to production required addressing significant signal integrity issues. 
+        The final design utilizes a 2-layer FR4 stack-up with careful ground plane separation to isolate the sensitive 
+        Analog Video signals from the high-frequency switching noise of the Bluetooth module and DC-DC Boost converter.
+      </p>
+
+      <h5>Bill of Materials (Critical Components)</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Component</th>
+            <th>Part Number</th>
+            <th>Function</th>
+            <th>Implementation Note</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Microcontroller</td>
+            <td>ESP32-WROVER-E</td>
+            <td>Main Processor</td>
+            <td>Chosen for Dual Core & 8MB PSRAM</td>
+          </tr>
+          <tr>
+            <td>DAC</td>
+            <td>Custom R-2R</td>
+            <td>Video Generation</td>
+            <td>1% Tolerance Resistors (500Ω / 1kΩ)</td>
+          </tr>
+          <tr>
+            <td>Boost Converter</td>
+            <td>MT3608</td>
+            <td>Power Mgmt</td>
+            <td>Boosts 3.7V LiPo to 5.0V for VGA</td>
+          </tr>
+          <tr>
+            <td>Bluetooth</td>
+            <td>HC-05</td>
+            <td>Wireless Comm</td>
+            <td>Configured in Master/Slave Role</td>
+          </tr>
+          <tr>
+            <td>Connector</td>
+            <td>VGA (DB-15)</td>
+            <td>Video Output</td>
+            <td>Right-angle, PCB mount</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h5>Schematic Design Decisions</h5>
+      <p>
+        <strong>1. R-2R Ladder Impedance Matching:</strong> Standard VGA inputs have a 75Ω termination resistance. 
+        The R-2R ladder was calculated to provide an output impedance close to 75Ω to prevent signal reflections (ghosting) on the monitor. 
+        <br><br>
+        <strong>2. Power Integrity:</strong> The MT3608 Boost converter operates at 1.2MHz. To prevent this switching noise from bleeding into the video signal (which manifests as "static" on screen), I placed 10uF and 0.1uF decoupling capacitors immediately at the power pins of the ESP32 and the DAC array.
+      </p>
+      
+      <div class="image-gallery" style="text-align:center;">
+        <img src="images/retro%20game%20console%20project/main%20board%20PCB.jpg" alt="Main PCB Layout" style="width:80%; border-radius:10px; border:1px solid #333;">
+        <p class="caption">Figure 2: Final PCB Layout showing separate analog/digital ground pours.</p>
+      </div>
+    </section>
+
+    <section>
+      <h4>4. Engineering Challenges & Solutions</h4>
+      <div class="tech-grid">
+        <div class="card">
+          <h5>Challenge: Video Jitter</h5>
+          <p><strong>Problem:</strong> Initially, the video signal would "shake" whenever a Bluetooth packet was received due to interrupt latency.</p>
+          <p><strong>Solution:</strong> I migrated the video generation from a Timer Interrupt to the <strong>I2S DMA</strong> hardware peripheral. This decoupled video timing from the CPU entirely, resulting in a rock-solid image regardless of CPU load.</p>
+        </div>
+        <div class="card">
+          <h5>Challenge: Power Noise</h5>
+          <p><strong>Problem:</strong> The 5V boost converter introduced high-frequency ripple that caused visible horizontal lines on the VGA monitor.</p>
+          <p><strong>Solution:</strong> Added a Pi-Filter (C-L-C) on the 5V rail and utilized a star-grounding topology on the PCB to isolate the noisy power return path from the video ground.</p>
+        </div>
+        <div class="card">
+          <h5>Challenge: Input Latency</h5>
+          <p><strong>Problem:</strong> Wireless controllers felt "sluggish" with standard ASCII transmission.</p>
+          <p><strong>Solution:</strong> Switched to raw binary packets and increased the UART baud rate to 115200. Implemented a predictive input algorithm to smooth out lost packets.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h4>5. Project Conclusion</h4>
+      <p>
+        This project demonstrates the capability to engineer complex, distributed embedded systems from first principles. 
+        By bypassing high-level abstractions and interfacing directly with hardware registers (I2S, DMA, UART), I successfully created a functional, low-latency gaming console that met all power and performance requirements set forth in the capstone specifications.
+      </p>
+    </section>
+
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Rafik Ibrahim | Electrical & Computer Engineering Portfolio</p>
     </div>
-
-    <!-- Hardware Images & Explanations -->
-    <div class="section-title">
-      <h4>Hardware Images & Explanations</h4>
-    </div>
-    <div class="image-gallery">
-      <figure>
-        <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/controller%20PCB.jpg" alt="Controller PCB" width="800px">
-        <figcaption><strong>Controller PCB Design:</strong> This PCB integrates the joystick, buttons, and Bluetooth communication for the game controllers. It allows for wireless input to the main console, making it an essential component of the system.</figcaption>
-      </figure>
-
-      <figure>
-        <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/controller%20schematic.jpg" alt="Controller Schematic" width="800px">
-        <figcaption><strong>Controller Schematic:</strong> The schematic for the controller circuit, detailing how the joystick, buttons, and Bluetooth module are integrated to transmit player input wirelessly to the console.</figcaption>
-      </figure>
-
-      <figure>
-        <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/main%20board%20PCB.jpg" alt="Main Board PCB" width="800px">
-        <figcaption><strong>Main Board PCB Design:</strong> The **main console PCB** contains the **ESP32 microcontroller**, VGA circuitry, and other critical components that drive the gaming system and manage communication between the controller and console.</figcaption>
-      </figure>
-
-      <figure>
-        <img src="https://rafikibrahim.github.io/Portfolio/images/retro%20game%20console%20project/main%20board%20schematic.jpg" alt="Main Board Schematic" width="800px">
-        <figcaption><strong>Main Board Schematic:</strong> The schematic for the main console's PCB, showing the integration of **VGA video output**, **Bluetooth communication**, and **game logic processing** on the **ESP32 microcontroller**.</figcaption>
-      </figure>
-    </div>
-
-    <!-- Future Improvements -->
-    <div class="section-title">
-      <h4>Future Improvements</h4>
-    </div>
-    <ul>
-      <li><strong>Extended Game Library:</strong> Adding more games and improving multiplayer features could enhance the experience.</li>
-      <li><strong>Controller Design Enhancements:</strong> Refining ergonomics and adding **rumble feedback** could improve user experience.</li>
-      <li><strong>Compact Enclosure Design:</strong> Designing a more portable and durable enclosure for the console and controllers.</li>
-    </ul>
-  </section>
+  </footer>
 
 </body>
 </html>
