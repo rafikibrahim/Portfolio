@@ -49,7 +49,7 @@
       background: linear-gradient(135deg, #fff 0%, #a0a0b0 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 20px;
+      margin-bottom: 60px;
       margin-top: 40px;
     }
 
@@ -240,25 +240,6 @@
       color: var(--accent-cyan);
     }
 
-    /* BUTTONS */
-    .btn-glow {
-      display: inline-block;
-      background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
-      color: #000;
-      padding: 16px 40px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1.1rem;
-      margin-top: 40px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .btn-glow:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 30px rgba(0, 242, 255, 0.4);
-    }
-
     /* SKILLS TAGS */
     .skill-tag {
       display: inline-block;
@@ -293,7 +274,7 @@
 
   <div class="container">
     
-    <h3 style="margin-bottom: 20px;">Retro Multiplayer Game Console</h3>
+    <h3 style="margin-bottom: 40px;">Retro Multiplayer Game Console</h3>
 
     <section>
       <h4>1. Introduction & Motivation</h4>
@@ -318,14 +299,8 @@
         <div class="card">
           <h5>My Role: Lead Electrical Engineer</h5>
           <p>
-            Leading a team of three Computer Engineers, I was solely responsible for the <strong>entire hardware lifecycle</strong>. My core responsibilities included:
+            Leading a team of three Computer Engineers, I was solely responsible for the <strong>entire hardware lifecycle</strong>. This included the schematic capture and PCB layout of all three system boards (Main Console, Audio Subsystem, and Controllers) using <strong>Altium Designer</strong>. I engineered the power architecture to support 72-hour runtimes, designed the mixed-signal VGA output stages, and managed the physical fabrication of the enclosures. Additionally, I bridged the gap between hardware and software, writing the low-level drivers for the Bluetooth stack and audio synchronization.
           </p>
-          <ul>
-            <li><strong>Circuit Design & PCB Development:</strong> Designed and assembled the ESP32-based main board and ATmega328P-based controllers using Altium Designer.</li>
-            <li><strong>Power System Implementation:</strong> Engineered power distribution for the ESP32, controllers, VGA output, and Audio subsystem, including voltage regulation and conversion.</li>
-            <li><strong>Component Integration:</strong> Validated Bluetooth modules, joystick inputs, push buttons, and the DFPlayer Mini audio system.</li>
-            <li><strong>Hardware Testing & Verification:</strong> Conducted structured testing to verify power stability, input response, and wireless connectivity using oscilloscopes and multimeters.</li>
-          </ul>
         </div>
         <div class="card">
           <h5>System Specifications</h5>
@@ -337,10 +312,6 @@
             <li><strong>Wireless Latency:</strong> < 50ms (Bluetooth HC-05).</li>
           </ul>
         </div>
-      </div>
-      
-      <div style="text-align: center;">
-        <a href="https://github.com/YourUsername/Multiplayer-Retro-Game-Console" class="btn-glow" target="_blank">View Project Repository</a>
       </div>
     </section>
 
@@ -416,7 +387,7 @@
       </div>
       
       <h5 style="margin-top: 40px; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 0.05em;">Bill of Materials (Selected Key Components)</h5>
-      <p style="font-size: 0.9rem; margin-bottom: 20px;">*Note: This list highlights the most critical components in the system architecture, not all of them.</p>
+      <p style="font-size: 0.9rem; margin-bottom: 20px;">*Note: This list highlights the most critical components in the system architecture, not the exhaustive BOM.</p>
       <table class="data-table">
         <thead>
           <tr>
@@ -600,6 +571,8 @@
             <span class="skill-tag">Design for Manufacturing (DFM)</span>
             <span class="skill-tag">Circuit Analysis</span>
             <span class="skill-tag">BOM Management</span>
+            <span class="skill-tag">Signal Integrity</span>
+            <span class="skill-tag">Impedance Matching</span>
           </div>
         </div>
         <div class="card">
@@ -612,6 +585,7 @@
             <span class="skill-tag">ESP32</span>
             <span class="skill-tag">Interrupt Handling</span>
             <span class="skill-tag">Serial Communication (I2C/SPI)</span>
+            <span class="skill-tag">Datasheet Analysis</span>
           </div>
         </div>
         <div class="card">
@@ -622,9 +596,10 @@
             <span class="skill-tag">Oscilloscopes</span>
             <span class="skill-tag">Logic Analyzers</span>
             <span class="skill-tag">Current Profiling</span>
-            <span class="skill-tag">Signal Integrity Analysis</span>
             <span class="skill-tag">Voltage Regulation</span>
             <span class="skill-tag">Soldering & Assembly</span>
+            <span class="skill-tag">Power Budgeting</span>
+            <span class="skill-tag">Team Leadership</span>
           </div>
         </div>
       </div>
