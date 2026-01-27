@@ -5,6 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Resume | Rafik Ibrahim</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Specific styles for the resume embed to look clean */
+    .resume-container {
+      background: #161616;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    }
+    
+    .download-btn {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #fff;
+      text-decoration: none;
+      border: 1px solid #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .download-btn:hover {
+      background: #fff;
+      color: #000;
+    }
+  </style>
 </head>
 <body>
 
@@ -12,18 +37,30 @@
     <div class="nav-name">Rafik Ibrahim</div>
     <nav>
       <a href="index.html">Home</a>
-      <a href="resume.html">Resume</a>
-      <a href="projects.html">Projects</a>
+      <a href="resume.html" class="active">Resume</a> <a href="projects.html">Projects</a>
     </nav>
   </header>
 
   <section class="projects">
-    <h3>Resume</h3>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <h3 style="margin-bottom: 0;">My Resume</h3>
+      <a href="resume.pdf" class="download-btn" download>Download PDF</a>
+    </div>
 
-    <!-- PDF embedded directly in the page -->
-    <embed src="resume.pdf" type="application/pdf" width="100%" height="800px">
-
+    <div class="resume-container">
+      <embed src="resume.pdf" type="application/pdf" width="100%" height="800px" style="border-radius: 4px;">
+      
+      <p style="text-align: center; margin-top: 10px; font-size: 14px; color: #888;">
+        Unable to view the PDF? <a href="resume.pdf" style="color: #fff;">Click here to download it.</a>
+      </p>
+    </div>
   </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Rafik Ibrahim | Electrical Engineer</p>
+    </div>
+  </footer>
 
 </body>
 </html>
