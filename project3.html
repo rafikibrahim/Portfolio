@@ -88,7 +88,7 @@
 
     /* LAYOUT CONTAINERS */
     .container {
-      max-width: 1200px; /* Matched to Home/Project 1 */
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0 20px 100px;
     }
@@ -98,7 +98,7 @@
     }
 
     /* ========================================
-       NAVBAR (EXACT MATCH TO PROJECT 1)
+       NAVBAR
        ========================================
     */
     .navbar {
@@ -123,7 +123,6 @@
     .nav-name {
       font-weight: 800;
       font-size: 1.5rem;
-      /* Gradient Name Effect */
       background: linear-gradient(90deg, #fff, var(--accent-cyan));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -135,7 +134,6 @@
       font-weight: 500;
     }
 
-    /* Active Link Style - Sky Blue */
     .navbar nav a:hover, .navbar nav a.active {
       color: var(--accent-cyan);
     }
@@ -143,7 +141,8 @@
     /* INFO CARDS (Glassmorphism) */
     .tech-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      /* UPDATED: Reduced min-width to 300px to fit 3 cards in one line */
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 30px;
       margin: 50px 0;
     }
@@ -153,7 +152,7 @@
       backdrop-filter: blur(12px);
       border: 1px solid var(--border-light);
       border-radius: 20px;
-      padding: 40px;
+      padding: 30px; /* Slightly reduced padding for better fit */
       transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
     }
 
@@ -343,33 +342,33 @@
       
       <div class="tech-grid">
         <div class="card">
-          <h5>Main Processing Unit: ESP32-WROVER-E</h5>
-          <p>
-            We selected the ESP32-WROVER-E for the main console due to its dual-core Xtensa LX6 architecture running at 240 MHz.
-          </p>
+          <h5>Main Processing Unit</h5>
+          <p style="color: #fff; font-weight: bold; margin-bottom: 10px;">ESP32-WROVER-E</p>
+          <p>Dual-core Xtensa LX6 architecture running at 240 MHz.</p>
           <ul>
-            <li><strong>Reasoning:</strong> The VGA signal generation requires strict timing (25.175 MHz pixel clock). A single-core MCU would struggle to handle this alongside game logic. With the ESP32, we could dedicate <strong>Core 1</strong> entirely to video signal generation (using the I2S peripheral in parallel mode) while <strong>Core 0</strong> handled the game physics, audio triggers, and UART communication.</li>
-            <li><strong>Memory:</strong> The WROVER module includes 8MB of PSRAM, which was essential for storing the double-buffered frame data required for smooth 60fps animation.</li>
+            <li><strong>Core 1:</strong> Dedicated to VGA signal generation.</li>
+            <li><strong>Core 0:</strong> Game physics & UART sync.</li>
+            <li><strong>8MB PSRAM:</strong> Essential for double-buffered frame data.</li>
           </ul>
         </div>
         <div class="card">
-          <h5>Controller Logic: ATmega328P</h5>
-          <p>
-            For the wireless controllers, we chose the ATmega328P (the chip found in the Arduino Uno).
-          </p>
+          <h5>Controller Logic</h5>
+          <p style="color: #fff; font-weight: bold; margin-bottom: 10px;">ATmega328P</p>
+          <p>Efficient 8-bit MCU for analog sampling.</p>
           <ul>
-            <li><strong>Reasoning:</strong> The controllers only need to sample analog inputs (joysticks) and digital buttons (tactile switches) and transmit them via UART. The ATmega328P is extremely power-efficient in this role and offers robust 10-bit ADC channels for precise joystick tracking.</li>
-            <li><strong>Form Factor:</strong> Using the standalone DIP-28 chip allowed us to design a custom PCB footprint that fits comfortably in a handheld enclosure, rather than using a bulky development board.</li>
+            <li><strong>Low Power:</strong> Optimized for battery life.</li>
+            <li><strong>10-bit ADC:</strong> Precise joystick tracking.</li>
+            <li><strong>DIP-28:</strong> Custom PCB footprint for handhelds.</li>
           </ul>
         </div>
         <div class="card">
-          <h5>Wireless Communication: HC-05 Bluetooth</h5>
-          <p>
-            We utilized the HC-05 Bluetooth Classic module in a Master/Slave configuration.
-          </p>
+          <h5>Wireless Communication</h5>
+          <p style="color: #fff; font-weight: bold; margin-bottom: 10px;">HC-05 Bluetooth</p>
+          <p>Bluetooth Classic module (SPP Profile).</p>
           <ul>
-            <li><strong>Reasoning:</strong> While Wi-Fi was an option, it introduces significant power overhead and connection latency. The HC-05 operating over the Serial Port Profile (SPP) provides a dedicated, low-latency data pipe that is simpler to debug and consumes less power than Wi-Fi.</li>
-            <li><strong>Implementation:</strong> We configured the controller modules as Masters and the console modules as Slaves, binding them to specific MAC addresses to prevent cross-talk in noisy RF environments.</li>
+            <li><strong>Low Latency:</strong> Faster than Wi-Fi overhead.</li>
+            <li><strong>Dedicated Pipe:</strong> Reliable serial data stream.</li>
+            <li><strong>Master/Slave:</strong> Bound MAC addresses.</li>
           </ul>
         </div>
       </div>
@@ -588,7 +587,7 @@
             <span class="skill-tag">PCB Layout</span>
             <span class="skill-tag">Mixed-Signal Routing</span>
             <span class="skill-tag">Component Selection</span>
-            <span class="skill-tag">Design for Manufacturing (DFM)</span>
+            <span class="skill-tag">DFM</span>
             <span class="skill-tag">Circuit Analysis</span>
             <span class="skill-tag">BOM Management</span>
             <span class="skill-tag">Signal Integrity</span>
@@ -598,13 +597,13 @@
         <div class="card">
           <h5>Embedded Systems</h5>
           <div>
-            <span class="skill-tag">UART Synchronization</span>
+            <span class="skill-tag">UART Sync</span>
             <span class="skill-tag">Bluetooth (HC-05)</span>
-            <span class="skill-tag">VGA Signal Generation</span>
+            <span class="skill-tag">VGA Signal</span>
             <span class="skill-tag">ATmega328P</span>
             <span class="skill-tag">ESP32</span>
-            <span class="skill-tag">Interrupt Handling</span>
-            <span class="skill-tag">Serial Communication (I2C/SPI)</span>
+            <span class="skill-tag">Interrupts</span>
+            <span class="skill-tag">Serial Comm</span>
             <span class="skill-tag">Datasheet Analysis</span>
           </div>
         </div>
@@ -617,7 +616,7 @@
             <span class="skill-tag">Logic Analyzers</span>
             <span class="skill-tag">Current Profiling</span>
             <span class="skill-tag">Voltage Regulation</span>
-            <span class="skill-tag">Soldering & Assembly</span>
+            <span class="skill-tag">Soldering</span>
             <span class="skill-tag">Power Budgeting</span>
             <span class="skill-tag">Team Leadership</span>
           </div>
