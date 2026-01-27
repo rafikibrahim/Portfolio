@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Rafik Ibrahim - Electrical Design Engineer - Residential Distribution Project" />
+  <meta name="description" content="Rafik Ibrahim - Electrical Engineer - Residential Distribution Design" />
   <title>Residential Electrical Design | Rafik Ibrahim</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -11,14 +11,13 @@
   <style>
     /* ========================================
        PREMIUM ENGINEERING PORTFOLIO THEME
-       (Embedded for single-file portability)
        ========================================
     */
     :root {
       --bg-deep: #050505;
       --bg-panel: #121212;
       --accent-cyan: #00f2ff;
-      --accent-gold: #ffd700; /* Gold for Power/Lighting theme */
+      --accent-gold: #ffd700; /* Gold for "Power/Lighting" vibe */
       --text-primary: #ffffff;
       --text-secondary: #b0b0b0;
       --border-light: rgba(255, 255, 255, 0.1);
@@ -94,7 +93,11 @@
       -webkit-text-fill-color: transparent;
     }
     .navbar nav a { color: var(--text-secondary); margin-left: 30px; font-weight: 500; }
-    .navbar nav a:hover { color: var(--accent-cyan); }
+    
+    /* Active Link Style */
+    .navbar nav a:hover, .navbar nav a.active { 
+      color: var(--accent-cyan); 
+    }
 
     /* CARDS & GRID */
     .tech-grid {
@@ -188,7 +191,7 @@
       <nav>
         <a href="index.html">Home</a>
         <a href="resume.html">Resume</a>
-        <a href="projects.html">Projects</a>
+        <a href="projects.html" class="active">Projects</a>
       </nav>
     </div>
   </header>
