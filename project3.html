@@ -263,33 +263,77 @@
   <div class="container">
     <section>
       <h3>Retro Multiplayer Game Console</h3>
+      
       <div class="tech-grid">
         <div class="card">
-          <h5>Project Overview</h5>
-          <p><strong>Type:</strong> ECE 1896 Senior Design (Project R&F)</p>
-          <p><strong>Role:</strong> Lead Hardware Engineer & Firmware Integration</p>
-          <p><strong>Outcome:</strong> Functional dual-screen console with ~72hr battery life</p>
+          <h5>Project Identity</h5>
+          <p><strong>Type:</strong> ECE 1896 Senior Design Capstone (Team #16)</p>
+          <p><strong>My Role:</strong> Team Leader & Lead Electrical Engineer</p>
+          <p><strong>Team Structure:</strong> 1 Electrical Engineer (Me) + 3 Computer Engineers</p>
         </div>
         <div class="card">
-          <h5>Core Architecture</h5>
-          <p><strong>MCU:</strong> 2x ESP32-WROVER (Console), 2x ATmega328P (Controllers)</p>
-          <p><strong>Comms:</strong> UART (Inter-console), Bluetooth HC-05 (Controllers)</p>
-          <p><strong>Video:</strong> Direct Digital GPIO VGA (320x200 @ 60Hz)</p>
+          <h5>Core Tech Stack</h5>
+          <p><strong>MCU:</strong> Dual-Core ESP32 (Console) + ATmega328P (Controllers)</p>
+          <p><strong>Comms:</strong> UART (System Sync) & Bluetooth Classic (Input)</p>
+          <p><strong>Output:</strong> Dual-Stream Digital VGA (640x480 @ 60Hz)</p>
         </div>
         <div class="card">
-          <h5>Engineering Impact</h5>
-          <p>Engineered a distributed embedded system from scratch. Solved critical conflicts between Wi-Fi and VGA timing by implementing a hardwired UART synchronization layer, reducing power consumption and latency.</p>
+          <h5>Key Deliverable</h5>
+          <p>A fully functional, distributed gaming system featuring two independent screens, custom wireless controllers with 72-hour battery life, and real-time multiplayer synchronization for Tetris, Pong, and Minesweeper.</p>
         </div>
       </div>
+      
       <a href="https://github.com/YourUsername/Multiplayer-Retro-Game-Console" class="download-btn" target="_blank">View Full Source on GitHub</a>
     </section>
 
     <section>
-      <h4>1. System Architecture & Modular Design</h4>
+      <h4>1. Project Introduction: Reviving Social Gaming</h4>
+      
+      <p><strong>The Concept (What it is):</strong></p>
+      <p>
+        Project R&F is an innovative dual-screen gaming console designed to bridge the gap between the nostalgic simplicity of retro gaming and modern embedded systems engineering. 
+        Unlike traditional consoles that rely on a single shared screen, this system drives <strong>two independent VGA monitors</strong> simultaneously, providing each player with a dedicated view while maintaining a synchronized game state. 
+        The system runs classic titles—<strong>Tetris, Pong, and Minesweeper</strong>—re-engineered from scratch to support competitive and cooperative multiplayer modes.
+      </p>
+
+      <p><strong>The Engineering Challenge (What it is doing):</strong></p>
+      <p>
+        The system operates as a <strong>distributed embedded network</strong> rather than a monolithic computer. 
+        It offloads tasks across multiple microcontrollers to achieve real-time performance without an operating system:
+      </p>
+      <ul>
+        <li><strong>Main Console:</strong> Two ESP32-WROVER units communicate via a high-speed, hardwired <strong>UART bridge</strong> to sync game physics and player states with zero latency.</li>
+        <li><strong>Wireless Control:</strong> Custom-built controllers use <strong>ATmega328P</strong> chips to process analog inputs and transmit data via <strong>HC-05 Bluetooth</strong> modules.</li>
+        <li><strong>Visuals:</strong> Video signals are generated "bare metal" using Direct Memory Access (DMA) and GPIO bit-banging to produce standard VGA signals without a GPU.</li>
+      </ul>
+
+      <p><strong>The Motivation (Why we did it):</strong></p>
+      <p>
+        Modern gaming has become increasingly complex, expensive, and isolated, often requiring high-end hardware and internet connections. 
+        Our goal was to engineer a <strong>low-cost, accessible, and social</strong> alternative that prioritizes face-to-face interaction. 
+        From a technical perspective, this project served as the ultimate test of our engineering curriculum—requiring the seamless integration of power management, analog circuit design, wireless protocols, and real-time firmware optimization into a consumer-ready product.
+      </p>
+
+      <p><strong>My Role as Team Leader & Lead EE:</strong></p>
+      <p>
+        Leading a team of three Computer Engineers, I was solely responsible for the <strong>entire hardware lifecycle</strong>. 
+        This included the schematic capture and PCB layout of all three system boards (Main Console, Audio Subsystem, and Controllers) using <strong>Altium Designer</strong>. 
+        I engineered the power architecture to support 72-hour runtimes, designed the mixed-signal VGA output stages, and managed the physical fabrication of the enclosures. 
+        Additionally, I bridged the gap between hardware and software, writing the low-level drivers for the Bluetooth stack and audio synchronization.
+      </p>
+    </section>
+
+    <section>
+      <h4>2. System Architecture & Modular Design</h4>
       <p>
         The system utilizes a distributed architecture to manage the high resource demands of real-time VGA generation and multiplayer synchronization. 
         Unlike single-processor designs, I separated the system into three distinct PCB subsystems to minimize noise and processing bottlenecks.
       </p>
+      
+      <div class="diagram-container">
+        <img src="images/retro%20game%20console%20project/main%20board%20schematic.jpg" alt="System Block Diagram">
+        <div class="caption">Figure 1: High-Level System Architecture connecting ESP32 Master Nodes to Audio and Controller Subsystems.</div>
+      </div>
 
       <div class="tech-grid">
         <div class="card">
@@ -311,7 +355,7 @@
     </section>
 
     <section>
-      <h4>2. Firmware Engineering: Real-Time Synchronization</h4>
+      <h4>3. Firmware Engineering: Real-Time Synchronization</h4>
       <p>
         A critical challenge was ensuring frame-perfect synchronization between two separate hardware units without using Wi-Fi (which caused timing conflicts with VGA generation). 
         I implemented a deterministic <strong>UART Handshake Protocol</strong>. When multiplayer mode is selected, the units lock into a synchronization loop before game logic executes.
@@ -399,7 +443,7 @@
     </section>
 
     <section>
-      <h4>3. Hardware Design & Implementation</h4>
+      <h4>4. Hardware Design & Implementation</h4>
       <p>
         I designed three custom PCBs using <strong>Altium Designer</strong> to transition from breadboard prototypes to a robust, integrated product. 
         A key focus was power management: implementing a parallel battery system with UPS functionality to support 72-hour runtimes.
@@ -485,7 +529,7 @@
     </section>
 
     <section>
-      <h4>4. Engineering Challenges & Solutions</h4>
+      <h4>5. Engineering Challenges & Solutions</h4>
       <div class="tech-grid">
         <div class="card">
           <h5>Challenge: The "Everything Everywhere" Crash</h5>
@@ -506,7 +550,7 @@
     </section>
 
     <section>
-      <h4>5. Project Validation & Results</h4>
+      <h4>6. Project Validation & Results</h4>
       <p>
         The final prototype was subjected to rigorous stress testing. The system demonstrated stable performance with a <strong>Bluetooth pairing time of ~4.02 seconds</strong> and a <strong>VGA startup time of ~5.1 seconds</strong>. 
         Most impressively, the controller's parallel battery configuration achieved an average runtime of <strong>72 hours</strong>, far exceeding the initial 6-hour requirement.
