@@ -25,7 +25,7 @@
       <p><strong>Engineering Focus:</strong> Embedded Systems, Custom PCB Fabrication, and Security Automation</p>
 
       <p>
-        Inspired by the gate systems at the Soldiers and Sailors Garage, I designed and built an automated vehicle access control prototype. This system utilizes RFID technology for secure authentication, integrated with real-time user feedback and automated physical actuation.
+        Inspired by the gate systems at the Soldiers and Sailors Garage, I designed and built an automated vehicle access control prototype. [cite_start]This system operates by prompting users to scan their ID cards through an LCD interface. [cite: 4, 5, 16]
       </p>
     </div>
 
@@ -33,7 +33,7 @@
       <h4>Project Demonstration</h4>
     </div>
     <div class="project-video-container" style="text-align: center; margin: 20px 0;">
-      <video width="80%" height="auto" autoplay loop muted playsinline controls style="border-radius: 8px; border: 2px solid #333; background-color: #000;">
+      <video width="45%" height="auto" autoplay loop muted playsinline controls style="border-radius: 8px; border: 2px solid #333; background-color: #000;">
         <source src="images/RFID%20GATE%20OPENER/RFID-Based%20Smart%20Car%20Gate%20Opener.webm" type="video/webm">
         Your browser does not support the video tag.
       </video>
@@ -44,11 +44,11 @@
     </div>
     <p>The system provides a seamless, secure entry process through several integrated stages:</p>
     <ul>
-      <li><strong>Authentication:</strong> Users scan an ID card via the RFID sensor. The system is programmed to accept only specific UIDs (Unique Identifiers) to ensure authorized access only.</li>
-      <li><strong>Interactive Interface:</strong> A 16x2 LCD provides real-time prompts, such as "Scan your ID," "Access Granted," or "Access Denied."</li>
-      <li><strong>Physical Actuation:</strong> Upon valid authentication, a servo motor opens the gate arm to 180 degrees.</li>
-      <li><strong>Intelligent Closure:</strong> An ultrasonic sensor detects the vehicle at the gate. The system is programmed to close the gate automatically only after the vehicle has passed through, ensuring safety and efficiency.</li>
-      <li><strong>Audio-Visual Feedback:</strong> A speaker provides tones for success or denial, complemented by a Green LED for granted access and a Red LED for denied access.</li>
+      [cite_start]<li><strong>Authentication:</strong> Users scan an ID card via an RFID sensor to verify authorized access. [cite: 21, 26]</li>
+      [cite_start]<li><strong>Interactive Interface:</strong> A 16x2 LCD provides real-time prompts, such as "Scan your ID," "Access Granted," or "Access Denied." [cite: 20, 24, 99]</li>
+      [cite_start]<li><strong>Physical Actuation:</strong> Upon valid authentication, a servo motor opens the gate arm. [cite: 6, 25, 98]</li>
+      [cite_start]<li><strong>Intelligent Closure:</strong> An ultrasonic sensor detects vehicles at the gate, enabling automatic closure once the vehicle passes through. [cite: 8, 27, 104]</li>
+      [cite_start]<li><strong>Audio-Visual Feedback:</strong> A speaker plays distinct tones to indicate access approval or denial, while LEDs visually reinforce these responses (green for granted, red for denied). [cite: 7, 31, 32, 103]</li>
     </ul>
 
     
@@ -56,11 +56,11 @@
     <div class="section-title">
       <h4>2. Technical Implementation & PCB Design</h4>
     </div>
-    <p>The project moved from a complex breadboard prototype to a streamlined custom PCB designed in Altium Designer:</p>
+    [cite_start]<p>The project moved from a breadboard prototype to a streamlined custom PCB designed in Altium Designer: [cite: 165, 168]</p>
     <ul>
-      <li><strong>Power Regulation:</strong> A primary challenge was managing dual voltage requirements: 3.3V for the RFID sensor and 5V for the LCD and servo. I integrated an LM2937ET-3.3 and an LM7805CV regulator directly onto the PCB to provide stable power from a 9V source.</li>
-      <li><strong>Microcontroller Architecture:</strong> I configured a standalone ATmega328P chip on the PCB, including an AVR programming header to allow for future firmware updates without removing the chip.</li>
-      <li><strong>Hardware Reliability:</strong> Voltage drops during simultaneous servo and RFID operation were stabilized through the strategic placement of decoupling capacitors.</li>
+      [cite_start]<li><strong>Power Regulation:</strong> To manage dual voltage requirements, I integrated an LM2937ET-3.3 (for 3.3V RFID requirements) and an LM7805CV (for 5V components) directly onto the PCB. [cite: 110, 159, 169]</li>
+      [cite_start]<li><strong>Microcontroller Architecture:</strong> I configured a standalone ATmega328P chip, including an AVR programming header for future firmware maintenance. [cite: 55, 173]</li>
+      [cite_start]<li><strong>Hardware Reliability:</strong> Voltage drops during simultaneous operation were addressed by the strategic placement of capacitors to ensure stable power delivery. [cite: 46, 47, 169]</li>
     </ul>
 
     
@@ -69,16 +69,16 @@
       <h4>3. Challenges & Engineering Solutions</h4>
     </div>
     <ul>
-      <li><strong>Debugging Without Serial:</strong> Since the prototype used a standalone chip, I lacked a standard USB serial monitor. I solved this by using the LCD screen as a substitute for the serial monitor to display debugging messages.</li>
-      <li><strong>Mechanical Engineering:</strong> The final enclosure was modeled in SolidWorks and constructed from wood to house all components securely while maintaining an organized internal wire structure.</li>
-      <li><strong>Firmware Integration:</strong> Coordinating the timing of the ultrasonic sensor and servo motor required precise coding to ensure the gate didn't close prematurely on the vehicle.</li>
+      <li><strong>Debugging Without Serial:</strong> Since the prototype used a standalone chip, I lacked a standard serial monitor. [cite_start]I utilized the LCD screen as a substitute to display important debugging messages and test outputs. [cite: 66, 67, 68]</li>
+      [cite_start]<li><strong>Mechanical Engineering:</strong> I modeled a custom enclosure in SolidWorks and constructed the final version from wood to house all components securely and improve aesthetics. [cite: 10, 106, 199, 203]</li>
+      [cite_start]<li><strong>Firmware Integration:</strong> Coordinating the timing between the servo motor, RFID authentication, and ultrasonic detection required precise optimization to ensure reliable operation. [cite: 48, 49, 148]</li>
     </ul>
 
     <div class="section-title">
       <h4>4. Project Summary</h4>
     </div>
     <p>
-      The final prototype successfully replicates real-world parking access functionality. It demonstrates the effectiveness of integrating sensors, dual-voltage power regulation, and custom hardware design into a robust, practical access control solution.
+      [cite_start]The final prototype successfully replicates real-world parking functionality, demonstrating effective integration of sensors, dual-voltage power regulation, and custom hardware design. [cite: 91, 216, 222, 226]
     </p>
 
   </section>
