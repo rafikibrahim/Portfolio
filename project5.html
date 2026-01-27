@@ -3,113 +3,451 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Rafik Ibrahim - Hardware Engineer - Bark It! Interactive Dog Trainer" />
   <title>Bark It! | Rafik Ibrahim</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ========================================
+       PREMIUM ENGINEERING PORTFOLIO THEME
+       ========================================
+    */
+    :root {
+      --bg-deep: #020204;
+      --bg-panel: #0f0f13;
+      --accent-cyan: #00f2ff;
+      --accent-orange: #ff9100; /* Orange for "Playful/Dog" vibe */
+      --accent-purple: #bd00ff;
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0b0;
+      --border-light: rgba(255, 255, 255, 0.08);
+      --glass-surface: rgba(20, 20, 30, 0.7);
+      --code-bg: #1e1e1e;
+    }
+
+    body {
+      background-color: var(--bg-deep);
+      color: var(--text-primary);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.8;
+      margin: 0;
+      padding: 0;
+      background-image: 
+        radial-gradient(circle at 10% 10%, rgba(255, 145, 0, 0.03) 0%, transparent 20%),
+        radial-gradient(circle at 90% 90%, rgba(0, 242, 255, 0.03) 0%, transparent 20%);
+    }
+
+    /* TYPOGRAPHY */
+    h1, h2, h3, h4, h5 {
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    h3 {
+      font-size: 3.5rem;
+      text-align: center;
+      background: linear-gradient(135deg, #fff 0%, #a0a0b0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+      margin-top: 40px;
+    }
+
+    h4 {
+      font-size: 1.8rem;
+      color: var(--accent-cyan);
+      margin-top: 80px;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--border-light);
+      display: inline-block;
+    }
+
+    h5 {
+      font-size: 1.2rem;
+      color: var(--accent-orange);
+      margin-top: 0;
+    }
+
+    p, li {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
+
+    strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* LAYOUT CONTAINERS */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px 100px;
+    }
+
+    section {
+      position: relative;
+    }
+
+    /* INFO CARDS (Glassmorphism) */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 30px;
+      margin: 50px 0;
+    }
+
+    .card {
+      background: var(--glass-surface);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-light);
+      border-radius: 20px;
+      padding: 40px;
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      border-color: rgba(255, 145, 0, 0.3);
+    }
+
+    .card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .card li {
+      padding-left: 25px;
+      position: relative;
+    }
+
+    .card li::before {
+      content: "▪";
+      color: var(--accent-cyan);
+      position: absolute;
+      left: 0;
+      top: -2px;
+      font-size: 1.5rem;
+    }
+
+    /* CODE BLOCKS */
+    .code-window {
+      background: var(--code-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border-light);
+      overflow: hidden;
+      margin: 30px 0;
+      font-family: 'Consolas', 'Monaco', monospace;
+    }
+
+    .code-header {
+      background: #252526;
+      padding: 10px 20px;
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      justify-content: space-between;
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+
+    .code-content {
+      padding: 20px;
+      overflow-x: auto;
+      color: #dcdcdc;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .keyword { color: #569cd6; }
+    .type { color: #4ec9b0; }
+    .string { color: #ce9178; }
+    .comment { color: #6a9955; font-style: italic; }
+
+    /* IMAGE GALLERY */
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+    .gallery-item {
+      background: var(--bg-panel);
+      padding: 20px;
+      border-radius: 16px;
+      border: 1px solid var(--border-light);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      display: block;
+      transition: opacity 0.3s;
+    }
+
+    .caption {
+      margin-top: 15px;
+      color: var(--accent-cyan);
+      font-size: 0.9rem;
+      text-align: center;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    /* VIDEO CONTAINER */
+    .video-container {
+      text-align: center;
+      margin: 60px 0;
+      padding: 20px;
+      background: var(--glass-surface);
+      border-radius: 20px;
+      border: 1px solid var(--border-light);
+    }
+
+    .video-container video {
+      width: 45%; 
+      border-radius: 10px; 
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    /* SKILLS TAGS */
+    .skill-tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-light);
+      padding: 8px 16px;
+      border-radius: 20px;
+      margin: 5px 5px 0 0;
+      font-size: 0.9rem;
+      color: var(--accent-cyan);
+    }
+
+    /* NAVIGATION */
+    .navbar {
+      background: rgba(2, 2, 4, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-light);
+      padding: 25px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 40px;
+    }
+
+    .nav-name {
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: #fff;
+    }
+
+    .navbar nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin-left: 40px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .navbar nav a:hover {
+      color: var(--accent-cyan);
+    }
+
+    @media (max-width: 900px) {
+      .image-gallery { grid-template-columns: 1fr; }
+      .video-container video { width: 100%; }
+      h3 { font-size: 2.5rem; }
+    }
+  </style>
 </head>
 <body>
 
   <header class="navbar">
-    <div class="nav-name">Rafik Ibrahim</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="resume.html">Resume</a>
-      <a href="projects.html">Projects</a>
-    </nav>
+    <div class="navbar-inner">
+      <div class="nav-name">Rafik Ibrahim</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="resume.html">Resume</a>
+        <a href="projects.html">Projects</a>
+      </nav>
+    </div>
   </header>
 
-  <section class="projects">
-    <h3>Bark It!: Interactive Cognitive Trainer</h3>
+  <div class="container">
     
-    <div class="project-description">
-      <p><strong>Client:</strong> Junior Design Project</p>
-      <p><strong>Location:</strong> Pittsburgh, PA</p>
-      <p><strong>Year:</strong> 2025</p>
+    <h3 style="margin-bottom: 40px;">Bark It! Interactive Cognitive Trainer</h3>
 
+    <section>
+      <h4>1. Introduction & Motivation</h4>
       <p>
-        Bark It! is an automated, sensor-driven system designed to provide physical and mental enrichment for canines. 
-        By utilizing an <strong>ATMega32 microcontroller</strong>, the device facilitates a real-time gaming loop that tracks performance and scales difficulty based on the user's success rate.
+        <strong>The Mission:</strong> "Bark It!" is an automated, sensor-driven gaming system designed to provide both mental and physical enrichment for canines. The project goal was to build a device that challenges dogs with varying stimuli, rewarding them for correct actions while providing entertainment for their owners through a competitive scoring system.
       </p>
-    </div>
+      <p>
+        <strong>The Mechanics:</strong> Inspired by the classic "Bop It!" toy, the system randomly issues one of three commands—"Tug It," "Dig It," or "Place It." The dog must interpret the auditory cue and interact with the correct physical sensor within a decreasing time limit. Success extends the game streak and increases the speed, while failure triggers a game-over state.
+      </p>
+      <p>
+        <strong>My Contribution:</strong> Working in a multidisciplinary team, I focused heavily on the <strong>hardware integration and PCB design</strong>. I was responsible for selecting robust sensors capable of withstanding canine interaction, designing the custom circuit board to minimize wiring clutter, and validating the mixed-signal logic between the sensors and the microcontroller.
+      </p>
+    </section>
 
-    <div class="section-title">
-      <h4>Project Demonstration: Preliminary Testing</h4>
-    </div>
-    <div class="project-video-container" style="text-align: center; margin: 20px 0;">
-      <p style="font-style: italic; color: #888; margin-bottom: 10px;">Note: The following video demonstrates early-stage testing of the sensor logic and gaming loop prior to final enclosure assembly.</p>
-      <video width="45%" height="auto" autoplay loop muted playsinline controls style="border-radius: 8px; border: 2px solid #333; background-color: #000;">
-        <source src="images/Bark_it/bark%20it.webm" type="video/webm">
-        Your browser does not support the video tag.
-      </video>
-    </div>
+    <section>
+      <div class="video-container">
+        <p style="color: #ccc; margin-bottom: 15px;">Preliminary Testing: Validating Sensor Logic and Game Loop</p>
+        <video controls autoplay loop muted playsinline>
+          <source src="images/Bark_it/bark%20it.webm" type="video/webm">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </section>
 
-    <div class="section-title">
-      <h4>Design Constraints & Objectives</h4>
-    </div>
-    <p>The development of the trainer was guided by specific functional requirements to ensure accessibility for the animal and reliability for the owner:</p>
-    <ul>
-      <li><strong>Behavioral Interfacing:</strong> Tactile sensors, such as joysticks and large push buttons, were selected to accommodate natural canine movements including tugging and paw-pressing.</li>
-      <li><strong>Cognitive Feedback:</strong> The system incorporates multimodal cues, using a 16x2 LCD for visual tracking and an audio module for distinct command tones.</li>
-      <li><strong>Safety-First Architecture:</strong> All electronic components and wiring are isolated within a hollow base underneath the enclosure to prevent accidental damage during play.</li>
-      <li><strong>Adaptive Timing:</strong> The firmware features a dynamic timing variable that reduces the task completion window as the score increases, maintaining high engagement levels.</li>
-    </ul>
+    <section>
+      <div class="tech-grid">
+        <div class="card">
+          <h5>Sensor Architecture</h5>
+          <p>
+            The system relies on three distinct electromechanical inputs, each requiring unique signal processing:
+          </p>
+          <ul>
+            <li><strong>Tug It (Analog):</strong> A rope tethered to an analog joystick. The system reads voltage changes on the X/Y axes to detect a "pull" event.</li>
+            <li><strong>Dig It (Digital):</strong> A large, high-visibility red push button. The firmware implements a counter to detect three rapid presses, simulating a digging motion.</li>
+            <li><strong>Place It (State Machine):</strong> A ball transfer task monitored by dual limit switches. The logic requires a specific sequence (Switch A releases -> Switch B triggers) to validate the move.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h5>Hardware Specifications</h5>
+          <ul>
+            <li><strong>Microcontroller:</strong> ATMega32 (8-bit AVR).</li>
+            <li><strong>Display:</strong> 16x2 LCD for score tracking and visual feedback.</li>
+            <li><strong>Audio:</strong> Active Buzzer for distinct command tones.</li>
+            <li><strong>PCB:</strong> Custom 2-layer board with modular 2-pin connectors.</li>
+            <li><strong>Enclosure:</strong> Laser-cut 1/8" plywood with sliding joinery.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-    
+    <section>
+      <h4>3. Hardware Design & PCB Implementation</h4>
+      <p>
+        Transitioning from a breadboard mess to a reliable product was critical, especially given the physical nature of the user (a dog). I led the design of a custom PCB to centralize all connections.
+      </p>
+      
+      <div class="tech-grid">
+        <div class="card">
+          <h5>PCB Design Strategy</h5>
+          <p>
+            I designed the PCB to serve as a modular "motherboard" for the doghouse enclosure.
+          </p>
+          <ul>
+            <li><strong>Modular I/O:</strong> Instead of soldering sensors directly, I implemented JST and standard 0.1" headers for all external components (Joystick, Buttons, Switches). This allowed us to route wires through the enclosure walls easily during assembly.</li>
+            <li><strong>Noise Filtering:</strong> The joystick lines included pull-down resistors and capacitors to prevent floating signals from triggering false "Tug" events.</li>
+            <li><strong>Layout Optimization:</strong> The Keep-Out layer was utilized to ensure safety margins, and traces were routed to separate the noisy buzzer PWM signals from the sensitive analog joystick lines.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h5>The "Place It" Engineering Challenge</h5>
+          <p>
+            <strong>Problem:</strong> Initially, we used an ultrasonic sensor to detect the ball. However, the dog's fur and erratic movement caused constant false positives, breaking the game loop.
+          </p>
+          <p>
+            <strong>Solution:</strong> We pivoted to a mechanical solution using **Limit Switches**. I designed a custom wooden lever arm inside the "Place It" bin. When the ball is dropped, its weight physically depresses the switch. This binary mechanical input proved 100% reliable compared to the noisy acoustic data of the ultrasonic sensor.
+          </p>
+        </div>
+      </div>
 
-    <div class="section-title">
-      <h4>System Architecture</h4>
-    </div>
-    <p>The system randomly cycles through three primary behavioral commands, each requiring a unique sensor interaction:</p>
-    <ul>
-      <li><strong>Tug It (Joystick Logic):</strong> Detects directional tension when a rope is pulled beyond a calibrated voltage threshold.</li>
-      <li><strong>Dig It (Tactile Input):</strong> Monitors a high-visibility red push button for a sequence of three rapid presses to simulate digging behavior.</li>
-      <li><strong>Place It (State-Machine Logic):</strong> Monitors the displacement of a ball between two compartments using dual limit switches.</li>
-    </ul>
+      <div class="image-gallery">
+        <div class="gallery-item">
+          <img src="images/Bark_it/bark%20it%20schematic.png" alt="Bark It System Schematic">
+          <div class="caption">1. System Schematic: Interfacing ATMega32 with Joystick, Limit Switches, and LCD.</div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/Bark_it/bark%20it%20pcb.png" alt="Bark It Custom PCB">
+          <div class="caption">2. Custom PCB Layout: Features modular connectors for distributed sensors.</div>
+        </div>
+      </div>
+    </section>
 
-    
+    <section>
+      <h4>4. Firmware Logic (Sample Snippets)</h4>
+      <p>
+        The firmware operates on a tight loop that manages random command generation and input polling. Below is a representation of the input validation logic used for the "Dig It" command.
+      </p>
 
-    <div class="section-title">
-      <h4>Electronic Design Implementation</h4>
-    </div>
-    <p>
-      I designed a <strong>2-layer PCB</strong> optimized for modularity within the enclosure. 
-      To streamline assembly, I implemented <strong>2-pin connectors</strong> for all I/O instead of direct soldering. 
-      This design choice allowed for organized wire routing from the central board to sensors distributed throughout the doghouse structure. 
-      The layout includes a keep-out layer to ensure signal integrity and strategic grouping of connectors to minimize interior clutter.
-    </p>
+      <div class="code-window">
+        <div class="code-header">
+          <span>File: Input_Validation.c (Sample)</span>
+          <span>Role: Sensor Debouncing & Logic</span>
+        </div>
+        <pre class="code-content">
+<span class="comment">// Function to validate 'Dig It' (3 Rapid Presses)</span>
+<span class="type">bool</span> <span class="type">checkDigIt</span>() {
+    <span class="type">int</span> pressCount = 0;
+    <span class="type">unsigned long</span> startTime = millis();
 
-    <div class="section-title">
-      <h4>Software Validation & Control Logic</h4>
-    </div>
-    <p>
-      The firmware manages random task generation and continuous sensor polling. 
-      A critical engineering challenge involved the "Place It" command logic. 
-      The code was refined to monitor specific state changes: the first switch must move from active to inactive (ball removed) before the second switch moves from inactive to active (ball placed). 
-      Furthermore, the system performs continuous monitoring; any incorrect action outside of the active command triggers an immediate game-over state.
-    </p>
+    <span class="keyword">while</span> ((millis() - startTime) < gameTimer) {
+        <span class="comment">// Read Button State (Active Low)</span>
+        <span class="keyword">if</span> (digitalRead(DIG_BTN) == LOW) {
+            delay(50); <span class="comment">// Debounce delay</span>
+            <span class="keyword">if</span> (digitalRead(DIG_BTN) == LOW) {
+                pressCount++;
+                <span class="keyword">while</span>(digitalRead(DIG_BTN) == LOW); <span class="comment">// Wait for release</span>
+            }
+        }
+        
+        <span class="comment">// Success Condition</span>
+        <span class="keyword">if</span> (pressCount >= 3) {
+            lcd.print(<span class="string">"Good Boy!"</span>);
+            return <span class="keyword">true</span>;
+        }
+    }
+    return <span class="keyword">false</span>; <span class="comment">// Timeout</span>
+}</pre>
+      </div>
+    </section>
 
-    
+    <section>
+      <h4>5. Engineering Skills Applied</h4>
+      <div class="tech-grid">
+        <div class="card">
+          <h5>Hardware & Electronics</h5>
+          <div>
+            <span class="skill-tag">PCB Design</span>
+            <span class="skill-tag">Sensor Characterization</span>
+            <span class="skill-tag">Electromechanical Integration</span>
+            <span class="skill-tag">Rapid Prototyping</span>
+            <span class="skill-tag">Soldering</span>
+            <span class="skill-tag">Circuit Analysis</span>
+          </div>
+        </div>
+        <div class="card">
+          <h5>System Design</h5>
+          <div>
+            <span class="skill-tag">SolidWorks (Enclosure)</span>
+            <span class="skill-tag">State Machine Logic</span>
+            <span class="skill-tag">User Interface Design</span>
+            <span class="skill-tag">Failure Mode Analysis</span>
+            <span class="skill-tag">Team Collaboration</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <div class="section-title">
-      <h4>Mechanical Fabrication</h4>
-    </div>
-    <p>
-      The enclosure was modeled in <strong>SolidWorks</strong> and constructed from <strong>laser-cut 1/8 inch plywood</strong>. 
-      The structure uses sliding joints reinforced with wood glue for high durability. 
-      To ensure sensor reliability, I fabricated custom wooden mounts to position the limit switches at the precise height and angle required for ball activation. 
-      The final assembly features a "porch" for paw-based tasks and a "storage" area for cognitive object movement.
-    </p>
+  </div>
 
-    <div class="section-title">
-      <h4>Design Iterations & Future Work</h4>
-    </div>
-    <p>
-      During development, it was determined that ultrasonic sensors were prone to false positives, leading to a pivot to physical limit switches for superior accuracy. 
-      Future iterations will focus on integrating <strong>voice-recorded commands</strong> to replace simple tones and <strong>non-volatile memory</strong> to allow high scores to persist after power-cycling.
-    </p>
-  </section>
-
-  <footer>
-    © 2026 Rafik Ibrahim
+  <footer style="text-align: center; padding: 60px 0; border-top: 1px solid var(--border-light); color: var(--text-secondary);">
+    <p>&copy; 2026 Rafik Ibrahim | Electrical Engineer</p>
   </footer>
 
 </body>
