@@ -6,6 +6,8 @@
   <meta name="description" content="Rafik Ibrahim - Embedded Systems Engineer - RFID Smart Gate Opener" />
   <title>RFID Smart Gate Opener | Rafik Ibrahim</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  
   <style>
     /* ========================================
        PREMIUM ENGINEERING PORTFOLIO THEME
@@ -90,6 +92,50 @@
 
     section {
       position: relative;
+    }
+
+    /* ========================================
+       NAVBAR (Unified with Home Page)
+       ========================================
+    */
+    .navbar {
+      background: rgba(5, 5, 5, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-light);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar-inner {
+      max-width: 1400px; /* Aligned with content width */
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 30px;
+    }
+
+    .nav-name {
+      font-weight: 800;
+      font-size: 1.5rem;
+      background: linear-gradient(90deg, #fff, var(--accent-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .navbar nav a {
+      color: var(--text-secondary);
+      margin-left: 30px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    /* Active Link Highlight */
+    .navbar nav a:hover, .navbar nav a.active {
+      color: var(--accent-cyan);
     }
 
     /* INFO CARDS (Glassmorphism) */
@@ -199,44 +245,6 @@
       letter-spacing: 0.02em;
     }
 
-    /* NAVIGATION */
-    .navbar {
-      background: rgba(2, 2, 4, 0.95);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border-light);
-      padding: 25px 0;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .navbar-inner {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 40px;
-    }
-
-    .nav-name {
-      font-weight: 800;
-      font-size: 1.5rem;
-      color: #fff;
-    }
-
-    .navbar nav a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      margin-left: 40px;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-
-    .navbar nav a:hover {
-      color: var(--accent-cyan);
-    }
-
     /* VIDEO CONTAINER */
     .video-container {
       text-align: center;
@@ -269,6 +277,7 @@
       .image-gallery { grid-template-columns: 1fr; }
       .video-container video { width: 100%; }
       h3 { font-size: 2.5rem; }
+      .navbar-inner { flex-direction: column; gap: 15px; }
     }
   </style>
 </head>
@@ -280,7 +289,7 @@
       <nav>
         <a href="index.html">Home</a>
         <a href="resume.html">Resume</a>
-        <a href="projects.html">Projects</a>
+        <a href="projects.html" class="active">Projects</a>
       </nav>
     </div>
   </header>
@@ -309,7 +318,7 @@
 
     <section>
       <div class="video-container">
-        <p style="color: #ccc; margin-bottom: 15px;">Project Demonstration: Authenticatioc Cycle & Safety Logic</p>
+        <p style="color: #ccc; margin-bottom: 15px;">Project Demonstration: Authentication Cycle & Safety Logic</p>
         <video controls autoplay loop muted playsinline>
           <source src="images/RFID%20GATE%20OPENER/RFID-Based%20Smart%20Car%20Gate%20Opener.webm" type="video/webm">
           Your browser does not support the video tag.
